@@ -1,48 +1,43 @@
-# Autenticación
+# Nombre de microservicio
 
-Proyecto que a cualquier peticion del front le agrega los headers necesarios para la validación
+Microservicio que propociona la funcion de ...
+## Uso
 
-- iv-user
-- iv-creds
-- iv-groups
-- numero-cliente
-- nombre-completo
-- tipo-authenticacion
-- contratoAceptado
-- fechaUltimoAcceso
-- Tipocanal
-- mail
+Instalar las dependencias mediante
 
+En caso de que se quieran saltar las pruebas unitarias aplicar este comando con mvn 
 
-# Descripción
-
-Este proyecto contiene dos servicios el servicio de accesoCliente y cambioContraseña.
- 
-
-# Variables de ambiente
-
-Previo a la ejecucion del programa es necesario configurar dos variables de ambiente
-
-## PROTOCOLO
-
- PROTOCOLO=http
-
-## PUERTO
-
- PUERTO=3002
-
-## HOSTNAME
-
- HOSTNAME=localhost
-
-##  BASEPATH
-
- BASEPATH=BEO
-
-## Ejecucion
- 
-```  
-mvn install
-mvn spring-boot:run
+```
+mvn clean package -Dmaven.test.skip=true
 ```
 
+En caso de que no requiera saltar pruebas unitarias realizar este comando
+
+```
+mvn clean package
+```
+
+
+## Variables de ambiente
+
+Previo a la ejecucion del programa es necesario configurar variables de ambiente
+
+
+
+```
+PROTOCOLO=http
+PUERTO=80
+HOSTNAME=200.39.24.141
+BASEPATH=/BEO
+```
+
+### Puerto donde se encuentra este microservicio
+
+```
+server.port=8080 
+```
+
+## Ejecucion
+```
+java -jar microservicio-0.0.1-SNAPSHOT.jar
+```
