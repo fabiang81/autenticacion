@@ -38,8 +38,8 @@ import mx.com.beo.App;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = App.class, webEnvironment = WebEnvironment.RANDOM_PORT)
 @DirtiesContext
-public class Autenticacion {
-	private static final Logger LOGGER = LoggerFactory.getLogger(Autenticacion.class);
+public class AutenticacionTest {
+	private static final Logger LOGGER = LoggerFactory.getLogger(AutenticacionTest.class);
 
 	@Autowired
 	private TestRestTemplate restTemplate;
@@ -49,7 +49,7 @@ public class Autenticacion {
 
 	@SuppressWarnings("unchecked")
 	@Test
-	public void descargaCfdCfdi() throws Exception {
+	public void cambioContrasena() throws Exception {
 		HttpHeaders headers = new HttpHeaders();
 		System.out.println("------------------------------------------------------------------------cambioContrasena");
 		
@@ -86,6 +86,52 @@ public class Autenticacion {
 		LOGGER.info("Cuerpo del servicio cosumido" + response.getBody());
 		mapBody = (Map<String, Object>) response.getBody();
 		 System.out.println("Mapas--------------------------------------------"+mapBody);
+		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
+	}
+	
+	
+	
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void accesoCliente() throws Exception {
+		HttpHeaders headers = new HttpHeaders();
+		System.out.println("------------------------------------------------------------------------cambioContrasena");
+		
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		headers.set("iv-user", "1");
+		headers.set("iv-creds", "1");
+		headers.set("iv-groups", "1");
+		headers.set("numero-cliente", "123456");
+		headers.set("nombre-completo", "123456");
+		headers.set("tipo-authenticacion", "123456");
+		headers.set("contratoAceptado", "1");
+		headers.set("fechaUltimoAcceso", "123456");
+		headers.set("tipocanal", "123456");
+		headers.set("mail", "123456");
+		
+
+		Map<String, Object> body = new HashMap<String, Object>();
+  
+		body.put("banderaAcceso", "");
+		
+		
+		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
+		LOGGER.info("Cuerpo que se arma " + entity.getBody());
+		System.out.println("Cabeceras que se arman" + entity.getHeaders());
+		
+		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/accesoCliente"), HttpMethod.POST, entity, Object.class);
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("responseStatus", 200);
+		Map<String, Object> mapBody = new HashMap<String, Object>();
+		LOGGER.info("Cabacera del servicio cosumido" + response.getHeaders());
+		LOGGER.info("Cuerpo del servicio cosumido" + response.getBody());
+		
+		mapBody = (Map<String, Object>) response.getBody();
+		 System.out.println("Mapas-------------eee-------------------------------"+mapBody);
+		 
+		 System.out.println("Mapa que nos responde-------"+mapBody.get("responseStatus"));
+		 
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
 	

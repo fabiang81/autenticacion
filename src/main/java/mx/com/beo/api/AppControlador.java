@@ -218,19 +218,36 @@ public class AppControlador {
 		mapGeneral.put("perfilGeneral", perfil);
   
 		if (headers2.getFirst("contratoAceptado").toString().equalsIgnoreCase("1")) {
-
-			System.out.println("contrato Aceptado lleva 1-------------------------------");
+ 
 			/**
 			 * contratoAceptado trae 1. Eso quiere decur que el contrato ya esta
 			 * aceptado El siguiente metodo consume los servicios que nos trarn
 			 * la informacióin.
 			 */
+			Map<String, Object> respuestaGeneral=new HashMap<String, Object>();
 			Map<String, Object> respuest = utilidadesRest.restMultiples(mapGeneral);
-
+			
+			Map<String, Object> consultaDatosBasicos1=(Map<String, Object>) respuest.get("consultaDatosBasicos");
+			Map<String, Object> consultaDatosBasicosBody=(Map<String, Object>) consultaDatosBasicos1.get("body");
+			
+			Map<String, Object> consultaServicioContratadoGeneral=(Map<String, Object>) respuest.get("consultaServicioContratadoGeneral");
+			Map<String, Object> consultaServicioContratadoGeneralBody=(Map<String, Object>) consultaServicioContratadoGeneral.get("body");
+			
+			Map<String, Object> envioNotificacion1=(Map<String, Object>) respuest.get("envioNotificacion");
+			Map<String, Object> envioNotificacionBody=(Map<String, Object>) envioNotificacion1.get("body");
+			
+			Map<String, Object> perfilGeneral=(Map<String, Object>) respuest.get("perfilGeneral");
+			Map<String, Object> perfilGeneralBody=(Map<String, Object>) perfilGeneral.get("body");
+			
+			respuestaGeneral.put("consultaDatosBasicos", consultaDatosBasicosBody);
+			respuestaGeneral.put("consultaServicioContratadoGeneral", consultaServicioContratadoGeneralBody);
+			respuestaGeneral.put("perfilGeneral", perfilGeneralBody);
+			respuestaGeneral.putAll(envioNotificacionBody);
+			 
 			LOGGER.info("OK Consultas  "+respuest);
-			return new ResponseEntity<Object>(respuest.values(), HttpStatus.CREATED);
+			return new ResponseEntity<Object>(respuestaGeneral, HttpStatus.CREATED);
 
-		} else { 
+		} else {
 			
 			LOGGER.info("contratoAceptado trae un dato diferente de 1  ");
 			Operaciones operaciones = new Operaciones(); 
