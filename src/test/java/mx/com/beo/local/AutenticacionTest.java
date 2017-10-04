@@ -96,7 +96,8 @@ public class AutenticacionTest {
 	@Test
 	public void accesoCliente() throws Exception {
 		HttpHeaders headers = new HttpHeaders();
-		System.out.println("------------------------------------------------------------------------cambioContrasena");
+	
+		
 		
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 		headers.set("iv-user", "1");

@@ -137,6 +137,12 @@ public class AppControlador {
 		sendRequestBody = (Map<String, Object>) request.getBody();
 		HttpHeaders headers2 = request.getHeaders();
 
+		Map<String, String> mapHeaders = new HashMap<String, String>();
+		mapHeaders = (Map<String, String>) request.getHeaders().toSingleValueMap();
+
+		// String otp = mapHeaders.get("Hola") == null ?"NO
+		// existe":mapHeaders.get("Hola").toString();
+
 		ticket.put("iv-user", "id_user");
 		ticket.put("iv-creds", "id_creds");
 		mapaHeadersAValidar.put("ticket", ticket);
@@ -216,13 +222,14 @@ public class AppControlador {
 		mapGeneral.put("consultaServicioContratadoGeneral", consultaServicioContratado);
 		mapGeneral.put("perfilGeneral", perfil);
 
-		try{
+		if (((mapHeaders.get("contrato-aceptado") != null))) {
+
 			if (headers2.getFirst("contrato-aceptado").toString().equalsIgnoreCase("1")) {
 				System.out.println("el contrato ya esta aceptado");
 				/**
-				 * contratoAceptado trae 1. Eso quiere decur que el contrato ya esta
-				 * aceptado El siguiente metodo consume los servicios que nos trarn
-				 * la informacióin.
+				 * contratoAceptado trae 1. Eso quiere decur que el contrato ya
+				 * esta aceptado El siguiente metodo consume los servicios que
+				 * nos trarn la informacióin.
 				 */
 				Operaciones operaciones = new Operaciones();
 				Map<String, Object> respuest = utilidadesRest.restMultiples(mapGeneral);
@@ -240,13 +247,12 @@ public class AppControlador {
 				return new ResponseEntity<Object>(resBanderaAcceso, HttpStatus.CREATED);
 
 			}
-			
-		}catch (Exception e) {
+
+		} else {
 			LOGGER.info("Error, error en header");
-			Operaciones operaciones=new Operaciones();
+			Operaciones operaciones = new Operaciones();
 			return new ResponseEntity<Object>(operaciones.error403(), HttpStatus.CREATED);
 		}
-		
 
 	}
 }
