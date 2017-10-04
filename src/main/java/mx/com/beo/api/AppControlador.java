@@ -216,29 +216,37 @@ public class AppControlador {
 		mapGeneral.put("consultaServicioContratadoGeneral", consultaServicioContratado);
 		mapGeneral.put("perfilGeneral", perfil);
 
-		if (headers2.getFirst("contratoAceptado").toString().equalsIgnoreCase("1")) {
-			System.out.println("el contrato ya esta aceptado");
-			/**
-			 * contratoAceptado trae 1. Eso quiere decur que el contrato ya esta
-			 * aceptado El siguiente metodo consume los servicios que nos trarn
-			 * la informacióin.
-			 */
-			Operaciones operaciones = new Operaciones();
-			Map<String, Object> respuest = utilidadesRest.restMultiples(mapGeneral);
-			Map<String, Object> respuestaObteber = operaciones.obtieneBody(respuest);
+		try{
+			if (headers2.getFirst("contrato-aceptado").toString().equalsIgnoreCase("1")) {
+				System.out.println("el contrato ya esta aceptado");
+				/**
+				 * contratoAceptado trae 1. Eso quiere decur que el contrato ya esta
+				 * aceptado El siguiente metodo consume los servicios que nos trarn
+				 * la informacióin.
+				 */
+				Operaciones operaciones = new Operaciones();
+				Map<String, Object> respuest = utilidadesRest.restMultiples(mapGeneral);
+				Map<String, Object> respuestaObteber = operaciones.obtieneBody(respuest);
 
-			LOGGER.info("OK Consultas  " + respuestaObteber);
+				LOGGER.info("OK Consultas  " + respuestaObteber);
 
-			return new ResponseEntity<Object>(respuestaObteber, HttpStatus.CREATED);
+				return new ResponseEntity<Object>(respuestaObteber, HttpStatus.CREATED);
 
-		} else {
-			LOGGER.info("contratoAceptado trae un dato diferente de 1  ");
-			Operaciones operaciones = new Operaciones();
-			Map<String, Object> resBanderaAcceso = operaciones.banderaAcceso(envioNotificacion, mapGeneral);
+			} else {
+				LOGGER.info("contratoAceptado trae un dato diferente de 1  ");
+				Operaciones operaciones = new Operaciones();
+				Map<String, Object> resBanderaAcceso = operaciones.banderaAcceso(envioNotificacion, mapGeneral);
 
-			return new ResponseEntity<Object>(resBanderaAcceso, HttpStatus.CREATED);
+				return new ResponseEntity<Object>(resBanderaAcceso, HttpStatus.CREATED);
 
+			}
+			
+		}catch (Exception e) {
+			LOGGER.info("Error, error en header");
+			Operaciones operaciones=new Operaciones();
+			return new ResponseEntity<Object>(operaciones.error403(), HttpStatus.CREATED);
 		}
+		
 
 	}
 }

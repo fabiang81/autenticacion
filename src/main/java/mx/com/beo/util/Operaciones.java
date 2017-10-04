@@ -54,7 +54,7 @@ public class Operaciones {
 				String resEnvioPet = resEnvioNotificacion.get("responseStatus").toString();
 				if (resEnvioPet.equals("200")) {
 					LOGGER.info("Ok, Envio de Notificación");
-					validaContrato.put("ContratoAceptado",
+					validaContrato.put("contrato-aceptado",
 							Integer.parseInt(envioNotificacion.get("banderaAcceso").toString()));
 					validaContrato.put("Usuario", envioNotificacion.get("idPersona"));
 
