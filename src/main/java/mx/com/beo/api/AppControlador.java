@@ -83,11 +83,11 @@ public class AppControlador {
 		for (Entry<String, Object> e : entries) {
 			sendRequestBody.put(e.getKey(), e.getValue());
 		}
- 
+
 		if (sendRequestBody.get("newPassword").toString()
 				.equalsIgnoreCase(sendRequestBody.get("confirmNewPassword").toString())) {
 
-			String url = Urls.Contrasena.getPath(); 
+			String url = Urls.Contrasena.getPath();
 			LOGGER.debug("EndPoint Contrasena : " + url);
 			Set<MediaType> mediaTypeValidos = new HashSet<MediaType>();
 			mediaTypeValidos.add(MediaType.APPLICATION_JSON);
@@ -164,11 +164,10 @@ public class AppControlador {
 		for (Entry<String, Object> e : entries) {
 			sendRequestBody.put(e.getKey(), e.getValue());
 		}
-  
+
 		envioNotificacion.putAll(sendRequestBody);
 
 		mapParameters.put("key", "1234");
-
 		envioNotificacion.put("tipoMensaje", "texto");
 		envioNotificacion.put("tipoNotificacion", "notificacion");
 		envioNotificacion.put("from", "nova@nova.com");
@@ -203,7 +202,7 @@ public class AppControlador {
 		perfilInterno = sendRequestBody;
 		perfilInterno.remove("banderaAcceso");
 		perfilInterno.put("nombreSistema", "123");
- 
+
 		perfil.put("endpoint", Urls.urlPerfil.getPath());
 		perfil.put("method", "POST");
 		perfil.put("connectTimeout", 5000);
@@ -216,44 +215,28 @@ public class AppControlador {
 		mapGeneral.put("consultaDatosBasicos", consultaDatosBasicos);
 		mapGeneral.put("consultaServicioContratadoGeneral", consultaServicioContratado);
 		mapGeneral.put("perfilGeneral", perfil);
-  
+
 		if (headers2.getFirst("contratoAceptado").toString().equalsIgnoreCase("1")) {
- 
+			System.out.println("el contrato ya esta aceptado");
 			/**
 			 * contratoAceptado trae 1. Eso quiere decur que el contrato ya esta
 			 * aceptado El siguiente metodo consume los servicios que nos trarn
 			 * la informacióin.
 			 */
-			Map<String, Object> respuestaGeneral=new HashMap<String, Object>();
+			Operaciones operaciones = new Operaciones();
 			Map<String, Object> respuest = utilidadesRest.restMultiples(mapGeneral);
-			
-			Map<String, Object> consultaDatosBasicos1=(Map<String, Object>) respuest.get("consultaDatosBasicos");
-			Map<String, Object> consultaDatosBasicosBody=(Map<String, Object>) consultaDatosBasicos1.get("body");
-			
-			Map<String, Object> consultaServicioContratadoGeneral=(Map<String, Object>) respuest.get("consultaServicioContratadoGeneral");
-			Map<String, Object> consultaServicioContratadoGeneralBody=(Map<String, Object>) consultaServicioContratadoGeneral.get("body");
-			
-			Map<String, Object> envioNotificacion1=(Map<String, Object>) respuest.get("envioNotificacion");
-			Map<String, Object> envioNotificacionBody=(Map<String, Object>) envioNotificacion1.get("body");
-			
-			Map<String, Object> perfilGeneral=(Map<String, Object>) respuest.get("perfilGeneral");
-			Map<String, Object> perfilGeneralBody=(Map<String, Object>) perfilGeneral.get("body");
-			
-			respuestaGeneral.put("consultaDatosBasicos", consultaDatosBasicosBody);
-			respuestaGeneral.put("consultaServicioContratadoGeneral", consultaServicioContratadoGeneralBody);
-			respuestaGeneral.put("perfilGeneral", perfilGeneralBody);
-			respuestaGeneral.putAll(envioNotificacionBody);
-			 
-			LOGGER.info("OK Consultas  "+respuest);
-			return new ResponseEntity<Object>(respuestaGeneral, HttpStatus.CREATED);
+			Map<String, Object> respuestaObteber = operaciones.obtieneBody(respuest);
+
+			LOGGER.info("OK Consultas  " + respuestaObteber);
+
+			return new ResponseEntity<Object>(respuestaObteber, HttpStatus.CREATED);
 
 		} else {
-			
 			LOGGER.info("contratoAceptado trae un dato diferente de 1  ");
-			Operaciones operaciones = new Operaciones(); 
+			Operaciones operaciones = new Operaciones();
 			Map<String, Object> resBanderaAcceso = operaciones.banderaAcceso(envioNotificacion, mapGeneral);
-			  
-			return new ResponseEntity<Object>(resBanderaAcceso.values(), HttpStatus.CREATED);
+
+			return new ResponseEntity<Object>(resBanderaAcceso, HttpStatus.CREATED);
 
 		}
 

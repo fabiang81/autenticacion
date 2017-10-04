@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
- 
+
 /**
  * Copyright (c) 2017 Nova Solution Systems S.A. de C.V. Mexico D.F. Todos los
  * derechos reservados.
@@ -23,7 +23,6 @@ import org.springframework.http.ResponseEntity;
  *         MISMA.
  */
 
-
 public class Operaciones {
 	private static final Logger LOGGER = LoggerFactory.getLogger(Operaciones.class);
 
@@ -34,12 +33,10 @@ public class Operaciones {
 		Map<String, Object> respuestaError = null;
 		Map<String, Object> validaContrato = new HashMap<String, Object>();
 
-		
-
 		try {
 
 			if (envioNotificacion.get("banderaAcceso").toString().equalsIgnoreCase("1")) {
-				
+
 				LOGGER.info("Ok, banderaAcceso trae 1");
 
 				String url = Urls.SERENVIONOT.getPath();
@@ -54,25 +51,28 @@ public class Operaciones {
 
 				@SuppressWarnings("unchecked")
 				Map<String, Object> resEnvioNotificacion = (Map<String, Object>) entity.getBody();
-				String resEnvioPet = resEnvioNotificacion.get("responseStatus").toString(); 
+				String resEnvioPet = resEnvioNotificacion.get("responseStatus").toString();
 				if (resEnvioPet.equals("200")) {
 					LOGGER.info("Ok, Envio de Notificación");
-					validaContrato.put("ContratoAceptado", Integer.parseInt(envioNotificacion.get("banderaAcceso").toString()));
+					validaContrato.put("ContratoAceptado",
+							Integer.parseInt(envioNotificacion.get("banderaAcceso").toString()));
 					validaContrato.put("Usuario", envioNotificacion.get("idPersona"));
-					 
+
 					ResponseEntity<Object> entityValidaContrato = utilidadesRest.enviarPeticion(urlValidaContrato,
 							HttpMethod.POST, mediaTypeValidos, null, validaContrato);
 
 					@SuppressWarnings("unchecked")
-					Map<String, Object> resValidaContra = (Map<String, Object>) entityValidaContrato.getBody(); 
-					String varValidaContrato=resValidaContra.get("codigo").toString();
-				 
+					Map<String, Object> resValidaContra = (Map<String, Object>) entityValidaContrato.getBody();
+					String varValidaContrato = resValidaContra.get("codigo").toString();
+
 					if (varValidaContrato.equals("0")) {
 						LOGGER.info("Ok, Valida Contrato");
 						@SuppressWarnings("unchecked")
 						Map<String, Object> respuest = utilidadesRest.restMultiples(mapGeneral);
+						Map<String, Object> respuestaObteber = obtieneBody(respuest);
 
-						return respuest;
+						LOGGER.info("OK Consultas  " + respuestaObteber);
+						return respuestaObteber;
 					} else {
 						LOGGER.info("Error,Al Valida Contrato");
 						return error403();
@@ -100,7 +100,7 @@ public class Operaciones {
 				return respuestaError;
 			}
 		} catch (Exception e) {
-			LOGGER.info("Exception, "+e.getMessage());
+			LOGGER.info("Exception, " + e.getMessage());
 			return error403();
 		}
 	}
@@ -117,6 +117,33 @@ public class Operaciones {
 		jsonError.put("responseStatus", resStatus);
 		jsonError.put("responseError", "Por Definir");
 		return jsonError;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> obtieneBody(Map<String, Object> respuest) {
+
+		Map<String, Object> respuestaGeneral = new HashMap<String, Object>();
+
+		Map<String, Object> consultaDatosBasicos1 = (Map<String, Object>) respuest.get("consultaDatosBasicos");
+		Map<String, Object> consultaDatosBasicosBody = (Map<String, Object>) consultaDatosBasicos1.get("body");
+
+		Map<String, Object> consultaServicioContratadoGeneral = (Map<String, Object>) respuest
+				.get("consultaServicioContratadoGeneral");
+		Map<String, Object> consultaServicioContratadoGeneralBody = (Map<String, Object>) consultaServicioContratadoGeneral
+				.get("body");
+
+		Map<String, Object> envioNotificacion1 = (Map<String, Object>) respuest.get("envioNotificacion");
+		Map<String, Object> envioNotificacionBody = (Map<String, Object>) envioNotificacion1.get("body");
+
+		Map<String, Object> perfilGeneral = (Map<String, Object>) respuest.get("perfilGeneral");
+		Map<String, Object> perfilGeneralBody = (Map<String, Object>) perfilGeneral.get("body");
+
+		respuestaGeneral.put("consultaDatosBasicos", consultaDatosBasicosBody);
+		respuestaGeneral.put("consultaServicioContratadoGeneral", consultaServicioContratadoGeneralBody);
+		respuestaGeneral.put("perfilGeneral", perfilGeneralBody);
+		respuestaGeneral.putAll(envioNotificacionBody);
+
+		return respuestaGeneral;
 	}
 
 }
