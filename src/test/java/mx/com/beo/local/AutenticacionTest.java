@@ -60,7 +60,7 @@ public class AutenticacionTest {
 		headers.set("numero-cliente", "123456");
 		headers.set("nombre-completo", "123456");
 		headers.set("tipo-authenticacion", "123456");
-		headers.set("contratoAceptado", "123456");
+		headers.set("contrato-aceptado", "123456");
 		headers.set("fechaUltimoAcceso", "123456");
 		headers.set("tipocanal", "123456");
 		headers.set("mail", "123456");
@@ -96,7 +96,8 @@ public class AutenticacionTest {
 	@Test
 	public void accesoCliente() throws Exception {
 		HttpHeaders headers = new HttpHeaders();
-		System.out.println("------------------------------------------------------------------------cambioContrasena");
+	
+		
 		
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 		headers.set("iv-user", "1");
@@ -105,7 +106,7 @@ public class AutenticacionTest {
 		headers.set("numero-cliente", "123456");
 		headers.set("nombre-completo", "123456");
 		headers.set("tipo-authenticacion", "123456");
-		headers.set("contratoAceptado", "1");
+		headers.set("contrato-aceptado", "1");
 		headers.set("fechaUltimoAcceso", "123456");
 		headers.set("tipocanal", "123456");
 		headers.set("mail", "123456");
