@@ -51,20 +51,12 @@ public class AppControlador {
 		HeadersParser headersParser = new HeadersParser();
 		UtilidadesRest utilidadesRest = new UtilidadesRest();
 		Map<String, Object> sendRequestBody = new HashMap<String, Object>();
-		Map<String, Object> mapaHeadersAValidar = new HashMap<String, Object>();
-		Map<String, Object> ticket = new HashMap<String, Object>();
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		sendRequestBody = (Map<String, Object>) request.getBody();
-
-		ticket.put("iv-user", "id_user");
-		ticket.put("iv-creds", "id_creds");
-		mapaHeadersAValidar.put("ticket", ticket);
-		mapaHeadersAValidar.put("tipocanal", "canal");
-		mapaHeadersAValidar.put("numero-cliente", "idPersona");
-
+ 
 		try {
 			// ValidaHeaders
-			mapaHeader = headersParser.validaHeaders(mapaHeadersAValidar, request);
+			mapaHeader = headersParser.validaHeaders(request);
 			entries = mapaHeader.entrySet();
 		} catch (HeaderNotFoundException headerNotFoundException) {
 			LOGGER.error(headerNotFoundException.getMessage());
@@ -144,7 +136,7 @@ public class AppControlador {
 		// existe":mapHeaders.get("Hola").toString();
 
 		ticket.put("iv-user", "id_user");
-		ticket.put("iv-creds", "id_creds");
+		ticket.put("cookie", "id_creds");
 		mapaHeadersAValidar.put("ticket", ticket);
 		mapaHeadersAValidar.put("tipocanal", "canal");
 		mapaHeadersAValidar.put("numero-cliente", "idPersona");
