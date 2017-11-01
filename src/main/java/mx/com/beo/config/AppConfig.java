@@ -34,7 +34,8 @@ public class AppConfig {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registro) {
-            	registro.addMapping("/envioESB").allowedOrigins("*");
+            	registro.addMapping("/accesoCliente").allowedOrigins("*");
+            	registro.addMapping("/cambioContrasena").allowedOrigins("*");
             }
         };
     }

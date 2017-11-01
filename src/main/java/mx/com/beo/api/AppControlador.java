@@ -131,19 +131,17 @@ public class AppControlador {
 
 		Map<String, String> mapHeaders = new HashMap<String, String>();
 		mapHeaders = (Map<String, String>) request.getHeaders().toSingleValueMap();
-
-		// String otp = mapHeaders.get("Hola") == null ?"NO
-		// existe":mapHeaders.get("Hola").toString();
-
 		ticket.put("iv-user", "id_user");
 		ticket.put("cookie", "id_creds");
 		mapaHeadersAValidar.put("ticket", ticket);
 		mapaHeadersAValidar.put("tipocanal", "canal");
 		mapaHeadersAValidar.put("numero-cliente", "idPersona");
-
+		mapaHeadersAValidar.put("contrato-aceptado", "contrato");
+		
 		try {
 			// ValidaHeaders
 			mapaHeader = headersParser.validaHeaders(mapaHeadersAValidar, request);
+			mapaHeader.remove("contrato");
 			entries = mapaHeader.entrySet();
 		} catch (HeaderNotFoundException headerNotFoundException) {
 			LOGGER.error(headerNotFoundException.getMessage());

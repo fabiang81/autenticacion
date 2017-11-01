@@ -82,8 +82,8 @@ public class AutenticacionTest {
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 200);
 		Map<String, Object> mapBody = new HashMap<String, Object>();
-		LOGGER.info("Cabacera del servicio cosumido" + response.getHeaders());
-		LOGGER.info("Cuerpo del servicio cosumido" + response.getBody());
+		LOGGER.info("Cabecera del servicio consumido" + response.getHeaders());
+		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
 		mapBody = (Map<String, Object>) response.getBody();
 		 System.out.println("Mapas--------------------------------------------"+mapBody);
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
@@ -125,8 +125,8 @@ public class AutenticacionTest {
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 200);
 		Map<String, Object> mapBody = new HashMap<String, Object>();
-		LOGGER.info("Cabacera del servicio cosumido" + response.getHeaders());
-		LOGGER.info("Cuerpo del servicio cosumido" + response.getBody());
+		LOGGER.info("Cabecera del servicio consumido" + response.getHeaders());
+		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
 		 System.out.println("Mapas-------------eee-------------------------------"+mapBody);
