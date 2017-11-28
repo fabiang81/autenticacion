@@ -28,7 +28,7 @@ public class Operaciones {
 
 	UtilidadesRest utilidadesRest = new UtilidadesRest();
 
-	public Map<String, Object> banderaAcceso(Map<String, Object> envioNotificacion, Map<String, Object> mapGeneral) {
+	public Map<String, Object> banderaAcceso(Map<String, Object> envioNotificacion, Map<String, Object> mapGeneral, Map<String, Object> mapHeaders) {
 
 		Map<String, Object> respuestaError = null;
 		Map<String, Object> validaContrato = new HashMap<String, Object>();
@@ -69,7 +69,7 @@ public class Operaciones {
 						LOGGER.info("Ok, Valida Contrato");
 						@SuppressWarnings("unchecked")
 						Map<String, Object> respuest = utilidadesRest.restMultiples(mapGeneral);
-						Map<String, Object> respuestaObteber = obtieneBody(respuest);
+						Map<String, Object> respuestaObteber = obtieneBody(respuest,mapHeaders);
 
 						LOGGER.info("OK Consultas  " + respuestaObteber);
 						return respuestaObteber;
@@ -120,7 +120,7 @@ public class Operaciones {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> obtieneBody(Map<String, Object> respuest) {
+	public Map<String, Object> obtieneBody(Map<String, Object> respuest,Map<String, Object> headers) {
 
 		Map<String, Object> respuestaGeneral = new HashMap<String, Object>();
 
@@ -138,9 +138,15 @@ public class Operaciones {
 		Map<String, Object> perfilGeneral = (Map<String, Object>) respuest.get("perfilGeneral");
 		Map<String, Object> perfilGeneralBody = (Map<String, Object>) perfilGeneral.get("body");
 
-		respuestaGeneral.put("consultaDatosBasicos", consultaDatosBasicosBody);
-		respuestaGeneral.put("consultaServicioContratadoGeneral", consultaServicioContratadoGeneralBody);
-		respuestaGeneral.put("perfilGeneral", perfilGeneralBody);
+		respuestaGeneral.put("fechaUltimoAcceso", headers.get("fechaUltimoAcceso"));
+		respuestaGeneral.put("nombreUsuario", headers.get("nombreUsuario"));
+		respuestaGeneral.put("medioAcceso", headers.get("canal"));
+		respuestaGeneral.put("mail", headers.get("mailCliente"));
+		respuestaGeneral.put("cliente", headers.get("cliente"));
+		respuestaGeneral.put("nombreRazonSocial", consultaDatosBasicosBody.get("nombre"));
+		respuestaGeneral.put("listaTelefonos", consultaDatosBasicosBody.get("listaTelefonos"));
+		respuestaGeneral.put("consultaServicioContratados", consultaServicioContratadoGeneralBody);
+		respuestaGeneral.put("facultadesSimples", perfilGeneralBody.get("facultadesSimples"));
 		respuestaGeneral.putAll(envioNotificacionBody);
 
 		return respuestaGeneral;
