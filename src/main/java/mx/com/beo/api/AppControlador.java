@@ -135,8 +135,12 @@ public class AppControlador {
 		ticket.put("cookie", "id_creds");
 		mapaHeadersAValidar.put("ticket", ticket);
 		mapaHeadersAValidar.put("tipocanal", "canal");
-		mapaHeadersAValidar.put("numero-cliente", "idPersona");
+		mapaHeadersAValidar.put("iv-user", "idPersona");
+		mapaHeadersAValidar.put("numero-cliente", "cliente");
 		mapaHeadersAValidar.put("contrato-aceptado", "contrato");
+		mapaHeadersAValidar.put("nombre-completo", "nombreUsuario");
+		mapaHeadersAValidar.put("fechaultimoacceso", "fechaUltimoAcceso");
+		mapaHeadersAValidar.put("mail", "mailCliente");
 		
 		try {
 			// ValidaHeaders
@@ -158,6 +162,7 @@ public class AppControlador {
 		}
 
 		for (Entry<String, Object> e : entries) {
+			System.out.println("Headers: " + e.getKey() + " : "+  e.getValue());
 			sendRequestBody.put(e.getKey(), e.getValue());
 		}
 
@@ -223,7 +228,7 @@ public class AppControlador {
 				 */
 				Operaciones operaciones = new Operaciones();
 				Map<String, Object> respuest = utilidadesRest.restMultiples(mapGeneral);
-				Map<String, Object> respuestaObteber = operaciones.obtieneBody(respuest);
+				Map<String, Object> respuestaObteber = operaciones.obtieneBody(respuest,mapaHeader);
 
 				LOGGER.info("OK Consultas  " + respuestaObteber);
 
@@ -232,7 +237,7 @@ public class AppControlador {
 			} else {
 				LOGGER.info("contratoAceptado trae un dato diferente de 1  ");
 				Operaciones operaciones = new Operaciones();
-				Map<String, Object> resBanderaAcceso = operaciones.banderaAcceso(envioNotificacion, mapGeneral);
+				Map<String, Object> resBanderaAcceso = operaciones.banderaAcceso(envioNotificacion, mapGeneral,mapaHeader);
 
 				return new ResponseEntity<Object>(resBanderaAcceso, HttpStatus.CREATED);
 
