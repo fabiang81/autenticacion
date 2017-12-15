@@ -128,7 +128,7 @@ public class AppControlador {
 
 		sendRequestBody = (Map<String, Object>) request.getBody();
 		HttpHeaders headers2 = request.getHeaders();
-
+		System.out.println("headers2: "+ headers2);
 		Map<String, String> mapHeaders = new HashMap<String, String>();
 		mapHeaders = (Map<String, String>) request.getHeaders().toSingleValueMap();
 		ticket.put("iv-user", "id_user");
@@ -162,7 +162,7 @@ public class AppControlador {
 		}
 
 		for (Entry<String, Object> e : entries) {
-			System.out.println("Headers: " + e.getKey() + " : "+  e.getValue());
+			//System.out.println("Headers: " + e.getKey() + " : "+  e.getValue());
 			sendRequestBody.put(e.getKey(), e.getValue());
 		}
 
@@ -232,21 +232,21 @@ public class AppControlador {
 
 				LOGGER.info("OK Consultas  " + respuestaObteber);
 
-				return new ResponseEntity<Object>(respuestaObteber, HttpStatus.CREATED);
+				return new ResponseEntity<Object>(respuestaObteber, HttpStatus.OK);
 
 			} else {
 				LOGGER.info("contratoAceptado trae un dato diferente de 1  ");
 				Operaciones operaciones = new Operaciones();
 				Map<String, Object> resBanderaAcceso = operaciones.banderaAcceso(envioNotificacion, mapGeneral,mapaHeader);
 
-				return new ResponseEntity<Object>(resBanderaAcceso, HttpStatus.CREATED);
+				return new ResponseEntity<Object>(resBanderaAcceso, HttpStatus.OK);
 
 			}
 
 		} else {
 			LOGGER.info("Error, error en header");
 			Operaciones operaciones = new Operaciones();
-			return new ResponseEntity<Object>(operaciones.error403(), HttpStatus.CREATED);
+			return new ResponseEntity<Object>(operaciones.error403(), HttpStatus.OK);
 		}
 
 	}
