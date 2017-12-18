@@ -145,7 +145,7 @@ public class Operaciones {
 		respuestaGeneral.put("cliente", headers.get("cliente"));
 		respuestaGeneral.put("nombreRazonSocial", consultaDatosBasicosBody.get("nombre"));
 		respuestaGeneral.put("listaTelefonos", consultaDatosBasicosBody.get("listaTelefonos"));
-		respuestaGeneral.put("consultaServicioContratados", consultaServicioContratadoGeneralBody);
+		respuestaGeneral.put("consultaServiciosContratados", consultaServicioContratadoGeneralBody);
 		respuestaGeneral.put("facultadesSimples", perfilGeneralBody.get("facultadesSimples"));
 		respuestaGeneral.putAll(envioNotificacionBody);
 
