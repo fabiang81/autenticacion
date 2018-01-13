@@ -27,7 +27,7 @@ Previo a la ejecucion del programa es necesario configurar variables de ambiente
 ```
 PROTOCOLO=http
 PUERTO=80
-HOSTNAME=200.39.24.141
+HOSTNAME_BEO=200.39.24.141
 BASEPATH=/BEO
 ```
 

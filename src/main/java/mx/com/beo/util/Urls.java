@@ -25,17 +25,17 @@ public enum Urls {
 	  * - BASEPATH
 	  */
 
-	ESB_ENVIO(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME")+((System.getenv("PUERTO")!=null && !System.getenv("PUERTO").equals(""))?":"+System.getenv("PUERTO"):"")+(System.getenv("BASEPATH")!=null?System.getenv("BASEPATH"):"")+"/envioESB"),
-	Contrasena(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME")+":"+System.getenv("PUERTO")+System.getenv("BASEPATH")+"/cambioContrasena"),
-	SERENVIONOT(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME")+":"+System.getenv("PUERTO")+System.getenv("BASEPATH")+"/envioNotificaciones"),
+	ESB_ENVIO(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME_BEO")+((System.getenv("PUERTO")!=null && !System.getenv("PUERTO").equals(""))?":"+System.getenv("PUERTO"):"")+(System.getenv("BASEPATH")!=null?System.getenv("BASEPATH"):"")+"/envioESB"),
+	Contrasena(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME_BEO")+":"+System.getenv("PUERTO")+System.getenv("BASEPATH")+"/cambioContrasena"),
+	SERENVIONOT(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME_BEO")+":"+System.getenv("PUERTO")+System.getenv("BASEPATH")+"/envioNotificaciones"),
 
-	serConsultaDatosBasicos(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME")+":"+System.getenv("PUERTO")+System.getenv("BASEPATH")+"/consultaDatosBasicos"),
+	serConsultaDatosBasicos(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME_BEO")+":"+System.getenv("PUERTO")+System.getenv("BASEPATH")+"/consultaDatosBasicos"),
 	
-	urlServiciosContratados(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME")+""+":"+System.getenv("PUERTO")+System.getenv("BASEPATH")+"/consultaServiciosContratados"),
+	urlServiciosContratados(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME_BEO")+""+":"+System.getenv("PUERTO")+System.getenv("BASEPATH")+"/consultaServiciosContratados"),
 	
-	urlPerfil(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME")+":"+System.getenv("PUERTO")+System.getenv("BASEPATH")+"/consultaPerfiles"),
+	urlPerfil(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME_BEO")+":"+System.getenv("PUERTO")+System.getenv("BASEPATH")+"/consultaPerfiles"),
 	
-	urlValidaContrato(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME")+":"+System.getenv("PUERTO")+System.getenv("BASEPATH")+"/validaContrato"),
+	urlValidaContrato(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME_BEO")+":"+System.getenv("PUERTO")+System.getenv("BASEPATH")+"/validaContrato"),
 	;
 
 
