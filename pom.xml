@@ -50,10 +50,4 @@
          <scope>test</scope>
       </dependency>
    </dependencies>
-   <repositories>
-       <repository>
-         <id>nexus-repository</id>
-         <url>http://200.39.24.141:8081/repository/GrupoMiddleware</url>
-       </repository>
-    </repositories>
 </project>
