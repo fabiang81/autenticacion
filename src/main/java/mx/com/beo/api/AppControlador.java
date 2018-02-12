@@ -109,27 +109,16 @@ public class AppControlador {
 		Map<String, Object> sendRequestBody = new HashMap<String, Object>();
 		Map<String, Object> mapaHeadersAValidar = new HashMap<String, Object>();
 		Map<String, Object> ticket = new HashMap<String, Object>();
-
 		Map<String, Object> headers = new HashMap<String, Object>();
-
-		Map<String, Object> envioNot = new HashMap<String, Object>();
-
 		Map<String, Object> consultaDatosBasicos = new HashMap<String, Object>();
-
 		Map<String, Object> consultaServicioContratado = new HashMap<String, Object>();
-
 		Map<String, Object> perfil = new HashMap<String, Object>();
 		Map<String, Object> perfilInterno = new HashMap<String, Object>();
-
 		Map<String, Object> mapGeneral = new HashMap<String, Object>();
-
-		Map<String, Object> envioNotificacion = new HashMap<String, Object>();
 		Map<String, Object> mapParameters = new HashMap<String, Object>();
-
-		sendRequestBody = (Map<String, Object>) request.getBody();
+		//sendRequestBody = (Map<String, Object>) request.getBody();
 		HttpHeaders headers2 = request.getHeaders();
-		System.out.println("headers2: "+ headers2);
-		Map<String, String> mapHeaders = new HashMap<String, String>();
+		Map<String, String> mapHeaders = new HashMap<>();
 		mapHeaders = (Map<String, String>) request.getHeaders().toSingleValueMap();
 		ticket.put("iv-user", "id_user");
 		ticket.put("cookie", "id_creds");
@@ -162,27 +151,27 @@ public class AppControlador {
 		}
 
 		for (Entry<String, Object> e : entries) {
-			//System.out.println("Headers: " + e.getKey() + " : "+  e.getValue());
 			sendRequestBody.put(e.getKey(), e.getValue());
 		}
 
-		envioNotificacion.putAll(sendRequestBody);
-
+		Map<String, Object> envioNotificacionBody = new HashMap<String, Object>();
+		envioNotificacionBody.putAll(sendRequestBody);
 		mapParameters.put("key", "1234");
-		envioNotificacion.put("tipoMensaje", "texto");
-		envioNotificacion.put("tipoNotificacion", "notificacion");
-		envioNotificacion.put("from", "nova@nova.com");
-		envioNotificacion.put("subject", "texto");
-		envioNotificacion.put("to", "nova1@nova.com");
-		envioNotificacion.put("mapParameters", mapParameters);
+		envioNotificacionBody.put("tipoMensaje", "texto");
+		envioNotificacionBody.put("tipoNotificacion", "notificacion");
+		envioNotificacionBody.put("from", "nova@nova.com");
+		envioNotificacionBody.put("subject", "texto");
+		envioNotificacionBody.put("to", "nova1@nova.com");
+		envioNotificacionBody.put("mapParameters", mapParameters);
 
-		envioNot.put("endpoint", Urls.SERENVIONOT.getPath());
-		envioNot.put("method", "POST");
-		envioNot.put("connectTimeout", 5000);
-		envioNot.put("readTimeout", 5000);
-		envioNot.put("connectionRequestTimeout", 5000);
-		envioNot.put("headers", headers);
-		envioNot.put("body", envioNotificacion);
+		Map<String, Object> envioNotificacion = new HashMap<String, Object>();
+		envioNotificacion.put("endpoint", Urls.urlEnvioNotificaciones.getPath());
+		envioNotificacion.put("method", "POST");
+		envioNotificacion.put("connectTimeout", 5000);
+		envioNotificacion.put("readTimeout", 5000);
+		envioNotificacion.put("connectionRequestTimeout", 5000);
+		envioNotificacion.put("headers", headers);
+		envioNotificacion.put("body", envioNotificacionBody);
 
 		consultaDatosBasicos.put("endpoint", Urls.serConsultaDatosBasicos.getPath());
 		consultaDatosBasicos.put("method", "POST");
@@ -212,42 +201,22 @@ public class AppControlador {
 		perfil.put("headers", headers);
 		perfil.put("body", perfilInterno);
 
-		mapGeneral.put("envioNotificacion", envioNot);
+		mapGeneral.put("envioNotificacion", envioNotificacion);
 		mapGeneral.put("consultaDatosBasicos", consultaDatosBasicos);
 		mapGeneral.put("consultaServicioContratadoGeneral", consultaServicioContratado);
 		mapGeneral.put("perfilGeneral", perfil);
 
-		if (((mapHeaders.get("contrato-aceptado") != null))) {
-
-			if (headers2.getFirst("contrato-aceptado").toString().equalsIgnoreCase("1")) {
-				System.out.println("el contrato ya esta aceptado");
-				/**
-				 * contratoAceptado trae 1. Eso quiere decur que el contrato ya
-				 * esta aceptado El siguiente metodo consume los servicios que
-				 * nos trarn la informacióin.
-				 */
-				Operaciones operaciones = new Operaciones();
-				Map<String, Object> respuest = utilidadesRest.restMultiples(mapGeneral);
-				Map<String, Object> respuestaObteber = operaciones.obtieneBody(respuest,mapaHeader);
-
-				LOGGER.info("OK Consultas  " + respuestaObteber);
-
-				return new ResponseEntity<Object>(respuestaObteber, HttpStatus.OK);
-
-			} else {
-				LOGGER.info("contratoAceptado trae un dato diferente de 1  ");
-				Operaciones operaciones = new Operaciones();
-				Map<String, Object> resBanderaAcceso = operaciones.banderaAcceso(envioNotificacion, mapGeneral,mapaHeader);
-
-				return new ResponseEntity<Object>(resBanderaAcceso, HttpStatus.OK);
-
-			}
-
-		} else {
-			LOGGER.info("Error, error en header");
-			Operaciones operaciones = new Operaciones();
-			return new ResponseEntity<Object>(operaciones.error403(), HttpStatus.OK);
+		Operaciones operaciones = new Operaciones();
+		switch (mapHeaders.get("contrato-aceptado")) {
+			case "1":
+				LOGGER.debug("el contrato ya esta aceptado");
+				Map<String, Object> respuesta = utilidadesRest.restMultiples(mapGeneral);
+				return operaciones.obtenerRespuestaLogin(respuesta,mapaHeader);
+			case "0":
+				LOGGER.debug("el contrato no esta aceptado");
+				return operaciones.banderaAcceso(envioNotificacion, mapGeneral, (Map<String, Object>) request.getBody(), mapaHeader);			
+			default:
+				return utilidadesRest.getErrorResponse(400, "Valor invalido en contrato aceptado", "Valor invalido en contrato aceptado");
 		}
-
 	}
 }

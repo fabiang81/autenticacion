@@ -8,6 +8,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
@@ -28,95 +29,49 @@ public class Operaciones {
 
 	UtilidadesRest utilidadesRest = new UtilidadesRest();
 
-	public Map<String, Object> banderaAcceso(Map<String, Object> envioNotificacion, Map<String, Object> mapGeneral, Map<String, Object> mapHeaders) {
-
-		Map<String, Object> respuestaError = null;
-		Map<String, Object> validaContrato = new HashMap<String, Object>();
-
-		try {
-
-			if (envioNotificacion.get("banderaAcceso").toString().equalsIgnoreCase("1")) {
-
+	public ResponseEntity<Object> banderaAcceso(Map<String, Object> envioNotificacion, Map<String, Object> mapGeneral, Map<String, Object> requestBody, Map<String, Object> mapHeaders) {
+			if (existsAndHasValue(requestBody,"banderaAcceso","1")) {
 				LOGGER.info("Ok, banderaAcceso trae 1");
-
-				String url = Urls.SERENVIONOT.getPath();
-				String urlValidaContrato = Urls.urlValidaContrato.getPath();
-
+				String urlNotificacion = Urls.urlEnvioNotificaciones.getPath();
+				String urlModificaContrato = Urls.urlModificaContrato.getPath(); 
 				Set<MediaType> mediaTypeValidos = new HashSet<MediaType>();
 				mediaTypeValidos.add(MediaType.APPLICATION_JSON);
 				mediaTypeValidos.add(MediaType.APPLICATION_JSON_UTF8);
-
-				ResponseEntity<Object> entity = utilidadesRest.enviarPeticion(url, HttpMethod.POST, mediaTypeValidos,
-						null, envioNotificacion);
-
-				@SuppressWarnings("unchecked")
-				Map<String, Object> resEnvioNotificacion = (Map<String, Object>) entity.getBody();
-				String resEnvioPet = resEnvioNotificacion.get("responseStatus").toString();
-				if (resEnvioPet.equals("200")) {
-					LOGGER.info("Ok, Envio de Notificación");
-					validaContrato.put("contrato-aceptado",
-							Integer.parseInt(envioNotificacion.get("banderaAcceso").toString()));
-					validaContrato.put("Usuario", envioNotificacion.get("idPersona"));
-
-					ResponseEntity<Object> entityValidaContrato = utilidadesRest.enviarPeticion(urlValidaContrato,
-							HttpMethod.POST, mediaTypeValidos, null, validaContrato);
-
-					@SuppressWarnings("unchecked")
-					Map<String, Object> resValidaContra = (Map<String, Object>) entityValidaContrato.getBody();
-					String varValidaContrato = resValidaContra.get("codigo").toString();
-
-					if (varValidaContrato.equals("0")) {
-						LOGGER.info("Ok, Valida Contrato");
-						@SuppressWarnings("unchecked")
-						Map<String, Object> respuest = utilidadesRest.restMultiples(mapGeneral);
-						Map<String, Object> respuestaObteber = obtieneBody(respuest,mapHeaders);
-
-						LOGGER.info("OK Consultas  " + respuestaObteber);
-						return respuestaObteber;
-					} else {
-						LOGGER.info("Error,Al Valida Contrato");
-						return error403();
-					}
+				
+				Map<String, Object> modificaContrato = new HashMap<String, Object>();
+				modificaContrato.put("contratoAceptado",requestBody.get("banderaAcceso"));
+				modificaContrato.put("usuario", mapHeaders.get("cliente"));
+				ResponseEntity<Object> entity = utilidadesRest.enviarPeticion(urlModificaContrato, HttpMethod.POST, mediaTypeValidos,null, modificaContrato);
+				Map<String, Object> mapaRespuesta = (Map<String, Object>) entity.getBody();
+				if (existsAndHasValue(mapaRespuesta,"codigo","0")) {
+					LOGGER.debug("Ok, Se ha modificado el contrato");
+					// Se lanza peticiones para realizar login
+					mapGeneral.put("envioNotificacion", envioNotificacion);
+					Map<String, Object> respuesta = utilidadesRest.restMultiples(mapGeneral);
+					return obtenerRespuestaLogin(respuesta,mapHeaders);
 				} else {
-					LOGGER.info("Error, Al Envio de Notificación");
-					return error403();
+					return error400("Error, Al intentar modificar el contrato");
 				}
-			} else if (envioNotificacion.get("banderaAcceso").toString().equalsIgnoreCase("")) {
-				LOGGER.info("OK, banderaAcceso trae \"\"");
-				respuestaError = new HashMap<String, Object>();
-				long resStatus = 200;
-				respuestaError.put("mostrarContrato", true);
-				respuestaError.put("responseStatus", resStatus);
-				respuestaError.put("responseError", "");
-
-				return respuestaError;
+			} else if (existsAndHasValue(requestBody,"banderaAcceso","0")) {
+				LOGGER.debug("OK, Se envia mostrar contrato");
+				Map<String, Object> respuesta = new HashMap<String, Object>();
+				respuesta.put("mostrarContrato", true);
+				respuesta.put("responseStatus", 200);
+				respuesta.put("responseError", "");
+				return new ResponseEntity<Object>(respuesta, HttpStatus.OK);
 			} else {
-				LOGGER.info("OK, banderaAcceso otro dato diferente");
-				respuestaError = new HashMap<String, Object>();
-				long resStatus = 200;
-				respuestaError.put("responseStatus", resStatus);
-				respuestaError.put("responseError", "");
-
-				return respuestaError;
+				LOGGER.debug("OK, banderaAcceso otro dato diferente");
+				return utilidadesRest.getErrorResponse(400, "Dato invalido en banderaAcceso", "Dato invalido en banderaAcceso");
 			}
-		} catch (Exception e) {
-			LOGGER.info("Exception, " + e.getMessage());
-			return error403();
-		}
 	}
 
-	/**
-	 * 
-	 * @return Regresa un JSON que nos trae el error 403 Description Metodo
-	 *         donde manejamos el error 403. Este error se ejecuta en caso de
-	 *         que se produsca un error al consumir uno de los servicios.
-	 */
-	public Map<String, Object> error403() {
-		long resStatus = 403;
-		Map<String, Object> jsonError = new HashMap<String, Object>();
-		jsonError.put("responseStatus", resStatus);
-		jsonError.put("responseError", "Por Definir");
-		return jsonError;
+	public Boolean existsAndHasValue(Map<String, Object> map, String key, Object value){
+		return map.containsKey(key) && map.get(key).equals(value);
+	}
+	
+	public ResponseEntity<Object> obtenerRespuestaLogin(Map<String, Object> respuestaMultiple, Map<String, Object> headers){
+		Map<String, Object> respuestaLogin = obtieneBody(respuestaMultiple,headers);
+		return new ResponseEntity<Object>(respuestaLogin, HttpStatus.OK);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -150,6 +105,16 @@ public class Operaciones {
 		respuestaGeneral.putAll(envioNotificacionBody);
 
 		return respuestaGeneral;
+	}
+	
+	/**
+	 * 
+	 * @return Regresa un JSON que nos trae el error 403 Description Metodo
+	 *         donde manejamos el error 403. Este error se ejecuta en caso de
+	 *         que se produsca un error al consumir uno de los servicios.
+	 */
+	public ResponseEntity<Object> error400(String mensaje) {
+		return utilidadesRest.getErrorResponse(400, mensaje, mensaje);
 	}
 
 }
