@@ -36,9 +36,10 @@ Previo a la ejecucion del programa es necesario configurar variables de ambiente
 
 ```
 PROTOCOLO=http
-PUERTO=80
+PUERTO=9094
 HOSTNAME_BEO=200.39.24.141
-BASEPATH=/BEO
+BASEPATH=
+URL_MODIFICA_CONTRATO=http://localhost:9094/modificaContrato #URL Servicio de nologin
 ```
 
 ### Puerto donde se encuentra este microservicio
