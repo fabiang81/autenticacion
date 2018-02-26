@@ -41,8 +41,12 @@ public class Operaciones {
 				Map<String, Object> modificaContrato = new HashMap<String, Object>();
 				modificaContrato.put("contratoAceptado",requestBody.get("banderaAcceso"));
 				modificaContrato.put("usuario", mapHeaders.get("cliente"));
+				 
+				
 				ResponseEntity<Object> entity = utilidadesRest.enviarPeticion(urlModificaContrato, HttpMethod.POST, mediaTypeValidos,null, modificaContrato);
 				Map<String, Object> mapaRespuesta = (Map<String, Object>) entity.getBody();
+				 
+				
 				if (existsAndHasValue(mapaRespuesta,"codigo","0")) {
 					LOGGER.debug("Ok, Se ha modificado el contrato");
 					// Se lanza peticiones para realizar login
