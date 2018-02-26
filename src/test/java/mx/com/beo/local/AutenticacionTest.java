@@ -50,9 +50,7 @@ public class AutenticacionTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void cambioContrasena() throws Exception {
-		HttpHeaders headers = new HttpHeaders();
-		System.out.println("------------------------------------------------------------------------cambioContrasena");
-		
+		HttpHeaders headers = new HttpHeaders(); 
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 		headers.set("iv-user", "1");
 		headers.set("cookie", "JSESSIONID=1yO8dxBx6mq6aiboiFwcvBlc_W59rvlcrHGUKyvE.mmxmtzbelectronica; PD-S-SESSION-ID=1_Nh7mjwEuiVa8VtpIkM650frHGbzu3mWIQRreACSikfZFqpYoG44=_AAAAAAA=_ckMIbwznVUzytnBfaF96sprhEcQ=; LFR_SESSION_STATE_20120=1506553957696");
@@ -75,8 +73,7 @@ public class AutenticacionTest {
 		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
-		LOGGER.info("Cuerpo que se arma " + entity.getBody());
-		System.out.println("Cabeceras que se arman" + entity.getHeaders());
+		LOGGER.info("Cuerpo que se arma " + entity.getBody()); 
 		
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/cambioContrasena"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
@@ -85,7 +82,6 @@ public class AutenticacionTest {
 		LOGGER.info("Cabecera del servicio consumido" + response.getHeaders());
 		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
 		mapBody = (Map<String, Object>) response.getBody();
-		 System.out.println("Mapas--------------------------------------------"+mapBody);
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
 	
@@ -93,8 +89,7 @@ public class AutenticacionTest {
 	@Test
 	public void cambioContrasenaSinHeader() throws Exception {
 		HttpHeaders headers = new HttpHeaders();
-		System.out.println("------------------------------------------------------------------------cambioContrasena");
-		
+		 
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 		headers.set("iv-user", "1");
 		headers.set("cookie", "JSESSIONID=1yO8dxBx6mq6aiboiFwcvBlc_W59rvlcrHGUKyvE.mmxmtzbelectronica; PD-S-SESSION-ID=1_Nh7mjwEuiVa8VtpIkM650frHGbzu3mWIQRreACSikfZFqpYoG44=_AAAAAAA=_ckMIbwznVUzytnBfaF96sprhEcQ=; LFR_SESSION_STATE_20120=1506553957696");
@@ -116,8 +111,7 @@ public class AutenticacionTest {
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma " + entity.getBody());
-		System.out.println("Cabeceras que se arman" + entity.getHeaders());
-		
+		 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/cambioContrasena"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 400);
@@ -125,7 +119,6 @@ public class AutenticacionTest {
 		LOGGER.info("Cabecera del servicio consumido" + response.getHeaders());
 		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
 		mapBody = (Map<String, Object>) response.getBody();
-		 System.out.println("Mapas--------------------------------------------"+mapBody);
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
 	
@@ -134,8 +127,7 @@ public class AutenticacionTest {
 	@Test
 	public void cambioContrasenaErrorActualNoExiste() throws Exception {
 		HttpHeaders headers = new HttpHeaders();
-		System.out.println("------------------------------------------------------------------------cambioContrasena");
-		
+		 
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 		headers.set("iv-user", "1");
 		headers.set("cookie", "JSESSIONID=1yO8dxBx6mq6aiboiFwcvBlc_W59rvlcrHGUKyvE.mmxmtzbelectronica; PD-S-SESSION-ID=1_Nh7mjwEuiVa8VtpIkM650frHGbzu3mWIQRreACSikfZFqpYoG44=_AAAAAAA=_ckMIbwznVUzytnBfaF96sprhEcQ=; LFR_SESSION_STATE_20120=1506553957696");
@@ -159,8 +151,7 @@ public class AutenticacionTest {
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma " + entity.getBody());
-		System.out.println("Cabeceras que se arman" + entity.getHeaders());
-		
+		 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/cambioContrasena"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 404);
@@ -168,8 +159,7 @@ public class AutenticacionTest {
 		LOGGER.info("Cabecera del servicio consumido" + response.getHeaders());
 		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
 		mapBody = (Map<String, Object>) response.getBody();
-		 System.out.println("Mapas--------------------------------------------"+mapBody);
-		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
+		 assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
 	
 	
@@ -177,8 +167,7 @@ public class AutenticacionTest {
 	@Test
 	public void cambioContrasenaErrorNoSonIguales() throws Exception {
 		HttpHeaders headers = new HttpHeaders();
-		System.out.println("------------------------------------------------------------------------cambioContrasena");
-		
+		 
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 		headers.set("iv-user", "1");
 		headers.set("cookie", "JSESSIONID=1yO8dxBx6mq6aiboiFwcvBlc_W59rvlcrHGUKyvE.mmxmtzbelectronica; PD-S-SESSION-ID=1_Nh7mjwEuiVa8VtpIkM650frHGbzu3mWIQRreACSikfZFqpYoG44=_AAAAAAA=_ckMIbwznVUzytnBfaF96sprhEcQ=; LFR_SESSION_STATE_20120=1506553957696");
@@ -202,8 +191,7 @@ public class AutenticacionTest {
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma " + entity.getBody());
-		System.out.println("Cabeceras que se arman" + entity.getHeaders());
-		
+		 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/cambioContrasena"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 403);
@@ -211,8 +199,7 @@ public class AutenticacionTest {
 		LOGGER.info("Cabecera del servicio consumido " + response.getHeaders());
 		LOGGER.info("Cuerpo del servicio consumido nuevas contraseñas no son iguales" + response.getBody());
 		mapBody = (Map<String, Object>) response.getBody();
-		 System.out.println("Mapas--------------------------------------------"+mapBody);
-		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
+		 assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
 	
 	
@@ -245,8 +232,7 @@ public class AutenticacionTest {
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma " + entity.getBody());
-		System.out.println("Cabeceras que se arman" + entity.getHeaders());
-		
+	 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/accesoCliente"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 200);
@@ -255,9 +241,6 @@ public class AutenticacionTest {
 		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
-		 System.out.println("Mapas-------------eee-------------------------------"+mapBody);
-		 
-		 System.out.println("Mapa que nos responde-------"+mapBody.get("responseStatus"));
 		 
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
@@ -289,8 +272,7 @@ public class AutenticacionTest {
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma " + entity.getBody());
-		System.out.println("Cabeceras que se arman" + entity.getHeaders());
-		
+		 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/accesoCliente"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 400);
@@ -299,10 +281,7 @@ public class AutenticacionTest {
 		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
-		 System.out.println("Mapas-------------eee-------------------------------"+mapBody);
-		 
-		 System.out.println("Mapa que nos responde-------"+mapBody.get("responseStatus"));
-		 
+		  
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
 	
@@ -334,8 +313,7 @@ public class AutenticacionTest {
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma " + entity.getBody());
-		System.out.println("Cabeceras que se arman" + entity.getHeaders());
-		
+		 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/accesoCliente"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 400);
@@ -344,10 +322,7 @@ public class AutenticacionTest {
 		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
-		 System.out.println("Mapas--------NO ACEPTADO-------------------------------"+mapBody);
-		 
-		 System.out.println("Mapa que nos responde-------"+mapBody.get("responseStatus"));
-		 
+	 
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
 	
@@ -378,8 +353,7 @@ public class AutenticacionTest {
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma " + entity.getBody());
-		System.out.println("Cabeceras que se arman" + entity.getHeaders());
-		
+		 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/accesoCliente"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 200);
@@ -388,9 +362,6 @@ public class AutenticacionTest {
 		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
-		 System.out.println("Mapas--------NO ACEPTADO-------------------------------"+mapBody);
-		 
-		 System.out.println("Mapa que nos responde-------"+mapBody.get("responseStatus"));
 		 
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
@@ -421,8 +392,7 @@ public class AutenticacionTest {
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma " + entity.getBody());
-		System.out.println("Cabeceras que se arman" + entity.getHeaders());
-		
+		 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/accesoCliente"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 200);
@@ -431,9 +401,6 @@ public class AutenticacionTest {
 		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
-		 System.out.println("Mapas--------NO ACEPTADO-------------------------------"+mapBody);
-		 
-		 System.out.println("Mapa que nos responde-------"+mapBody.get("responseStatus"));
 		 
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
@@ -465,8 +432,7 @@ public class AutenticacionTest {
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma " + entity.getBody());
-		System.out.println("Cabeceras que se arman" + entity.getHeaders());
-		
+		 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/accesoCliente"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 200);
@@ -475,9 +441,6 @@ public class AutenticacionTest {
 		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
-		 System.out.println("Mapas--------NO ACEPTADO-------------------------------"+mapBody);
-		 
-		 System.out.println("Mapa que nos responde-------"+mapBody.get("responseStatus"));
 		 
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
@@ -511,8 +474,7 @@ public class AutenticacionTest {
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma " + entity.getBody());
-		System.out.println("Cabeceras que se arman" + entity.getHeaders());
-		
+		 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/accesoCliente"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 400);
@@ -521,9 +483,6 @@ public class AutenticacionTest {
 		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
-		 System.out.println("Mapas------NULL------------------"+mapBody);
-		 
-		 System.out.println("Mapa que nos responde-------"+mapBody.get("responseStatus"));
 		 
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
