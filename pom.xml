@@ -146,12 +146,7 @@
          <groupId>mx.com.beo</groupId>
          <artifactId>commons</artifactId>
          <version>1.0</version>
-      </dependency>
-	    <dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.5</version>
-		</dependency>
+      </dependency> 
       <!-- ==================================== TEST ======================================= -->
       <dependency>
          <groupId>junit</groupId>
