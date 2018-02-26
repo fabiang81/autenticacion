@@ -45,7 +45,7 @@ public class Operaciones {
 				
 				ResponseEntity<Object> entity = utilidadesRest.enviarPeticion(urlModificaContrato, HttpMethod.POST, mediaTypeValidos,null, modificaContrato);
 				Map<String, Object> mapaRespuesta = (Map<String, Object>) entity.getBody();
-				 
+				 System.out.println("Modifica Contrado valor-----------"+modificaContrato);
 				
 				if (existsAndHasValue(mapaRespuesta,"codigo","0")) {
 					LOGGER.debug("Ok, Se ha modificado el contrato");
