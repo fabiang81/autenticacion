@@ -81,33 +81,52 @@ public class Operaciones {
 	public Map<String, Object> obtieneBody(Map<String, Object> respuest,Map<String, Object> headers) {
 
 		Map<String, Object> respuestaGeneral = new HashMap<String, Object>();
+		Map<String, Object> consultaDatosBasicos1 = new HashMap<String, Object>();
+		Map<String, Object> consultaDatosBasicosBody = new HashMap<String, Object>();
+		
+		if(respuest.get("consultaDatosBasicos") != null){
+		   consultaDatosBasicos1 = (Map<String, Object>) respuest.get("consultaDatosBasicos");
+		   consultaDatosBasicosBody = (Map<String, Object>) consultaDatosBasicos1.get("body");
+		   respuestaGeneral.put("nombreRazonSocial", consultaDatosBasicosBody.get("nombre"));
+			respuestaGeneral.put("listaTelefonos", consultaDatosBasicosBody.get("listaTelefonos"));
+			
+		}
+		Map<String, Object> consultaServicioContratadoGeneral = new HashMap<String, Object>();
+		Map<String, Object> consultaServicioContratadoGeneralBody = new HashMap<String, Object>(); 
+		
+		if(respuest.get("consultaServicioContratadoGeneral") != null){
+			 consultaServicioContratadoGeneral = (Map<String, Object>) respuest
+					.get("consultaServicioContratadoGeneral");
+		     consultaServicioContratadoGeneralBody = (Map<String, Object>) consultaServicioContratadoGeneral
+					.get("body");
+		     respuestaGeneral.put("consultaServiciosContratados", consultaServicioContratadoGeneralBody);
+		}
+		
 
-		Map<String, Object> consultaDatosBasicos1 = (Map<String, Object>) respuest.get("consultaDatosBasicos");
-		Map<String, Object> consultaDatosBasicosBody = (Map<String, Object>) consultaDatosBasicos1.get("body");
+		Map<String, Object> envioNotificacion1 = new HashMap<String, Object>();
+		Map<String, Object> envioNotificacionBody = new HashMap<String, Object>();
+		
+		if(respuest.get("envioNotificacion") != null){
+			envioNotificacion1 = (Map<String, Object>) respuest.get("envioNotificacion");
+			envioNotificacionBody = (Map<String, Object>) envioNotificacion1.get("body");
+			respuestaGeneral.putAll(envioNotificacionBody);
+		}
 
-		Map<String, Object> consultaServicioContratadoGeneral = (Map<String, Object>) respuest
-				.get("consultaServicioContratadoGeneral");
-		Map<String, Object> consultaServicioContratadoGeneralBody = (Map<String, Object>) consultaServicioContratadoGeneral
-				.get("body");
-
-		Map<String, Object> envioNotificacion1 = (Map<String, Object>) respuest.get("envioNotificacion");
-		Map<String, Object> envioNotificacionBody = (Map<String, Object>) envioNotificacion1.get("body");
-
-		Map<String, Object> perfilGeneral = (Map<String, Object>) respuest.get("perfilGeneral");
-		Map<String, Object> perfilGeneralBody = (Map<String, Object>) perfilGeneral.get("body");
-
+		Map<String, Object> perfilGeneral = new HashMap<String, Object>();
+		Map<String, Object> perfilGeneralBody = new HashMap<String, Object>();
+		
+		if(respuest.get("envioNotificacion") != null){
+			perfilGeneral = (Map<String, Object>) respuest.get("perfilGeneral");
+		    perfilGeneralBody = (Map<String, Object>) perfilGeneral.get("body");
+		    respuestaGeneral.put("facultadesSimples", perfilGeneralBody.get("facultadesSimples"));
+		} 
 	    respuestaGeneral.put("fechaUltimoAcceso",
 				Utilerias.fechaFormatoServicio((String) headers.get("fechaUltimoAcceso"), Constantes.FORMATO_FECHA));
 		respuestaGeneral.put("nombreUsuario", headers.get("nombreUsuario"));
 		respuestaGeneral.put("medioAcceso", headers.get("canal"));
 		respuestaGeneral.put("mail", headers.get("mailCliente"));
 		respuestaGeneral.put("cliente", headers.get("cliente"));
-		respuestaGeneral.put("nombreRazonSocial", consultaDatosBasicosBody.get("nombre"));
-		respuestaGeneral.put("listaTelefonos", consultaDatosBasicosBody.get("listaTelefonos"));
-		respuestaGeneral.put("consultaServiciosContratados", consultaServicioContratadoGeneralBody);
-		respuestaGeneral.put("facultadesSimples", perfilGeneralBody.get("facultadesSimples"));
-		respuestaGeneral.putAll(envioNotificacionBody);
-
+		 
 		return respuestaGeneral;
 	}
 	

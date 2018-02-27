@@ -211,6 +211,7 @@ public class AppControlador {
 			case "1":
 				LOGGER.debug("el contrato ya esta aceptado");
 				Map<String, Object> respuesta = utilidadesRest.restMultiples(mapGeneral);
+				System.out.println("RESPUESTA DE LOS SERVICIOS----------------   "+respuesta);
 				return operaciones.obtenerRespuestaLogin(respuesta,mapaHeader);
 			case "0":
 				LOGGER.debug("el contrato no esta aceptado");
