@@ -562,6 +562,79 @@ public class AutenticacionTest {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void accesoClienteFechaExitosa() throws Exception {
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		headers.set("iv-user", "1");
+		headers.set("cookie", "JSESSIONID=1yO8dxBx6mq6aiboiFwcvBlc_W59rvlcrHGUKyvE.mmxmtzbelectronica; PD-S-SESSION-ID=1_Nh7mjwEuiVa8VtpIkM650frHGbzu3mWIQRreACSikfZFqpYoG44=_AAAAAAA=_ckMIbwznVUzytnBfaF96sprhEcQ=; LFR_SESSION_STATE_20120=1506553957696");
+		headers.set("iv-groups", "1");
+		headers.set("numero-cliente", "123456");
+		headers.set("nombre-completo", "123456");
+		headers.set("tipo-authenticacion", "123456");
+		headers.set("contrato-aceptado", "1");
+		headers.set("fechaUltimoAcceso", "20170226111322.0Z");
+		headers.set("tipocanal", "123456");
+		headers.set("mail", "123456");
+		
+		Map<String, Object> body = new HashMap<String, Object>();
+		body.put("banderaAcceso", "1");
+		
+		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
+		LOGGER.info("Cuerpo que se arma " + entity.getBody());
+	 
+		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/accesoCliente"), HttpMethod.POST, entity, Object.class);
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("responseStatus", 200);
+		Map<String, Object> mapBody = new HashMap<String, Object>();
+		LOGGER.info("Cabecera del servicio consumido" + response.getHeaders());
+		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
+		
+		mapBody = (Map<String, Object>) response.getBody();
+		 
+		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
+	}
+	
+	
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void accesoClienteFechaError() throws Exception {
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		headers.set("iv-user", "1");
+		headers.set("cookie", "JSESSIONID=1yO8dxBx6mq6aiboiFwcvBlc_W59rvlcrHGUKyvE.mmxmtzbelectronica; PD-S-SESSION-ID=1_Nh7mjwEuiVa8VtpIkM650frHGbzu3mWIQRreACSikfZFqpYoG44=_AAAAAAA=_ckMIbwznVUzytnBfaF96sprhEcQ=; LFR_SESSION_STATE_20120=1506553957696");
+		headers.set("iv-groups", "1");
+		headers.set("numero-cliente", "123456");
+		headers.set("nombre-completo", "123456");
+		headers.set("tipo-authenticacion", "123456");
+		headers.set("contrato-aceptado", "1");
+		headers.set("fechaUltimoAcceso", "20170226111322");
+		headers.set("tipocanal", "123456");
+		headers.set("mail", "123456");
+		
+		Map<String, Object> body = new HashMap<String, Object>();
+		body.put("banderaAcceso", "1");
+		
+		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
+		LOGGER.info("Cuerpo que se arma " + entity.getBody());
+	 
+		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/accesoCliente"), HttpMethod.POST, entity, Object.class);
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("responseStatus", 200);
+		Map<String, Object> mapBody = new HashMap<String, Object>();
+		LOGGER.info("Cabecera del servicio consumido" + response.getHeaders());
+		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
+		
+		mapBody = (Map<String, Object>) response.getBody();
+		 
+		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
+	}
+	
+	
 	
 	private String createURLWithPort(String uri) {
 		return "http://localhost:" + port + uri;

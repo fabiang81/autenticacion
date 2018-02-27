@@ -96,7 +96,8 @@ public class Operaciones {
 		Map<String, Object> perfilGeneral = (Map<String, Object>) respuest.get("perfilGeneral");
 		Map<String, Object> perfilGeneralBody = (Map<String, Object>) perfilGeneral.get("body");
 
-		respuestaGeneral.put("fechaUltimoAcceso", headers.get("fechaUltimoAcceso"));
+	    respuestaGeneral.put("fechaUltimoAcceso",
+				Utilerias.fechaFormatoServicio((String) headers.get("fechaUltimoAcceso"), Constantes.FORMATO_FECHA));
 		respuestaGeneral.put("nombreUsuario", headers.get("nombreUsuario"));
 		respuestaGeneral.put("medioAcceso", headers.get("canal"));
 		respuestaGeneral.put("mail", headers.get("mailCliente"));
