@@ -93,7 +93,7 @@ public class Operaciones {
 			respuestaGeneral.put("nombreRazonSocial", consultaDatosBasicosBody.get("nombre"));
 			respuestaGeneral.put("listaTelefonos", consultaDatosBasicosBody.get("listaTelefonos"));
 
-		} 
+		}
 		Map<String, Object> consultaServicioContratadoGeneral = new HashMap<String, Object>();
 		Map<String, Object> consultaServicioContratadoGeneralBody = new HashMap<String, Object>();
 
@@ -101,7 +101,7 @@ public class Operaciones {
 			consultaServicioContratadoGeneral = (Map<String, Object>) respuest.get("consultaServicioContratadoGeneral");
 			consultaServicioContratadoGeneralBody = (Map<String, Object>) consultaServicioContratadoGeneral.get("body");
 			respuestaGeneral.put("consultaServiciosContratados", consultaServicioContratadoGeneralBody);
-		} 
+		}
 
 		Map<String, Object> envioNotificacion1 = new HashMap<String, Object>();
 		Map<String, Object> envioNotificacionBody = new HashMap<String, Object>();
@@ -111,7 +111,7 @@ public class Operaciones {
 			envioNotificacionBody = (Map<String, Object>) envioNotificacion1.get("body");
 			respuestaGeneral.putAll(envioNotificacionBody);
 		}
- 
+
 		Map<String, Object> perfilGeneral = new HashMap<String, Object>();
 		Map<String, Object> perfilGeneralBody = new HashMap<String, Object>();
 
@@ -120,14 +120,14 @@ public class Operaciones {
 			perfilGeneralBody = (Map<String, Object>) perfilGeneral.get("body");
 			respuestaGeneral.put("facultadesSimples", perfilGeneralBody.get("facultadesSimples"));
 		}
- 
+
 		respuestaGeneral.put("fechaUltimoAcceso",
 				Utilerias.fechaFormatoServicio((String) headers.get("fechaUltimoAcceso"), Constantes.FORMATO_FECHA));
 		respuestaGeneral.put("nombreUsuario", headers.get("nombreUsuario"));
 		respuestaGeneral.put("medioAcceso", headers.get("canal"));
 		respuestaGeneral.put("mail", headers.get("mailCliente"));
 		respuestaGeneral.put("cliente", headers.get("cliente"));
-  
+
 		return respuestaGeneral;
 	}
 
