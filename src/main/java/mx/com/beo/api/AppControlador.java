@@ -85,7 +85,7 @@ public class AppControlador {
 			mediaTypeValidos.add(MediaType.APPLICATION_JSON);
 			mediaTypeValidos.add(MediaType.APPLICATION_JSON_UTF8);
 			LOGGER.debug("OK");
-			return utilidadesRest.enviarPeticion(url, HttpMethod.POST, mediaTypeValidos, null, sendRequestBody);
+			return utilidadesRest.enviarPeticion(url, HttpMethod.POST, mediaTypeValidos, null, sendRequestBody, Urls.urlBitacora.getPath(), request.getHeaders());
 
 		} else {
 			LOGGER.debug("Las contraseñas a modificar son diferentes");
@@ -210,11 +210,11 @@ public class AppControlador {
 		switch (mapHeaders.get("contrato-aceptado")) {
 			case "1":
 				LOGGER.debug("el contrato ya esta aceptado");
-				Map<String, Object> respuesta = utilidadesRest.restMultiples(mapGeneral);
+				Map<String, Object> respuesta = utilidadesRest.restMultiples(mapGeneral,"login",Urls.urlBitacora.getPath(),request.getHeaders());
   			    return operaciones.obtenerRespuestaLogin(respuesta,mapaHeader);
 			case "0":
 				LOGGER.debug("el contrato no esta aceptado");
-				return operaciones.banderaAcceso(envioNotificacion, mapGeneral, (Map<String, Object>) request.getBody(), mapaHeader);			
+				return operaciones.banderaAcceso(envioNotificacion, mapGeneral, (Map<String, Object>) request.getBody(), mapaHeader, request.getHeaders());			
 			default:
 				return utilidadesRest.getErrorResponse(400, "Valor invalido en contrato aceptado", "Valor invalido en contrato aceptado");
 		}

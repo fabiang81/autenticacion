@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,7 +31,7 @@ public class Operaciones {
 	UtilidadesRest utilidadesRest = new UtilidadesRest();
 
 	public ResponseEntity<Object> banderaAcceso(Map<String, Object> envioNotificacion, Map<String, Object> mapGeneral,
-			Map<String, Object> requestBody, Map<String, Object> mapHeaders) {
+			Map<String, Object> requestBody, Map<String, Object> mapHeaders, HttpHeaders httpHeaders) {
 		if (existsAndHasValue(requestBody, "banderaAcceso", "1")) {
 			LOGGER.info("Ok, banderaAcceso trae 1");
 			String urlNotificacion = Urls.urlEnvioNotificaciones.getPath();
@@ -44,14 +45,14 @@ public class Operaciones {
 			modificaContrato.put("usuario", mapHeaders.get("cliente"));
 
 			ResponseEntity<Object> entity = utilidadesRest.enviarPeticion(urlModificaContrato, HttpMethod.POST,
-					mediaTypeValidos, null, modificaContrato);
+					mediaTypeValidos, null, modificaContrato, Urls.urlBitacora.getPath(), httpHeaders);
 			Map<String, Object> mapaRespuesta = (Map<String, Object>) entity.getBody();
 
 			if (existsAndHasValue(mapaRespuesta, "codigo", "0")) {
 				LOGGER.debug("Ok, Se ha modificado el contrato");
 				// Se lanza peticiones para realizar login
 				mapGeneral.put("envioNotificacion", envioNotificacion);
-				Map<String, Object> respuesta = utilidadesRest.restMultiples(mapGeneral);
+				Map<String, Object> respuesta = utilidadesRest.restMultiples(mapGeneral,"login",Urls.urlBitacora.getPath(),httpHeaders);
 				return obtenerRespuestaLogin(respuesta, mapHeaders);
 			} else {
 				return error400("Error, Al intentar modificar el contrato");
