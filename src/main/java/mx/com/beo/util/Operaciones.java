@@ -36,7 +36,7 @@ public class Operaciones {
 			LOGGER.info("Ok, banderaAcceso trae 1");
 			String urlNotificacion = Urls.urlEnvioNotificaciones.getPath();
 			String urlModificaContrato = Urls.urlModificaContrato.getPath();
-			Set<MediaType> mediaTypeValidos = new HashSet<MediaType>();
+			Set<MediaType> mediaTypeValidos = new HashSet<>();
 			mediaTypeValidos.add(MediaType.APPLICATION_JSON);
 			mediaTypeValidos.add(MediaType.APPLICATION_JSON_UTF8);
 
@@ -45,14 +45,14 @@ public class Operaciones {
 			modificaContrato.put("usuario", mapHeaders.get("cliente"));
 
 			ResponseEntity<Object> entity = utilidadesRest.enviarPeticion(urlModificaContrato, HttpMethod.POST,
-					mediaTypeValidos, null, modificaContrato, Urls.urlBitacora.getPath(), httpHeaders);
+					mediaTypeValidos, null, modificaContrato, Urls.URL_BITACORA.getPath(), httpHeaders);
 			Map<String, Object> mapaRespuesta = (Map<String, Object>) entity.getBody();
 
 			if (existsAndHasValue(mapaRespuesta, "codigo", "0")) {
 				LOGGER.debug("Ok, Se ha modificado el contrato");
 				// Se lanza peticiones para realizar login
 				mapGeneral.put("envioNotificacion", envioNotificacion);
-				Map<String, Object> respuesta = utilidadesRest.restMultiples(mapGeneral,"login",Urls.urlBitacora.getPath(),httpHeaders);
+				Map<String, Object> respuesta = utilidadesRest.restMultiples(mapGeneral,"login",Urls.URL_BITACORA.getPath(),httpHeaders);
 				return obtenerRespuestaLogin(respuesta, mapHeaders);
 			} else {
 				return error400("Error, Al intentar modificar el contrato");

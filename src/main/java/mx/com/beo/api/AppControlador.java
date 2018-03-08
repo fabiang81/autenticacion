@@ -81,11 +81,11 @@ public class AppControlador {
 
 			String url = Urls.Contrasena.getPath();
 			LOGGER.debug("EndPoint Contrasena : " + url);
-			Set<MediaType> mediaTypeValidos = new HashSet<MediaType>();
+			Set<MediaType> mediaTypeValidos = new HashSet<>();
 			mediaTypeValidos.add(MediaType.APPLICATION_JSON);
 			mediaTypeValidos.add(MediaType.APPLICATION_JSON_UTF8);
 			LOGGER.debug("OK");
-			return utilidadesRest.enviarPeticion(url, HttpMethod.POST, mediaTypeValidos, null, sendRequestBody, Urls.urlBitacora.getPath(), request.getHeaders());
+			return utilidadesRest.enviarPeticion(url, HttpMethod.POST, mediaTypeValidos, null, sendRequestBody, Urls.URL_BITACORA.getPath(), request.getHeaders());
 
 		} else {
 			LOGGER.debug("Las contraseñas a modificar son diferentes");
@@ -210,7 +210,7 @@ public class AppControlador {
 		switch (mapHeaders.get("contrato-aceptado")) {
 			case "1":
 				LOGGER.debug("el contrato ya esta aceptado");
-				Map<String, Object> respuesta = utilidadesRest.restMultiples(mapGeneral,"login",Urls.urlBitacora.getPath(),request.getHeaders());
+				Map<String, Object> respuesta = utilidadesRest.restMultiples(mapGeneral,"login",Urls.URL_BITACORA.getPath(),request.getHeaders());
   			    return operaciones.obtenerRespuestaLogin(respuesta,mapaHeader);
 			case "0":
 				LOGGER.debug("el contrato no esta aceptado");

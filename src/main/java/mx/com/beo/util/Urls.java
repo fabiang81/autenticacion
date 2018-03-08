@@ -37,7 +37,7 @@ public enum Urls {
 	
 	//urlValidaContrato(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME_BEO")+":"+System.getenv("PUERTO")+System.getenv("BASEPATH")+"/validaContrato"),
 	urlModificaContrato(System.getenv("URL_MODIFICA_CONTRATO")!=null?System.getenv("URL_MODIFICA_CONTRATO"):""),
-	urlBitacora(System.getenv("BITACORA_URL")!=null?System.getenv("BITACORA_URL"):""+"/bitacoraOperaciones")
+	URL_BITACORA(System.getenv("BITACORA_URL")!=null?System.getenv("BITACORA_URL"):""+"/bitacoraOperaciones")
 	
 	;
 
