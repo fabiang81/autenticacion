@@ -25,19 +25,19 @@ public enum Urls {
 	  * - BASEPATH
 	  */
 
-	//ESB_ENVIO(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME_BEO")+((System.getenv("PUERTO")!=null && !System.getenv("PUERTO").equals(""))?":"+System.getenv("PUERTO"):"")+(System.getenv("BASEPATH")!=null?System.getenv("BASEPATH"):"")+"/envioESB"),
-	Contrasena(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME_BEO")+":"+System.getenv("PUERTO")+System.getenv("BASEPATH")+"/cambioContrasena"),
-	urlEnvioNotificaciones(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME_BEO")+":"+System.getenv("PUERTO")+System.getenv("BASEPATH")+"/envioNotificaciones"),
+	//ESB_ENVIO(System.getenv(Constantes.PROTOCOLO) +"://"+System.getenv(Constantes.HOSTNAME_BEO)+((System.getenv(Constantes.PUERTO)!=null && !System.getenv(Constantes.PUERTO).equals(""))?":"+System.getenv(Constantes.PUERTO):"")+(System.getenv(Constantes.BASEPATH)!=null?System.getenv(Constantes.BASEPATH):"")+"/envioESB"),
+	Contrasena(System.getenv(Constantes.PROTOCOLO) +"://"+System.getenv(Constantes.HOSTNAME_BEO)+":"+System.getenv(Constantes.PUERTO)+System.getenv(Constantes.BASEPATH)+"/cambioContrasena"),
+	urlEnvioNotificaciones(System.getenv(Constantes.PROTOCOLO) +"://"+System.getenv(Constantes.HOSTNAME_BEO)+":"+System.getenv(Constantes.PUERTO)+System.getenv(Constantes.BASEPATH)+"/envioNotificaciones"),
 
-	serConsultaDatosBasicos(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME_BEO")+":"+System.getenv("PUERTO")+System.getenv("BASEPATH")+"/consultaDatosBasicos"),
+	serConsultaDatosBasicos(System.getenv(Constantes.PROTOCOLO) +"://"+System.getenv(Constantes.HOSTNAME_BEO)+":"+System.getenv(Constantes.PUERTO)+System.getenv(Constantes.BASEPATH)+"/consultaDatosBasicos"),
 	
-	urlServiciosContratados(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME_BEO")+""+":"+System.getenv("PUERTO")+System.getenv("BASEPATH")+"/consultaServiciosContratados"),
+	urlServiciosContratados(System.getenv(Constantes.PROTOCOLO) +"://"+System.getenv(Constantes.HOSTNAME_BEO)+""+":"+System.getenv(Constantes.PUERTO)+System.getenv(Constantes.BASEPATH)+"/consultaServiciosContratados"),
 	
-	urlPerfil(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME_BEO")+":"+System.getenv("PUERTO")+System.getenv("BASEPATH")+"/consultaPerfiles"),
+	urlPerfil(System.getenv(Constantes.PROTOCOLO) +"://"+System.getenv(Constantes.HOSTNAME_BEO)+":"+System.getenv(Constantes.PUERTO)+System.getenv(Constantes.BASEPATH)+"/consultaPerfiles"),
 	
-	//urlValidaContrato(System.getenv("PROTOCOLO") +"://"+System.getenv("HOSTNAME_BEO")+":"+System.getenv("PUERTO")+System.getenv("BASEPATH")+"/validaContrato"),
+	//urlValidaContrato(System.getenv(Constantes.PROTOCOLO) +"://"+System.getenv(Constantes.HOSTNAME_BEO)+":"+System.getenv(Constantes.PUERTO)+System.getenv(Constantes.BASEPATH)+"/validaContrato"),
 	urlModificaContrato(System.getenv("URL_MODIFICA_CONTRATO")!=null?System.getenv("URL_MODIFICA_CONTRATO"):""),
-	URL_BITACORA(System.getenv("BITACORA_URL")!=null?System.getenv("BITACORA_URL"):""+"/bitacoraOperaciones")
+	URL_BITACORA(System.getenv(Constantes.BITACORA_URL)!=null?System.getenv(Constantes.BITACORA_URL):""+"/bitacoraOperaciones")
 	
 	;
 
