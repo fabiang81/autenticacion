@@ -8,7 +8,6 @@ import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import mx.com.beo.exceptions.HeaderNotFoundException;
+import mx.com.beo.util.Constantes;
 import mx.com.beo.util.HeadersParser;
 import mx.com.beo.util.Operaciones;
 import mx.com.beo.util.Urls;
@@ -39,36 +39,41 @@ import mx.com.beo.util.UtilidadesRest;
 @RestController
 @RequestMapping(value = "/")
 public class AppControlador {
+	private UtilidadesRest utilidadesRest = new UtilidadesRest();
+
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AppControlador.class);
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/cambioContrasena", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> cambioContrasena(RequestEntity<Object> request) {
-		LOGGER.info("EndPoint cambioContrasena");
-		Map<String, Object> mapaHeader = null;
+		
+		LOGGER.info(Constantes.LOG_ENDPOINT_CAMBIO_CONTRASENA);
+		
 		Set<Entry<String, Object>> entries = null;
 		HeadersParser headersParser = new HeadersParser();
-		UtilidadesRest utilidadesRest = new UtilidadesRest();
-		Map<String, Object> sendRequestBody = new HashMap<String, Object>();
-		Map<String, Object> respuesta = new HashMap<String, Object>();
-		sendRequestBody = (Map<String, Object>) request.getBody();
+		Map<String, Object> mapaHeader = null;
+		Map<String, Object> sendRequestBody = null;
+		Map<String, Object> respuesta = new HashMap<>();
  
 		try {
+			
+			sendRequestBody = (Map<String, Object>) request.getBody();
+
 			// ValidaHeaders
 			mapaHeader = headersParser.validaHeaders(request);
 			entries = mapaHeader.entrySet();
 		} catch (HeaderNotFoundException headerNotFoundException) {
 			LOGGER.error(headerNotFoundException.getMessage());
-			Map<String, Object> responseError = new HashMap<String, Object>();
-			responseError.put("responseStatus", 400);
-			responseError.put("responseError", headerNotFoundException.getMessage());
+			Map<String, Object> responseError = new HashMap<>();
+			responseError.put(Constantes.RESPONSE_STATUS, 400);
+			responseError.put(Constantes.RESPONSE_ERROR, headerNotFoundException.getMessage());
 			return new ResponseEntity<>(responseError, HttpStatus.OK);
 		} catch (Exception e) {
-			LOGGER.error("ValidaHeaders exception: " + e.toString());
-			Map<String, Object> responseError = new HashMap<String, Object>();
-			responseError.put("responseStatus", 400);
-			responseError.put("responseError", e.getMessage());
+			LOGGER.error(Constantes.EXCEPTION_HEADERS, e.toString());
+			Map<String, Object> responseError = new HashMap<>();
+			responseError.put(Constantes.RESPONSE_STATUS, 400);
+			responseError.put(Constantes.RESPONSE_ERROR, e.getMessage());
 			return new ResponseEntity<>(responseError, HttpStatus.OK);
 		}
 
@@ -79,20 +84,22 @@ public class AppControlador {
 		if (sendRequestBody.get("newPassword").toString()
 				.equalsIgnoreCase(sendRequestBody.get("confirmNewPassword").toString())) {
 
-			String url = Urls.Contrasena.getPath();
-			LOGGER.debug("EndPoint Contrasena : " + url);
+			String url = Urls.CONTRASENA.getPath();
+			
+			LOGGER.debug(Constantes.LOG_ENDPOINT_CONTRASENA, url);
+			
 			Set<MediaType> mediaTypeValidos = new HashSet<>();
 			mediaTypeValidos.add(MediaType.APPLICATION_JSON);
 			mediaTypeValidos.add(MediaType.APPLICATION_JSON_UTF8);
-			LOGGER.debug("OK");
+			LOGGER.debug(Constantes.LOG_OK);
 			return utilidadesRest.enviarPeticion(url, HttpMethod.POST, mediaTypeValidos, null, sendRequestBody, Urls.URL_BITACORA.getPath(), request.getHeaders());
 
 		} else {
-			LOGGER.debug("Las contraseñas a modificar son diferentes");
+			LOGGER.debug(Constantes.LOG_CONTRASENAS_MODIFICAR);
 			long resStatus = 403;
-			respuesta.put("responseStatus", resStatus);
-			respuesta.put("responseError", "Contraseñas diferentes");
-			return new ResponseEntity<Object>(respuesta, HttpStatus.OK);
+			respuesta.put(Constantes.RESPONSE_STATUS, resStatus);
+			respuesta.put(Constantes.RESPONSE_ERROR, "Contraseñas diferentes");
+			return new ResponseEntity<>(respuesta, HttpStatus.OK);
 
 		}
 
@@ -101,25 +108,21 @@ public class AppControlador {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/accesoCliente", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> accesoCliente(RequestEntity<Object> request) {
-		LOGGER.info("EndPoint accesoCliente");
+		LOGGER.info(Constantes.LOG_ENDPOINT_ACCESO_CLIENTES);
 		Map<String, Object> mapaHeader = null;
 		Set<Entry<String, Object>> entries = null;
 		HeadersParser headersParser = new HeadersParser();
-		UtilidadesRest utilidadesRest = new UtilidadesRest();
-		Map<String, Object> sendRequestBody = new HashMap<String, Object>();
-		Map<String, Object> mapaHeadersAValidar = new HashMap<String, Object>();
-		Map<String, Object> ticket = new HashMap<String, Object>();
-		Map<String, Object> headers = new HashMap<String, Object>();
-		Map<String, Object> consultaDatosBasicos = new HashMap<String, Object>();
-		Map<String, Object> consultaServicioContratado = new HashMap<String, Object>();
-		Map<String, Object> perfil = new HashMap<String, Object>();
-		Map<String, Object> perfilInterno = new HashMap<String, Object>();
-		Map<String, Object> mapGeneral = new HashMap<String, Object>();
-		Map<String, Object> mapParameters = new HashMap<String, Object>();
-		//sendRequestBody = (Map<String, Object>) request.getBody();
-		HttpHeaders headers2 = request.getHeaders();
-		Map<String, String> mapHeaders = new HashMap<>();
-		mapHeaders = (Map<String, String>) request.getHeaders().toSingleValueMap();
+		Map<String, Object> sendRequestBody = new HashMap<>();
+		Map<String, Object> mapaHeadersAValidar = new HashMap<>();
+		Map<String, Object> ticket = new HashMap<>();
+		Map<String, Object> headers = new HashMap<>();
+		Map<String, Object> consultaDatosBasicos = new HashMap<>();
+		Map<String, Object> consultaServicioContratado = new HashMap<>();
+		Map<String, Object> perfil = new HashMap<>();
+		Map<String, Object> perfilInterno = null;
+		Map<String, Object> mapGeneral = new HashMap<>();
+		Map<String, Object> mapParameters = new HashMap<>();
+		Map<String, String> mapHeaders = request.getHeaders().toSingleValueMap();
 		ticket.put("iv-user", "id_user");
 		ticket.put("cookie", "id_creds");
 		mapaHeadersAValidar.put("ticket", ticket);
@@ -138,15 +141,15 @@ public class AppControlador {
 			entries = mapaHeader.entrySet();
 		} catch (HeaderNotFoundException headerNotFoundException) {
 			LOGGER.error(headerNotFoundException.getMessage());
-			Map<String, Object> responseError = new HashMap<String, Object>();
-			responseError.put("responseStatus", 400);
-			responseError.put("responseError", headerNotFoundException.getMessage());
+			Map<String, Object> responseError = new HashMap<>();
+			responseError.put(Constantes.RESPONSE_STATUS, 400);
+			responseError.put(Constantes.RESPONSE_ERROR, headerNotFoundException.getMessage());
 			return new ResponseEntity<>(responseError, HttpStatus.OK);
 		} catch (Exception e) {
-			LOGGER.error("ValidaHeaders exception: " + e.toString());
-			Map<String, Object> responseError = new HashMap<String, Object>();
-			responseError.put("responseStatus", 400);
-			responseError.put("responseError", e.getMessage());
+			LOGGER.error(Constantes.EXCEPTION_HEADERS , e.toString());
+			Map<String, Object> responseError = new HashMap<>();
+			responseError.put(Constantes.RESPONSE_STATUS, 400);
+			responseError.put(Constantes.RESPONSE_ERROR, e.getMessage());
 			return new ResponseEntity<>(responseError, HttpStatus.OK);
 		}
 
@@ -154,7 +157,7 @@ public class AppControlador {
 			sendRequestBody.put(e.getKey(), e.getValue());
 		}
 
-		Map<String, Object> envioNotificacionBody = new HashMap<String, Object>();
+		Map<String, Object> envioNotificacionBody = new HashMap<>();
 		envioNotificacionBody.putAll(sendRequestBody);
 		mapParameters.put("key", "1234");
 		envioNotificacionBody.put("tipoMensaje", "texto");
@@ -164,42 +167,42 @@ public class AppControlador {
 		envioNotificacionBody.put("to", "nova1@nova.com");
 		envioNotificacionBody.put("mapParameters", mapParameters);
 
-		Map<String, Object> envioNotificacion = new HashMap<String, Object>();
-		envioNotificacion.put("endpoint", Urls.urlEnvioNotificaciones.getPath());
-		envioNotificacion.put("method", "POST");
-		envioNotificacion.put("connectTimeout", 5000);
-		envioNotificacion.put("readTimeout", 5000);
-		envioNotificacion.put("connectionRequestTimeout", 5000);
-		envioNotificacion.put("headers", headers);
-		envioNotificacion.put("body", envioNotificacionBody);
+		Map<String, Object> envioNotificacion = new HashMap<>();
+		envioNotificacion.put(Constantes.ENDPOINT, Urls.URL_ENVIO_NOTIFICACIONES.getPath());
+		envioNotificacion.put(Constantes.METHOD, "POST");
+		envioNotificacion.put(Constantes.CONNECT_TIMEOUT, 5000);
+		envioNotificacion.put(Constantes.READ_TIMEOUT, 5000);
+		envioNotificacion.put(Constantes.CONNECT_REQUEST_TIMEOUT, 5000);
+		envioNotificacion.put(Constantes.HEADER, headers);
+		envioNotificacion.put(Constantes.BODY, envioNotificacionBody);
 
-		consultaDatosBasicos.put("endpoint", Urls.serConsultaDatosBasicos.getPath());
-		consultaDatosBasicos.put("method", "POST");
-		consultaDatosBasicos.put("connectTimeout", 5000);
-		consultaDatosBasicos.put("readTimeout", 5000);
-		consultaDatosBasicos.put("connectionRequestTimeout", 5000);
-		consultaDatosBasicos.put("headers", headers);
-		consultaDatosBasicos.put("body", sendRequestBody);
+		consultaDatosBasicos.put(Constantes.ENDPOINT, Urls.SER_CONSULTA_DATOS_BASICOS.getPath());
+		consultaDatosBasicos.put(Constantes.METHOD, "POST");
+		consultaDatosBasicos.put(Constantes.CONNECT_TIMEOUT, 5000);
+		consultaDatosBasicos.put(Constantes.READ_TIMEOUT, 5000);
+		consultaDatosBasicos.put(Constantes.CONNECT_REQUEST_TIMEOUT, 5000);
+		consultaDatosBasicos.put(Constantes.HEADER, headers);
+		consultaDatosBasicos.put(Constantes.BODY, sendRequestBody);
 
-		consultaServicioContratado.put("endpoint", Urls.urlServiciosContratados.getPath());
-		consultaServicioContratado.put("method", "POST");
-		consultaServicioContratado.put("connectTimeout", 5000);
-		consultaServicioContratado.put("readTimeout", 5000);
-		consultaServicioContratado.put("connectionRequestTimeout", 5000);
-		consultaServicioContratado.put("headers", headers);
-		consultaServicioContratado.put("body", sendRequestBody);
+		consultaServicioContratado.put(Constantes.ENDPOINT, Urls.URL_SERVICIOS_CONTRATADOS.getPath());
+		consultaServicioContratado.put(Constantes.METHOD, "POST");
+		consultaServicioContratado.put(Constantes.CONNECT_TIMEOUT, 5000);
+		consultaServicioContratado.put(Constantes.READ_TIMEOUT, 5000);
+		consultaServicioContratado.put(Constantes.CONNECT_REQUEST_TIMEOUT, 5000);
+		consultaServicioContratado.put(Constantes.HEADER, headers);
+		consultaServicioContratado.put(Constantes.BODY, sendRequestBody);
 
 		perfilInterno = sendRequestBody;
-		perfilInterno.remove("banderaAcceso");
+		perfilInterno.remove(Constantes.BANDERA_ACCESO);
 		perfilInterno.put("nombreSistema", "123");
 
-		perfil.put("endpoint", Urls.urlPerfil.getPath());
-		perfil.put("method", "POST");
-		perfil.put("connectTimeout", 5000);
-		perfil.put("readTimeout", 5000);
-		perfil.put("connectionRequestTimeout", 5000);
-		perfil.put("headers", headers);
-		perfil.put("body", perfilInterno);
+		perfil.put(Constantes.ENDPOINT, Urls.URL_PERFIL.getPath());
+		perfil.put(Constantes.METHOD, "POST");
+		perfil.put(Constantes.CONNECT_TIMEOUT, 5000);
+		perfil.put(Constantes.READ_TIMEOUT, 5000);
+		perfil.put(Constantes.CONNECT_REQUEST_TIMEOUT, 5000);
+		perfil.put(Constantes.HEADER, headers);
+		perfil.put(Constantes.BODY, perfilInterno);
 
 		mapGeneral.put("envioNotificacion", envioNotificacion);
 		mapGeneral.put("consultaDatosBasicos", consultaDatosBasicos);
@@ -209,11 +212,11 @@ public class AppControlador {
 		Operaciones operaciones = new Operaciones();
 		switch (mapHeaders.get("contrato-aceptado")) {
 			case "1":
-				LOGGER.debug("el contrato ya esta aceptado");
+				LOGGER.debug(Constantes.LOG_CONTRATO_ACEPTADO);
 				Map<String, Object> respuesta = utilidadesRest.restMultiples(mapGeneral,"login",Urls.URL_BITACORA.getPath(),request.getHeaders());
   			    return operaciones.obtenerRespuestaLogin(respuesta,mapaHeader);
 			case "0":
-				LOGGER.debug("el contrato no esta aceptado");
+				LOGGER.debug(Constantes.LOG_CONTRATO_NO_ACEPTADO);
 				return operaciones.banderaAcceso(envioNotificacion, mapGeneral, (Map<String, Object>) request.getBody(), mapaHeader, request.getHeaders());			
 			default:
 				return utilidadesRest.getErrorResponse(400, "Valor invalido en contrato aceptado", "Valor invalido en contrato aceptado");

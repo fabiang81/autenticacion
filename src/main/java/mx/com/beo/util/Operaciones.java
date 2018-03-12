@@ -32,40 +32,45 @@ public class Operaciones {
 
 	public ResponseEntity<Object> banderaAcceso(Map<String, Object> envioNotificacion, Map<String, Object> mapGeneral,
 			Map<String, Object> requestBody, Map<String, Object> mapHeaders, HttpHeaders httpHeaders) {
-		if (existsAndHasValue(requestBody, "banderaAcceso", "1")) {
-			LOGGER.info("Ok, banderaAcceso trae 1");
-			String urlNotificacion = Urls.urlEnvioNotificaciones.getPath();
-			String urlModificaContrato = Urls.urlModificaContrato.getPath();
+		
+		if (existsAndHasValue(requestBody, Constantes.BANDERA_ACCESO, "1")) {
+			
+			LOGGER.info(Constantes.LOG_OK_BANDERA_ACCESO);
+			
+			String urlModificaContrato = Urls.URL_MODIFICA_CONTRATO.getPath();
+			
 			Set<MediaType> mediaTypeValidos = new HashSet<>();
 			mediaTypeValidos.add(MediaType.APPLICATION_JSON);
 			mediaTypeValidos.add(MediaType.APPLICATION_JSON_UTF8);
 
-			Map<String, Object> modificaContrato = new HashMap<String, Object>();
-			modificaContrato.put("contratoAceptado", requestBody.get("banderaAcceso"));
-			modificaContrato.put("usuario", mapHeaders.get("cliente"));
+			Map<String, Object> modificaContrato = new HashMap<>();
+			modificaContrato.put("contratoAceptado", requestBody.get(Constantes.BANDERA_ACCESO));
+			modificaContrato.put("usuario", mapHeaders.get(Constantes.CLIENTE));
 
 			ResponseEntity<Object> entity = utilidadesRest.enviarPeticion(urlModificaContrato, HttpMethod.POST,
 					mediaTypeValidos, null, modificaContrato, Urls.URL_BITACORA.getPath(), httpHeaders);
+			
+			@SuppressWarnings("unchecked")
 			Map<String, Object> mapaRespuesta = (Map<String, Object>) entity.getBody();
 
 			if (existsAndHasValue(mapaRespuesta, "codigo", "0")) {
-				LOGGER.debug("Ok, Se ha modificado el contrato");
+				LOGGER.debug(Constantes.LOG_OK_CONTRATO_MODIFICADO);
 				// Se lanza peticiones para realizar login
-				mapGeneral.put("envioNotificacion", envioNotificacion);
+				mapGeneral.put(Constantes.ENVIO_NOTIFICACION, envioNotificacion);
 				Map<String, Object> respuesta = utilidadesRest.restMultiples(mapGeneral,"login",Urls.URL_BITACORA.getPath(),httpHeaders);
 				return obtenerRespuestaLogin(respuesta, mapHeaders);
 			} else {
 				return error400("Error, Al intentar modificar el contrato");
 			}
-		} else if (existsAndHasValue(requestBody, "banderaAcceso", "0")) {
-			LOGGER.debug("OK, Se envia mostrar contrato");
-			Map<String, Object> respuesta = new HashMap<String, Object>();
+		} else if (existsAndHasValue(requestBody, Constantes.BANDERA_ACCESO, "0")) {
+			LOGGER.debug(Constantes.LOG_OK_MOSTRAR_CONTRATO);
+			Map<String, Object> respuesta = new HashMap<>();
 			respuesta.put("mostrarContrato", true);
-			respuesta.put("responseStatus", 200);
-			respuesta.put("responseError", "");
-			return new ResponseEntity<Object>(respuesta, HttpStatus.OK);
+			respuesta.put(Constantes.RESPONSE_STATUS, 200);
+			respuesta.put(Constantes.RESPONSE_ERROR, Constantes.VACIO);
+			return new ResponseEntity<>(respuesta, HttpStatus.OK);
 		} else {
-			LOGGER.debug("OK, banderaAcceso otro dato diferente");
+			LOGGER.debug(Constantes.LOG_OK_BANDERA_ACCESO_DATO_DIFERENTE);
 			return utilidadesRest.getErrorResponse(400, "Dato invalido en banderaAcceso",
 					"Dato invalido en banderaAcceso");
 		}
@@ -78,15 +83,15 @@ public class Operaciones {
 	public ResponseEntity<Object> obtenerRespuestaLogin(Map<String, Object> respuestaMultiple,
 			Map<String, Object> headers) {
 		Map<String, Object> respuestaLogin = obtieneBody(respuestaMultiple, headers);
-		return new ResponseEntity<Object>(respuestaLogin, HttpStatus.OK);
+		return new ResponseEntity<>(respuestaLogin, HttpStatus.OK);
 	}
 
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> obtieneBody(Map<String, Object> respuest, Map<String, Object> headers) {
 
-		Map<String, Object> respuestaGeneral = new HashMap<String, Object>();
-		Map<String, Object> consultaDatosBasicos1 = new HashMap<String, Object>();
-		Map<String, Object> consultaDatosBasicosBody = new HashMap<String, Object>();
+		Map<String, Object> respuestaGeneral = new HashMap<>();
+		Map<String, Object> consultaDatosBasicos1 = null;
+		Map<String, Object> consultaDatosBasicosBody = null;
 
 		if (respuest.get("consultaDatosBasicos") != null) {
 			consultaDatosBasicos1 = (Map<String, Object>) respuest.get("consultaDatosBasicos");
@@ -95,8 +100,8 @@ public class Operaciones {
 			respuestaGeneral.put("listaTelefonos", consultaDatosBasicosBody.get("listaTelefonos"));
 
 		}
-		Map<String, Object> consultaServicioContratadoGeneral = new HashMap<String, Object>();
-		Map<String, Object> consultaServicioContratadoGeneralBody = new HashMap<String, Object>();
+		Map<String, Object> consultaServicioContratadoGeneral = null;
+		Map<String, Object> consultaServicioContratadoGeneralBody = null;
 
 		if (respuest.get("consultaServicioContratadoGeneral") != null) {
 			consultaServicioContratadoGeneral = (Map<String, Object>) respuest.get("consultaServicioContratadoGeneral");
@@ -104,17 +109,17 @@ public class Operaciones {
 			respuestaGeneral.put("consultaServiciosContratados", consultaServicioContratadoGeneralBody);
 		}
 
-		Map<String, Object> envioNotificacion1 = new HashMap<String, Object>();
-		Map<String, Object> envioNotificacionBody = new HashMap<String, Object>();
+		Map<String, Object> envioNotificacion1 = null;
+		Map<String, Object> envioNotificacionBody = null;
 
-		if (respuest.get("envioNotificacion") != null) {
-			envioNotificacion1 = (Map<String, Object>) respuest.get("envioNotificacion");
-			envioNotificacionBody = (Map<String, Object>) envioNotificacion1.get("body");
+		if (respuest.get(Constantes.ENVIO_NOTIFICACION) != null) {
+			envioNotificacion1 = (Map<String, Object>) respuest.get(Constantes.ENVIO_NOTIFICACION);
+			envioNotificacionBody = (Map<String, Object>) envioNotificacion1.get(Constantes.BODY);
 			respuestaGeneral.putAll(envioNotificacionBody);
 		}
 
-		Map<String, Object> perfilGeneral = new HashMap<String, Object>();
-		Map<String, Object> perfilGeneralBody = new HashMap<String, Object>();
+		Map<String, Object> perfilGeneral = null;
+		Map<String, Object> perfilGeneralBody = null;
 
 		if (respuest.get("perfilGeneral") != null) {
 			perfilGeneral = (Map<String, Object>) respuest.get("perfilGeneral");

@@ -7,6 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Utilerias {
+	
+	private Utilerias(){
+		
+	}
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Utilerias.class);
 
@@ -16,11 +20,9 @@ public class Utilerias {
 	 * @param fecha a la que se desea dar formato.
 	 * @return fecha con formato establecido dd-MM-yyyy HH:mm:ss
 	 */
-	public static String formatoFecha(Date fecha, String formatoFecha) throws NullPointerException {
+	public static String formatoFecha(Date fecha, String formatoFecha) {
 		SimpleDateFormat formato = new SimpleDateFormat(formatoFecha);
-		String fechaFormato = formato.format(fecha);
-
-		return fechaFormato;
+		return formato.format(fecha);
 	}
 
 	/**
