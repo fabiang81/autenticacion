@@ -51,7 +51,7 @@ public enum Urls {
 	
 	URL_MODIFICA_CONTRATO(System.getenv(Constantes.URL_MODIFICA_CONTRATO) != null ? System.getenv(Constantes.URL_MODIFICA_CONTRATO):""),
 	
-	URL_BITACORA(System.getenv(Constantes.BITACORA_URL)!=null?System.getenv(Constantes.BITACORA_URL):""
+	URL_BITACORA((System.getenv(Constantes.BITACORA_URL)!=null?System.getenv(Constantes.BITACORA_URL):"")
 	            +"/bitacoraOperaciones")
 	;
 
