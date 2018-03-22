@@ -27,7 +27,7 @@ public enum Urls {
 
     CONTRASENA(System.getenv(Constantes.PROTOCOLO) 
 			  +"://"  + System.getenv(Constantes.HOSTNAME_BEO) + ":" 
-			  + System.getenv(Constantes.PUERTO) + System.getenv(Constantes.BASEPATH)
+			  + System.getenv(Constantes.PUERTO) + "autenticacion"
 			  + "/cambioContrasena"),
 	
 	URL_ENVIO_NOTIFICACIONES(System.getenv(Constantes.PROTOCOLO) +"://"
@@ -46,7 +46,7 @@ public enum Urls {
 	
 	URL_PERFIL(System.getenv(Constantes.PROTOCOLO) + "://"
 	          + System.getenv(Constantes.HOSTNAME_BEO) + ":" 
-			  + System.getenv(Constantes.PUERTO) + System.getenv(Constantes.BASEPATH)
+			  + System.getenv(Constantes.PUERTO) + "facultamiento"
 			  + "/consultaPerfiles"),
 	
 	URL_MODIFICA_CONTRATO(System.getenv(Constantes.URL_MODIFICA_CONTRATO) != null ? System.getenv(Constantes.URL_MODIFICA_CONTRATO):""),
