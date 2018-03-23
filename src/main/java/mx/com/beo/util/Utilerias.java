@@ -41,7 +41,7 @@ public class Utilerias {
 			date = sdf.parse(fecha);
 			fechaFormato = formatoFecha(date, Constantes.FORMATO_FECHA_SERVICIO);
 		} catch (Exception e) {
-			LOGGER.error(Constantes.ERROR_FORMATO_FECHA_SERVICIO, e);
+			LOGGER.error(Constantes.ERROR_FORMATO_FECHA_SERVICIO, e.getMessage());
 		}
 
 		return fechaFormato;
