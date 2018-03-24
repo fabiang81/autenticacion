@@ -109,6 +109,7 @@ public class AppControlador {
 	@RequestMapping(value = "/accesoCliente", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> accesoCliente(RequestEntity<Object> request) {
 		LOGGER.info(Constantes.LOG_ENDPOINT_ACCESO_CLIENTES);
+		LOGGER.info("Headers autenticacion: "+request.getHeaders());
 		Map<String, Object> mapaHeader = null;
 		Set<Entry<String, Object>> entries = null;
 		HeadersParser headersParser = new HeadersParser();
