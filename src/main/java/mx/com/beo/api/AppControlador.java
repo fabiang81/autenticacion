@@ -159,6 +159,7 @@ public class AppControlador {
 		}
 
 		Map<String, Object> envioNotificacionBody = new HashMap<>();
+		Map<String, Object> consultaServiciosContratadosBody = new HashMap<>();
 		envioNotificacionBody.putAll(sendRequestBody);
 		mapParameters.put("key", "1234");
 		envioNotificacionBody.put("tipoMensaje", "texto");
@@ -185,13 +186,19 @@ public class AppControlador {
 		consultaDatosBasicos.put(Constantes.HEADER, headers);
 		consultaDatosBasicos.put(Constantes.BODY, sendRequestBody);
 
+		
+		consultaServiciosContratadosBody.put("ticket",sendRequestBody.get("ticket"));
+		consultaServiciosContratadosBody.put("canal",sendRequestBody.get("canal"));
+		consultaServiciosContratadosBody.put("idPersona",sendRequestBody.get("idPersona"));
+		 
+		
 		consultaServicioContratado.put(Constantes.ENDPOINT, Urls.URL_SERVICIOS_CONTRATADOS.getPath());
 		consultaServicioContratado.put(Constantes.METHOD, "POST");
 		consultaServicioContratado.put(Constantes.CONNECT_TIMEOUT, 5000);
 		consultaServicioContratado.put(Constantes.READ_TIMEOUT, 5000);
 		consultaServicioContratado.put(Constantes.CONNECT_REQUEST_TIMEOUT, 5000);
 		consultaServicioContratado.put(Constantes.HEADER, headers);
-		consultaServicioContratado.put(Constantes.BODY, sendRequestBody);
+		consultaServicioContratado.put(Constantes.BODY, consultaServiciosContratadosBody);
 
 		perfilInterno = sendRequestBody;
 		perfilInterno.remove(Constantes.BANDERA_ACCESO);
@@ -204,7 +211,8 @@ public class AppControlador {
 		perfil.put(Constantes.CONNECT_REQUEST_TIMEOUT, 5000);
 		perfil.put(Constantes.HEADER, headers);
 		perfil.put(Constantes.BODY, perfilInterno);
-
+		
+		LOGGER.info("consultaServicioContratado--------------- "+consultaServicioContratado);
 		mapGeneral.put("envioNotificacion", envioNotificacion);
 		mapGeneral.put("consultaDatosBasicos", consultaDatosBasicos);
 		mapGeneral.put("consultaServicioContratadoGeneral", consultaServicioContratado);
