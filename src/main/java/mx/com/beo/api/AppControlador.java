@@ -186,12 +186,10 @@ public class AppControlador {
 		consultaDatosBasicos.put(Constantes.HEADER, headers);
 		consultaDatosBasicos.put(Constantes.BODY, sendRequestBody);
 
-		
 		consultaServiciosContratadosBody.put("ticket",sendRequestBody.get("ticket"));
 		consultaServiciosContratadosBody.put("canal",sendRequestBody.get("canal"));
 		consultaServiciosContratadosBody.put("idPersona",sendRequestBody.get("idPersona"));
 		 
-		
 		consultaServicioContratado.put(Constantes.ENDPOINT, Urls.URL_SERVICIOS_CONTRATADOS.getPath());
 		consultaServicioContratado.put(Constantes.METHOD, "POST");
 		consultaServicioContratado.put(Constantes.CONNECT_TIMEOUT, 5000);
@@ -212,7 +210,7 @@ public class AppControlador {
 		perfil.put(Constantes.HEADER, headers);
 		perfil.put(Constantes.BODY, perfilInterno);
 		
-		LOGGER.info("consultaServicioContratado--------------- "+consultaServicioContratado);
+		LOGGER.info("consultaServicioContratado----------------- "+consultaServicioContratado);
 		mapGeneral.put("envioNotificacion", envioNotificacion);
 		mapGeneral.put("consultaDatosBasicos", consultaDatosBasicos);
 		mapGeneral.put("consultaServicioContratadoGeneral", consultaServicioContratado);
