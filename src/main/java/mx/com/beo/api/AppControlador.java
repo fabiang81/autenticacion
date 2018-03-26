@@ -92,6 +92,9 @@ public class AppControlador {
 			mediaTypeValidos.add(MediaType.APPLICATION_JSON);
 			mediaTypeValidos.add(MediaType.APPLICATION_JSON_UTF8);
 			LOGGER.debug(Constantes.LOG_OK);
+			sendRequestBody.remove("cliente");
+			LOGGER.info("CambioContraseña---------"+sendRequestBody);
+			
 			return utilidadesRest.enviarPeticion(url, HttpMethod.POST, mediaTypeValidos, null, sendRequestBody, Urls.URL_BITACORA.getPath(), request.getHeaders());
 
 		} else {
@@ -104,8 +107,7 @@ public class AppControlador {
 		}
 
 	}
-
-	@SuppressWarnings("unchecked")
+ 
 	@RequestMapping(value = "/accesoCliente", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> accesoCliente(RequestEntity<Object> request) {
 		LOGGER.info(Constantes.LOG_ENDPOINT_ACCESO_CLIENTES);
@@ -120,7 +122,7 @@ public class AppControlador {
 		Map<String, Object> consultaDatosBasicos = new HashMap<>();
 		Map<String, Object> consultaServicioContratado = new HashMap<>();
 		Map<String, Object> perfil = new HashMap<>();
-		Map<String, Object> perfilInterno = null;
+		Map<String, Object> perfilInterno= new HashMap<>();
 		Map<String, Object> mapGeneral = new HashMap<>();
 		Map<String, Object> mapParameters = new HashMap<>();
 		Map<String, String> mapHeaders = request.getHeaders().toSingleValueMap();
@@ -160,14 +162,21 @@ public class AppControlador {
 
 		Map<String, Object> envioNotificacionBody = new HashMap<>();
 		Map<String, Object> consultaServiciosContratadosBody = new HashMap<>();
-		envioNotificacionBody.putAll(sendRequestBody);
-		mapParameters.put("key", "1234");
+		 
+		envioNotificacionBody.put(Constantes.IDPERSONA,
+				sendRequestBody.get(Constantes.IDPERSONA));
+		envioNotificacionBody.put(Constantes.TICKET,
+				sendRequestBody.get(Constantes.TICKET));
+		
+		
 		envioNotificacionBody.put("tipoMensaje", "texto");
 		envioNotificacionBody.put("tipoNotificacion", "notificacion");
 		envioNotificacionBody.put("from", "nova@nova.com");
 		envioNotificacionBody.put("subject", "texto");
 		envioNotificacionBody.put("to", "nova1@nova.com");
+		mapParameters.put("key", "1234");
 		envioNotificacionBody.put("mapParameters", mapParameters);
+		envioNotificacionBody.put("canal", sendRequestBody.get("canal"));
 
 		Map<String, Object> envioNotificacion = new HashMap<>();
 		envioNotificacion.put(Constantes.ENDPOINT, Urls.URL_ENVIO_NOTIFICACIONES.getPath());
@@ -178,17 +187,22 @@ public class AppControlador {
 		envioNotificacion.put(Constantes.HEADER, headers);
 		envioNotificacion.put(Constantes.BODY, envioNotificacionBody);
 
+		
+		consultaServiciosContratadosBody.put(Constantes.TICKET,
+				sendRequestBody.get(Constantes.TICKET));
+		consultaServiciosContratadosBody.put(Constantes.CANAL,
+				sendRequestBody.get(Constantes.CANAL));
+		consultaServiciosContratadosBody.put(Constantes.IDPERSONA
+				,sendRequestBody.get(Constantes.IDPERSONA));
+		
 		consultaDatosBasicos.put(Constantes.ENDPOINT, Urls.SER_CONSULTA_DATOS_BASICOS.getPath());
 		consultaDatosBasicos.put(Constantes.METHOD, "POST");
 		consultaDatosBasicos.put(Constantes.CONNECT_TIMEOUT, 5000);
 		consultaDatosBasicos.put(Constantes.READ_TIMEOUT, 5000);
 		consultaDatosBasicos.put(Constantes.CONNECT_REQUEST_TIMEOUT, 5000);
 		consultaDatosBasicos.put(Constantes.HEADER, headers);
-		consultaDatosBasicos.put(Constantes.BODY, sendRequestBody);
-
-		consultaServiciosContratadosBody.put("ticket",sendRequestBody.get("ticket"));
-		consultaServiciosContratadosBody.put("canal",sendRequestBody.get("canal"));
-		consultaServiciosContratadosBody.put("idPersona",sendRequestBody.get("idPersona"));
+		consultaDatosBasicos.put(Constantes.BODY, consultaServiciosContratadosBody);
+ 
 		 
 		consultaServicioContratado.put(Constantes.ENDPOINT, Urls.URL_SERVICIOS_CONTRATADOS.getPath());
 		consultaServicioContratado.put(Constantes.METHOD, "POST");
@@ -197,10 +211,11 @@ public class AppControlador {
 		consultaServicioContratado.put(Constantes.CONNECT_REQUEST_TIMEOUT, 5000);
 		consultaServicioContratado.put(Constantes.HEADER, headers);
 		consultaServicioContratado.put(Constantes.BODY, consultaServiciosContratadosBody);
-
-		perfilInterno = sendRequestBody;
-		perfilInterno.remove(Constantes.BANDERA_ACCESO);
-		perfilInterno.put("nombreSistema", "123");
+ 
+		perfilInterno.put(Constantes.TICKET,sendRequestBody.get(Constantes.TICKET));
+		perfilInterno.put(Constantes.CANAL,sendRequestBody.get(Constantes.CANAL));
+		perfilInterno.put(Constantes.IDPERSONA,sendRequestBody.get(Constantes.IDPERSONA));
+		perfilInterno.put(Constantes.NOMBRESISTEMA, "123");
 
 		perfil.put(Constantes.ENDPOINT, Urls.URL_PERFIL.getPath());
 		perfil.put(Constantes.METHOD, "POST");
@@ -211,6 +226,10 @@ public class AppControlador {
 		perfil.put(Constantes.BODY, perfilInterno);
 		
 		LOGGER.info("consultaServicioContratado----------------- "+consultaServicioContratado);
+		LOGGER.info("envioNotificacion----------------- "+envioNotificacion);
+		LOGGER.info("consultaDatosBasicos----------------- "+consultaDatosBasicos);
+		LOGGER.info("perfil----------------- "+perfil);
+		
 		mapGeneral.put("envioNotificacion", envioNotificacion);
 		mapGeneral.put("consultaDatosBasicos", consultaDatosBasicos);
 		mapGeneral.put("consultaServicioContratadoGeneral", consultaServicioContratado);

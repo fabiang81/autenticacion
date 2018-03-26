@@ -49,6 +49,10 @@ public class Constantes {
 	
 	//Tipo de respuesta del servicio
 	public static final String  VACIO = "";
+	public static final String TICKET = "ticket";
+	public static final String CANAL = "canal";
+	public static final String IDPERSONA = "idPersona";
+	public static final String NOMBRESISTEMA = "nombreSistema";
 
 
 }
