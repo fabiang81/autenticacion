@@ -52,28 +52,31 @@ public class Operaciones {
 			
 			@SuppressWarnings("unchecked")
 			Map<String, Object> mapaRespuesta = (Map<String, Object>) entity.getBody();
-
+			mapGeneral.put(Constantes.ENVIO_NOTIFICACION, envioNotificacion);
+			System.out.println("mapGeneral:" +  mapGeneral);
+			System.out.println("urls:" +  Urls.URL_BITACORA.getPath());
+			System.out.println("httpHeaders:" +  httpHeaders);
 			if (existsAndHasValue(mapaRespuesta, "codigo", "0")) {
 				LOGGER.debug(Constantes.LOG_OK_CONTRATO_MODIFICADO);
 				// Se lanza peticiones para realizar login
-				mapGeneral.put(Constantes.ENVIO_NOTIFICACION, envioNotificacion);
 				Map<String, Object> respuesta = utilidadesRest.restMultiples(mapGeneral,"login",Urls.URL_BITACORA.getPath(),httpHeaders);
 				return obtenerRespuestaLogin(respuesta, mapHeaders);
 			} else {
 				return error400("Error, Al intentar modificar el contrato");
 			}
-		} else if (existsAndHasValue(requestBody, Constantes.BANDERA_ACCESO, "0")) {
+		} else if (existsAndHasValue(requestBody, Constantes.BANDERA_ACCESO, "")) {
 			LOGGER.debug(Constantes.LOG_OK_MOSTRAR_CONTRATO);
 			Map<String, Object> respuesta = new HashMap<>();
 			respuesta.put("mostrarContrato", true);
 			respuesta.put(Constantes.RESPONSE_STATUS, 200);
 			respuesta.put(Constantes.RESPONSE_ERROR, Constantes.VACIO);
 			return new ResponseEntity<>(respuesta, HttpStatus.OK);
-		} else {
-			LOGGER.debug(Constantes.LOG_OK_BANDERA_ACCESO_DATO_DIFERENTE);
-			return utilidadesRest.getErrorResponse(400, "Dato invalido en banderaAcceso",
+		} else if(existsAndHasValue(requestBody, Constantes.BANDERA_ACCESO, "0")){
+			LOGGER.debug(Constantes.LOG_ERROR_CONTRATO , httpHeaders.get("iv-user"));
+			return utilidadesRest.getErrorResponse(400, "Contrato no aceptado",
 					"Dato invalido en banderaAcceso");
 		}
+		return null;
 	}
 
 	public Boolean existsAndHasValue(Map<String, Object> map, String key, Object value) {
@@ -87,54 +90,50 @@ public class Operaciones {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> obtieneBody(Map<String, Object> respuest, Map<String, Object> headers) {
+	public Map<String, Object> obtieneBody(Map<String, Object> respuesta, Map<String, Object> headers) {
 
 		Map<String, Object> respuestaGeneral = new HashMap<>();
-		Map<String, Object> consultaDatosBasicos1 = null;
-		Map<String, Object> consultaDatosBasicosBody = null;
-
-		if (respuest.get("consultaDatosBasicos") != null) {
-			consultaDatosBasicos1 = (Map<String, Object>) respuest.get("consultaDatosBasicos");
-			consultaDatosBasicosBody = (Map<String, Object>) consultaDatosBasicos1.get("body");
-			respuestaGeneral.put("nombreRazonSocial", consultaDatosBasicosBody.get("nombre"));
-			respuestaGeneral.put("listaTelefonos", consultaDatosBasicosBody.get("listaTelefonos"));
-
+		Map<String, Object>  mapaRespuesta = obtenerBodyRespuesta(respuesta,Constantes.DATOS_BASICOS);
+		if (mapaRespuesta != null) {
+			respuestaGeneral.put("nombreRazonSocial", mapaRespuesta.get("nombre"));
+			respuestaGeneral.put("listaTelefonos", mapaRespuesta.get("listaTelefonos"));
 		}
-		Map<String, Object> consultaServicioContratadoGeneral = null;
-		Map<String, Object> consultaServicioContratadoGeneralBody = null;
+		mapaRespuesta.clear();
 
-		if (respuest.get("consultaServicioContratadoGeneral") != null) {
-			consultaServicioContratadoGeneral = (Map<String, Object>) respuest.get("consultaServicioContratadoGeneral");
-			consultaServicioContratadoGeneralBody = (Map<String, Object>) consultaServicioContratadoGeneral.get("body");
-			respuestaGeneral.put("consultaServiciosContratados", consultaServicioContratadoGeneralBody);
+		mapaRespuesta = obtenerBodyRespuesta(respuesta,Constantes.SERVICIOS_CONTRATADOS);
+		if (mapaRespuesta != null) {
+			respuestaGeneral.put("consultaServiciosContratados", mapaRespuesta);
 		}
-
-		Map<String, Object> envioNotificacion1 = null;
-		Map<String, Object> envioNotificacionBody = null;
-
-		if (respuest.get(Constantes.ENVIO_NOTIFICACION) != null) {
-			envioNotificacion1 = (Map<String, Object>) respuest.get(Constantes.ENVIO_NOTIFICACION);
-			envioNotificacionBody = (Map<String, Object>) envioNotificacion1.get(Constantes.BODY);
-			respuestaGeneral.putAll(envioNotificacionBody);
+		mapaRespuesta.clear();
+		
+		mapaRespuesta = obtenerBodyRespuesta(respuesta,Constantes.ENVIO_NOTIFICACION);
+		if (mapaRespuesta != null) {
+			respuestaGeneral.putAll(mapaRespuesta);
 		}
-
-		Map<String, Object> perfilGeneral = null;
-		Map<String, Object> perfilGeneralBody = null;
-
-		if (respuest.get("perfilGeneral") != null) {
-			perfilGeneral = (Map<String, Object>) respuest.get("perfilGeneral");
-			perfilGeneralBody = (Map<String, Object>) perfilGeneral.get("body");
-			respuestaGeneral.put("facultadesSimples", perfilGeneralBody.get("facultadesSimples"));
+		mapaRespuesta.clear();
+		
+		mapaRespuesta = obtenerBodyRespuesta(respuesta,Constantes.PERFIL_GENERAL);
+		if (mapaRespuesta != null) {
+			respuestaGeneral.put("facultadesSimples", mapaRespuesta.get("facultadesSimples"));
 		}
-
-		respuestaGeneral.put("fechaUltimoAcceso",
-				Utilerias.fechaFormatoServicio((String) headers.get("fechaUltimoAcceso"), Constantes.FORMATO_FECHA));
+		
+		respuestaGeneral.put("fechaUltimoAcceso",Utilerias.fechaFormatoServicio((String) headers.get("fechaUltimoAcceso"), Constantes.FORMATO_FECHA));
 		respuestaGeneral.put("nombreUsuario", headers.get("nombreUsuario"));
 		respuestaGeneral.put("medioAcceso", headers.get("canal"));
 		respuestaGeneral.put("mail", headers.get("mailCliente"));
 		respuestaGeneral.put("cliente", headers.get("cliente"));
 
 		return respuestaGeneral;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> obtenerBodyRespuesta(Map<String, Object> respuesta,String llave) {
+		if(respuesta.containsKey(llave)) {		
+			Map<String, Object> mapaRespuesta = (Map<String, Object>) respuesta.get(llave);
+			return (Map<String, Object>) mapaRespuesta.get(Constantes.BODY);
+		}else {
+			return null;
+		}
 	}
 
 	/**
