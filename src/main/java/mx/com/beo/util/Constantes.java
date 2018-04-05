@@ -29,7 +29,7 @@ public class Constantes {
 	public static final String BODY = "body";
 	public static final String BANDERA_ACCESO = "banderaAcceso";
 	public static final String CLIENTE ="cliente";
-	public static final String ENVIO_NOTIFICACION = "envioNotificacion";
+	
 
 	public static final String RESPONSE_STATUS = "responseStatus";
 	public static final String RESPONSE_ERROR = "responseError";
@@ -43,8 +43,14 @@ public class Constantes {
 	public static final String LOG_OK_CONTRATO_MODIFICADO = "Ok, Se ha modificado el contrato";
 	public static final String LOG_OK_MOSTRAR_CONTRATO = "OK, Se envia mostrar contrato";
 	public static final String LOG_ENDPOINT_ACCESO_CLIENTES = "EndPoint accesoCliente";
-	public static final String LOG_OK_BANDERA_ACCESO_DATO_DIFERENTE = "OK, banderaAcceso otro dato diferente";
-
+	public static final String LOG_ERROR_CONTRATO = "Error, el cliente no ha aceptado el contrato";
+	
+	public static final String DATOS_BASICOS = "consultaDatosBasicos";
+	public static final String SERVICIOS_CONTRATADOS = "consultaServicioContratadoGeneral";
+	public static final String PERFIL_GENERAL = "perfilGeneral";
+	public static final String ENVIO_NOTIFICACION = "envioNotificacion";
+	
+	
 	public static final String LOG_OK = "OK";
 	
 	//Tipo de respuesta del servicio
