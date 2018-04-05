@@ -93,26 +93,29 @@ public class Operaciones {
 	public Map<String, Object> obtieneBody(Map<String, Object> respuesta, Map<String, Object> headers) {
 
 		Map<String, Object> respuestaGeneral = new HashMap<>();
-		Map<String, Object>  mapaRespuesta = obtenerBodyRespuesta(respuesta,Constantes.DATOS_BASICOS);
+		respuestaGeneral.put("responseStatus", "200");
+		respuestaGeneral.put("responseError", "");
+		
+		Map<String, Object>  mapaRespuesta = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.DATOS_BASICOS);
 		if (mapaRespuesta != null) {
 			respuestaGeneral.put("nombreRazonSocial", mapaRespuesta.get("nombre"));
 			respuestaGeneral.put("listaTelefonos", mapaRespuesta.get("listaTelefonos"));
 		}
 		mapaRespuesta.clear();
 
-		mapaRespuesta = obtenerBodyRespuesta(respuesta,Constantes.SERVICIOS_CONTRATADOS);
+		mapaRespuesta = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.SERVICIOS_CONTRATADOS);
 		if (mapaRespuesta != null) {
 			respuestaGeneral.put("consultaServiciosContratados", mapaRespuesta);
 		}
 		mapaRespuesta.clear();
 		
-		mapaRespuesta = obtenerBodyRespuesta(respuesta,Constantes.ENVIO_NOTIFICACION);
+		mapaRespuesta = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.ENVIO_NOTIFICACION);
 		if (mapaRespuesta != null) {
 			respuestaGeneral.putAll(mapaRespuesta);
 		}
 		mapaRespuesta.clear();
 		
-		mapaRespuesta = obtenerBodyRespuesta(respuesta,Constantes.PERFIL_GENERAL);
+		mapaRespuesta = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.PERFIL_GENERAL);
 		if (mapaRespuesta != null) {
 			respuestaGeneral.put("facultadesSimples", mapaRespuesta.get("facultadesSimples"));
 		}
@@ -123,15 +126,18 @@ public class Operaciones {
 		respuestaGeneral.put("mail", headers.get("mailCliente"));
 		respuestaGeneral.put("cliente", headers.get("cliente"));
 
+
 		return respuestaGeneral;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> obtenerBodyRespuesta(Map<String, Object> respuesta,String llave) {
+	public Map<String, Object> obtenerBodyRespuesta(Map<String, Object> respuesta,Map<String, Object> respuestaGeneral,String llave) {
 		if(respuesta.containsKey(llave)) {		
 			Map<String, Object> mapaRespuesta = (Map<String, Object>) respuesta.get(llave);
 			return (Map<String, Object>) mapaRespuesta.get(Constantes.BODY);
 		}else {
+			respuestaGeneral.put("responseStatus", "400");
+			respuestaGeneral.put("responseError", "Error al consultar la respuesta del servicio: "+  llave);
 			return null;
 		}
 	}

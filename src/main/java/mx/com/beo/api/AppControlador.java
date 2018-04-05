@@ -215,7 +215,7 @@ public class AppControlador {
 		perfilInterno.put(Constantes.TICKET,sendRequestBody.get(Constantes.TICKET));
 		perfilInterno.put(Constantes.CANAL,sendRequestBody.get(Constantes.CANAL));
 		perfilInterno.put(Constantes.IDPERSONA,sendRequestBody.get(Constantes.IDPERSONA));
-		perfilInterno.put(Constantes.NOMBRESISTEMA, "123");
+		perfilInterno.put(Constantes.NOMBRESISTEMA, "MultivaNet");
 
 		perfil.put(Constantes.ENDPOINT, Urls.URL_PERFIL.getPath());
 		perfil.put(Constantes.METHOD, "POST");
