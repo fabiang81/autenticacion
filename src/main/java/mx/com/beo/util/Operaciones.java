@@ -93,7 +93,7 @@ public class Operaciones {
 	public Map<String, Object> obtieneBody(Map<String, Object> respuesta, Map<String, Object> headers) {
 
 		Map<String, Object> respuestaGeneral = new HashMap<>();
-		respuestaGeneral.put("responseStatus", "200");
+		respuestaGeneral.put("responseStatus", 200);
 		respuestaGeneral.put("responseError", "");
 		
 		Map<String, Object>  mapaRespuesta = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.DATOS_BASICOS);
@@ -136,7 +136,7 @@ public class Operaciones {
 			Map<String, Object> mapaRespuesta = (Map<String, Object>) respuesta.get(llave);
 			return (Map<String, Object>) mapaRespuesta.get(Constantes.BODY);
 		}else {
-			respuestaGeneral.put("responseStatus", "400");
+			respuestaGeneral.put("responseStatus", 400);
 			respuestaGeneral.put("responseError", "Error al consultar la respuesta del servicio: "+  llave);
 			return null;
 		}
