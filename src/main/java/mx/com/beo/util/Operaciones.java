@@ -101,21 +101,18 @@ public class Operaciones {
 		if (mapaRespuesta != null) {
 			respuestaGeneral.put("nombreRazonSocial", mapaRespuesta.get("nombre"));
 			respuestaGeneral.put("listaTelefonos", mapaRespuesta.get("listaTelefonos"));
-			mapaRespuesta.clear();
 		}
-		mapaRespuesta = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.SERVICIOS_CONTRATADOS);
-		if (mapaRespuesta != null) {
-			respuestaGeneral.put(Constantes.SERVICIOS_CONTRATADOS, mapaRespuesta);
-			mapaRespuesta.clear();
+		Map<String, Object>  mapaRespuesta_2 = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.SERVICIOS_CONTRATADOS);
+		if (mapaRespuesta_2 != null) {
+			respuestaGeneral.put(Constantes.SERVICIOS_CONTRATADOS, mapaRespuesta_2);
 		}
-		mapaRespuesta = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.ENVIO_NOTIFICACION);
-		if (mapaRespuesta != null) {
-			respuestaGeneral.putAll(mapaRespuesta); //falta
-			mapaRespuesta.clear();
+		Map<String, Object>  mapaRespuesta_3 = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.ENVIO_NOTIFICACION);
+		if (mapaRespuesta_3 != null) {
+			respuestaGeneral.putAll(mapaRespuesta_3); //falta
 		}
-		mapaRespuesta = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.PERFIL_GENERAL);
-		if (mapaRespuesta != null) {
-			respuestaGeneral.put("facultadesSimples", mapaRespuesta.get("facultadesSimples"));
+		Map<String, Object>  mapaRespuesta_4 = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.PERFIL_GENERAL);
+		if (mapaRespuesta_4 != null) {
+			respuestaGeneral.put("facultadesSimples", mapaRespuesta_4.get("facultadesSimples"));
 		}
 		
 		respuestaGeneral.put("fechaUltimoAcceso",Utilerias.fechaFormatoServicio((String) headers.get("fechaUltimoAcceso"), Constantes.FORMATO_FECHA));
