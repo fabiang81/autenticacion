@@ -126,7 +126,7 @@ public class Operaciones {
 		respuestaGeneral.put("mail", headers.get("mailCliente"));
 		respuestaGeneral.put("cliente", headers.get("cliente"));
 
-
+		LOGGER.info("Mapa respuesta accesoCliente : ----------------- "+ respuestaGeneral);
 		return respuestaGeneral;
 	}
 	
