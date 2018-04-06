@@ -47,7 +47,7 @@ public enum Urls {
 	URL_PERFIL(System.getenv(Constantes.PROTOCOLO) + "://"
 	          + System.getenv(Constantes.HOSTNAME_BEO) + ":" 
 			  + System.getenv(Constantes.PUERTO) + "/facultamiento"
-			  + "/consultaPerfiles"),
+			  + "/consultaPerfilesPerf"),
 	
 	URL_MODIFICA_CONTRATO(System.getenv(Constantes.URL_MODIFICA_CONTRATO) != null ? System.getenv(Constantes.URL_MODIFICA_CONTRATO):""),
 	
