@@ -93,6 +93,7 @@ public class Operaciones {
 	public Map<String, Object> obtieneBody(Map<String, Object> respuesta, Map<String, Object> headers) {
         LOGGER.info("Mapa de servicio respuestaMultiple : ----------------- "+ respuesta);
 		Map<String, Object> respuestaGeneral = new HashMap<>();
+
 		respuestaGeneral.put("responseStatus", 200);
 		respuestaGeneral.put("responseError", "");
 		
@@ -100,21 +101,18 @@ public class Operaciones {
 		if (mapaRespuesta != null) {
 			respuestaGeneral.put("nombreRazonSocial", mapaRespuesta.get("nombre"));
 			respuestaGeneral.put("listaTelefonos", mapaRespuesta.get("listaTelefonos"));
+			mapaRespuesta.clear();
 		}
-		mapaRespuesta.clear();
-
 		mapaRespuesta = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.SERVICIOS_CONTRATADOS);
 		if (mapaRespuesta != null) {
 			respuestaGeneral.put(Constantes.SERVICIOS_CONTRATADOS, mapaRespuesta);
+			mapaRespuesta.clear();
 		}
-		mapaRespuesta.clear();
-		
 		mapaRespuesta = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.ENVIO_NOTIFICACION);
 		if (mapaRespuesta != null) {
 			respuestaGeneral.putAll(mapaRespuesta); //falta
+			mapaRespuesta.clear();
 		}
-		mapaRespuesta.clear();
-		
 		mapaRespuesta = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.PERFIL_GENERAL);
 		if (mapaRespuesta != null) {
 			respuestaGeneral.put("facultadesSimples", mapaRespuesta.get("facultadesSimples"));
