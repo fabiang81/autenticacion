@@ -91,7 +91,7 @@ public class Operaciones {
 
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> obtieneBody(Map<String, Object> respuesta, Map<String, Object> headers) {
-
+		LOGGER.info("respuestaMultiple : ----------------- "+ respuesta);
 		Map<String, Object> respuestaGeneral = new HashMap<>();
 		respuestaGeneral.put("responseStatus", 200);
 		respuestaGeneral.put("responseError", "");
@@ -105,13 +105,13 @@ public class Operaciones {
 
 		mapaRespuesta = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.SERVICIOS_CONTRATADOS);
 		if (mapaRespuesta != null) {
-			respuestaGeneral.put("consultaServiciosContratados", mapaRespuesta);
+			respuestaGeneral.put(Constantes.SERVICIOS_CONTRATADOS, mapaRespuesta);
 		}
 		mapaRespuesta.clear();
 		
 		mapaRespuesta = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.ENVIO_NOTIFICACION);
 		if (mapaRespuesta != null) {
-			respuestaGeneral.putAll(mapaRespuesta);
+			respuestaGeneral.putAll(mapaRespuesta); //falta
 		}
 		mapaRespuesta.clear();
 		

@@ -46,7 +46,7 @@ public class Constantes {
 	public static final String LOG_ERROR_CONTRATO = "Error, el cliente no ha aceptado el contrato";
 	
 	public static final String DATOS_BASICOS = "consultaDatosBasicos";
-	public static final String SERVICIOS_CONTRATADOS = "consultaServicioContratadoGeneral";
+	public static final String SERVICIOS_CONTRATADOS = "consultaServiciosContratados";
 	public static final String PERFIL_GENERAL = "perfilGeneral";
 	public static final String ENVIO_NOTIFICACION = "envioNotificacion";
 	
