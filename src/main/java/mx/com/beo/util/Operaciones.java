@@ -91,7 +91,7 @@ public class Operaciones {
 
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> obtieneBody(Map<String, Object> respuesta, Map<String, Object> headers) {
-		LOGGER.info("respuestaMultiple : ----------------- "+ respuesta);
+        LOGGER.info("Mapa de servicio respuestaMultiple : ----------------- "+ respuesta);
 		Map<String, Object> respuestaGeneral = new HashMap<>();
 		respuestaGeneral.put("responseStatus", 200);
 		respuestaGeneral.put("responseError", "");
