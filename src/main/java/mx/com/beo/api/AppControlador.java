@@ -230,10 +230,10 @@ public class AppControlador {
 		LOGGER.info("consultaDatosBasicos----------------- "+consultaDatosBasicos);
 		LOGGER.info("perfil----------------- "+perfil);
 		
-		mapGeneral.put("envioNotificacion", envioNotificacion);
-		mapGeneral.put("consultaDatosBasicos", consultaDatosBasicos);
-		mapGeneral.put("consultaServicioContratadoGeneral", consultaServicioContratado);
-		mapGeneral.put("perfilGeneral", perfil);
+		mapGeneral.put(Constantes.ENVIO_NOTIFICACION, envioNotificacion);
+		mapGeneral.put(Constantes.DATOS_BASICOS, consultaDatosBasicos);
+		mapGeneral.put(Constantes.SERVICIOS_CONTRATADOS, consultaServicioContratado);
+		mapGeneral.put(Constantes.PERFIL_GENERAL, perfil);
 
 		Operaciones operaciones = new Operaciones();
 		switch (mapHeaders.get("contrato-aceptado")) {
