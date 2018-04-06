@@ -97,7 +97,6 @@ public class Operaciones {
 		respuestaGeneral.put("responseStatus", 200);
 		respuestaGeneral.put("responseError", "");
 		
-		/*
 		Map<String, Object>  mapaRespuesta = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.DATOS_BASICOS);
 		if (mapaRespuesta != null) {
 			respuestaGeneral.put("nombreRazonSocial", mapaRespuesta.get("nombre"));
@@ -115,13 +114,13 @@ public class Operaciones {
 		if (mapaRespuesta_4 != null) {
 			respuestaGeneral.put("facultadesSimples", mapaRespuesta_4.get("facultadesSimples"));
 		}
-		*/
+		
 		respuestaGeneral.put("fechaUltimoAcceso",Utilerias.fechaFormatoServicio((String) headers.get("fechaUltimoAcceso"), Constantes.FORMATO_FECHA));
 		respuestaGeneral.put("nombreUsuario", headers.get("nombreUsuario"));
 		respuestaGeneral.put("medioAcceso", headers.get("canal"));
 		respuestaGeneral.put("mail", headers.get("mailCliente"));
 		respuestaGeneral.put("cliente", headers.get("cliente"));
-            
+
 		LOGGER.info("Mapa respuesta accesoCliente : ----------------- "+ respuestaGeneral);
 		return respuestaGeneral;
 	}
