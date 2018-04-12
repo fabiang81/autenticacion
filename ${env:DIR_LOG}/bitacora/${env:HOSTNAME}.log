@@ -1,0 +1,6 @@
+2018-04-12 02:18:32|||betzabe-Lenovo-V310-14ISK|{"usuario":"19990","contratoAceptado":"1"}|2018-04-12 02:18:32|
+2018-04-12 02:18:32|||betzabe-Lenovo-V310-14ISK|{"usuario":"123456","contratoAceptado":"1"}|2018-04-12 02:18:32|
+2018-04-12 02:18:32|||betzabe-Lenovo-V310-14ISK|{"usuario":"999","contratoAceptado":"1"}|2018-04-12 02:18:32|
+2018-04-12 02:18:32|cambioContrasena|1|betzabe-Lenovo-V310-14ISK|{"confirmNewPassword":"123","oldPassword":"999","newPassword":"123","otp":"1","ticket":{"id_user":"1","id_creds":"1_Nh7mjwEuiVa8VtpIkM650frHGbzu3mWIQRreACSikfZFqpYoG44\u003d_AAAAAAA\u003d_ckMIbwznVUzytnBfaF96sprhEcQ\u003d"},"canal":"123456","idPersona":1}|2018-04-12 02:18:32|{"errors":{"pathError":"No existe la definición en Swagger para validar el path /cambioContrasena"}}
+2018-04-12 02:18:32|cambioContrasena|1|betzabe-Lenovo-V310-14ISK|{"confirmNewPassword":"123","oldPassword":"9222","newPassword":"123","otp":"1","ticket":{"id_user":"1","id_creds":"1_Nh7mjwEuiVa8VtpIkM650frHGbzu3mWIQRreACSikfZFqpYoG44\u003d_AAAAAAA\u003d_ckMIbwznVUzytnBfaF96sprhEcQ\u003d"},"canal":"123456","idPersona":1}|2018-04-12 02:18:32|{"errors":{"pathError":"No existe la definición en Swagger para validar el path /cambioContrasena"}}
+2018-04-12 02:18:32|||betzabe-Lenovo-V310-14ISK|{"usuario":"123456","contratoAceptado":"1"}|2018-04-12 02:18:32|

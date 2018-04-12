@@ -19,6 +19,7 @@ public class Constantes {
 	public static final String  BASEPATH = "BASEPATH";
 	public static final String  BITACORA_URL = "BITACORA_URL";
 	public static final String  URL_MODIFICA_CONTRATO = "URL_MODIFICA_CONTRATO";
+	public static final String BASEPATH_AUTENTICACION = "BASEPATH_AUTENTICACION";
 	
 	public static final String ENDPOINT = "endpoint";
 	public static final String METHOD = "method";
@@ -34,7 +35,7 @@ public class Constantes {
 	public static final String RESPONSE_STATUS = "responseStatus";
 	public static final String RESPONSE_ERROR = "responseError";
 	
-	public static final String LOG_ENDPOINT_CAMBIO_CONTRASENA = "EndPoint cambioContrasena";
+	public static final String LOG_ENDPOINT_CAMBIO_CONTRASENA = "EndPoint /autenticacion/cambioContrasena";
 	public static final String LOG_ENDPOINT_CONTRASENA = "EndPoint Contrasena"; 
 	public static final String LOG_CONTRASENAS_MODIFICAR = "Las contraseñas a modificar son diferentes";
 	public static final String LOG_CONTRATO_ACEPTADO = "el contrato ya esta aceptado";
