@@ -54,7 +54,6 @@ public class AppControlador {
 		HeadersParser headersParser = new HeadersParser();
 		Map<String, Object> mapaHeader = null;
 		Map<String, Object> sendRequestBody = null;
-		Map<String, Object> respuesta = new HashMap<>();
  
 		try {
 			
@@ -80,31 +79,18 @@ public class AppControlador {
 		for (Entry<String, Object> e : entries) {
 			sendRequestBody.put(e.getKey(), e.getValue());
 		}
-
-		if (sendRequestBody.get("newPassword").toString()
-				.equalsIgnoreCase(sendRequestBody.get("confirmNewPassword").toString())) {
-
-			String url = Urls.CONTRASENA.getPath();
-			
-			LOGGER.debug(Constantes.LOG_ENDPOINT_CONTRASENA, url);
-			
-			Set<MediaType> mediaTypeValidos = new HashSet<>();
-			mediaTypeValidos.add(MediaType.APPLICATION_JSON);
-			mediaTypeValidos.add(MediaType.APPLICATION_JSON_UTF8);
-			LOGGER.debug(Constantes.LOG_OK);
-			sendRequestBody.remove("cliente");
-			LOGGER.info("CambioContraseña---------"+sendRequestBody);
-			
-			return utilidadesRest.enviarPeticion(url, HttpMethod.POST, mediaTypeValidos, null, sendRequestBody, Urls.URL_BITACORA.getPath(), request.getHeaders());
-
-		} else {
-			LOGGER.debug(Constantes.LOG_CONTRASENAS_MODIFICAR);
-			long resStatus = 403;
-			respuesta.put(Constantes.RESPONSE_STATUS, resStatus);
-			respuesta.put(Constantes.RESPONSE_ERROR, "Contraseñas diferentes");
-			return new ResponseEntity<>(respuesta, HttpStatus.OK);
-
-		}
+		String url = Urls.CONTRASENA.getPath();
+		
+		LOGGER.debug(Constantes.LOG_ENDPOINT_CONTRASENA, url);
+		
+		Set<MediaType> mediaTypeValidos = new HashSet<>();
+		mediaTypeValidos.add(MediaType.APPLICATION_JSON);
+		mediaTypeValidos.add(MediaType.APPLICATION_JSON_UTF8);
+		LOGGER.debug(Constantes.LOG_OK);
+		sendRequestBody.remove("cliente");
+		LOGGER.info("CambioContraseña---------"+sendRequestBody);
+		
+		return utilidadesRest.enviarPeticion(url, HttpMethod.POST, mediaTypeValidos, null, sendRequestBody, Urls.URL_BITACORA.getPath(), request.getHeaders());
 
 	}
  
@@ -129,7 +115,7 @@ public class AppControlador {
 		ticket.put("iv-user", "id_user");
 		ticket.put("cookie", "id_creds");
 		mapaHeadersAValidar.put("ticket", ticket);
-		mapaHeadersAValidar.put("tipocanal", "canal");
+		mapaHeadersAValidar.put("tipocanal", Constantes.CANAL);
 		mapaHeadersAValidar.put("iv-user", "idPersona");
 		mapaHeadersAValidar.put("numero-cliente", "cliente");
 		mapaHeadersAValidar.put("contrato-aceptado", "contrato");

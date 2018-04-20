@@ -53,9 +53,9 @@ public class Operaciones {
 			@SuppressWarnings("unchecked")
 			Map<String, Object> mapaRespuesta = (Map<String, Object>) entity.getBody();
 			mapGeneral.put(Constantes.ENVIO_NOTIFICACION, envioNotificacion);
-			System.out.println("mapGeneral:" +  mapGeneral);
-			System.out.println("urls:" +  Urls.URL_BITACORA.getPath());
-			System.out.println("httpHeaders:" +  httpHeaders);
+			LOGGER.info("mapGeneral:" +  mapGeneral);
+			LOGGER.info("urls:" +  Urls.URL_BITACORA.getPath());
+			LOGGER.info("httpHeaders:" +  httpHeaders);
 			if (existsAndHasValue(mapaRespuesta, "codigo", "0")) {
 				LOGGER.debug(Constantes.LOG_OK_CONTRATO_MODIFICADO);
 				// Se lanza peticiones para realizar login

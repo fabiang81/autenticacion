@@ -33,7 +33,7 @@ public enum Urls {
 //	
 //	URL_ENVIO_NOTIFICACIONES(System.getenv(Constantes.PROTOCOLO) +"://"
 //	          + System.getenv(Constantes.HOSTNAME_BEO) + ":" 
-//			  + System.getenv(Constantes.PUERTO)
+//			  + System.getenv(Constantes.PUERTO) + "/" 
 //			  + System.getenv(Constantes.BASEPATH)
 //			  + "/envioNotificaciones"),
 //
@@ -56,15 +56,15 @@ public enum Urls {
 //	            +"/bitacoraOperaciones")
 //	;
 
-    CONTRASENA("http://localhost:9094" + "/cambioContrasena"),
+    CONTRASENA("http://localhost:9094" + "/autenticacion/cambioContrasena"),
 	
-	URL_ENVIO_NOTIFICACIONES("http://localhost:9094" + "/envioNotificaciones"),
+	URL_ENVIO_NOTIFICACIONES("http://localhost:9094" + "/persona/envioNotificaciones"),
 
-	SER_CONSULTA_DATOS_BASICOS("http://localhost:9094" + "/consultaDatosBasicos"),
+	SER_CONSULTA_DATOS_BASICOS("http://localhost:9094" + "/persona/consultaDatosBasicos"),
 	
-	URL_SERVICIOS_CONTRATADOS("http://localhost:9094" + "/consultaServiciosContratados"),
+	URL_SERVICIOS_CONTRATADOS("http://localhost:9094" + "/persona/consultaServiciosContratados"),
 	
-	URL_PERFIL("http://localhost:9094" + "/consultaPerfilesPerf"),
+	URL_PERFIL("http://localhost:9094" + "/facultamiento/consultaPerfiles"),
 	
 	URL_MODIFICA_CONTRATO(System.getenv(Constantes.URL_MODIFICA_CONTRATO) != null ? System.getenv(Constantes.URL_MODIFICA_CONTRATO):""),
 	
