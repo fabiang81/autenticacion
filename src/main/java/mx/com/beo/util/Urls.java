@@ -5,6 +5,7 @@ package mx.com.beo.util;
  * derechos reservados.
  *
  * @author Reynaldo Ivan Martinez Lopez
+ * @author Betzabe Colin Olvera
  *
  *         ESTE SOFTWARE ES INFORMACIÓN CONFIDENCIAL. PROPIEDAD DE NOVA SOLUTION
  *         SYSTEMS. ESTA INFORMACIÓN NO DEBE SER DIVULGADA Y PUEDE SOLAMENTE SER
@@ -26,51 +27,41 @@ public enum Urls {
 	  * 
 	  */
 
-//    CONTRASENA(System.getenv(Constantes.PROTOCOLO) 
-//			  +"://"  + System.getenv(Constantes.HOSTNAME_BEO) + ":" 
-//			  + System.getenv(Constantes.BASEPATH_AUTENTICACION) + "autenticacion"
-//			  + "/cambioContrasena"),
-//	
-//	URL_ENVIO_NOTIFICACIONES(System.getenv(Constantes.PROTOCOLO) +"://"
-//	          + System.getenv(Constantes.HOSTNAME_BEO) + ":" 
-//			  + System.getenv(Constantes.PUERTO) + "/" 
-//			  + System.getenv(Constantes.BASEPATH)
-//			  + "/envioNotificaciones"),
-//
-//	SER_CONSULTA_DATOS_BASICOS(System.getenv(Constantes.PROTOCOLO) + "://"
-//	          + System.getenv(Constantes.HOSTNAME_BEO) + ":" + System.getenv(Constantes.PUERTO)
-//	          + System.getenv(Constantes.BASEPATH)+"/consultaDatosBasicos"),
-//	
-//	URL_SERVICIOS_CONTRATADOS(System.getenv(Constantes.PROTOCOLO) +"://"
-//	          + System.getenv(Constantes.HOSTNAME_BEO)+""+":"+System.getenv(Constantes.PUERTO)
-//	          + System.getenv(Constantes.BASEPATH) + "/consultaServiciosContratados"),
-//	
-//	URL_PERFIL(System.getenv(Constantes.PROTOCOLO) + "://"
-//	          + System.getenv(Constantes.HOSTNAME_BEO) + ":" 
-//			  + System.getenv(Constantes.PUERTO) + "/facultamiento"
-//			  + "/consultaPerfilesPerf"),
-//	
-//	URL_MODIFICA_CONTRATO(System.getenv(Constantes.URL_MODIFICA_CONTRATO) != null ? System.getenv(Constantes.URL_MODIFICA_CONTRATO):""),
-//	
-//	URL_BITACORA((System.getenv(Constantes.BITACORA_URL)!=null?System.getenv(Constantes.BITACORA_URL):"")
-//	            +"/bitacoraOperaciones")
-//	;
+    CONTRASENA(System.getenv(Constantes.PROTOCOLO) +"://"
+	          + System.getenv(Constantes.HOSTNAME_BEO) + ":" 
+			  + System.getenv(Constantes.PUERTO) + "/" 
+			  + System.getenv(Constantes.BASEPATH_AUTENTICACION)
+			  + "/cambioContrasena"), 
+    
+	URL_ENVIO_NOTIFICACIONES(System.getenv(Constantes.PROTOCOLO) +"://"
+	          + System.getenv(Constantes.HOSTNAME_BEO) + ":" 
+			  + System.getenv(Constantes.PUERTO) + "/" 
+			  + System.getenv(Constantes.BASEPATH_PERSONA)
+			  + "/envioNotificaciones"),
 
-    CONTRASENA("http://localhost:9094" + "/autenticacion/cambioContrasena"),
+	SER_CONSULTA_DATOS_BASICOS(System.getenv(Constantes.PROTOCOLO) + "://"
+	          + System.getenv(Constantes.HOSTNAME_BEO) + ":" + System.getenv(Constantes.PUERTO)
+			  + System.getenv(Constantes.BASEPATH_PERSONA)
+	          +"/consultaDatosBasicos"),
 	
-	URL_ENVIO_NOTIFICACIONES("http://localhost:9094" + "/persona/envioNotificaciones"),
-
-	SER_CONSULTA_DATOS_BASICOS("http://localhost:9094" + "/persona/consultaDatosBasicos"),
+	URL_SERVICIOS_CONTRATADOS(System.getenv(Constantes.PROTOCOLO) +"://"
+	          + System.getenv(Constantes.HOSTNAME_BEO)+""+":"+System.getenv(Constantes.PUERTO)
+			  + System.getenv(Constantes.BASEPATH_PERSONA) 
+	          + "/consultaServiciosContratados"),
 	
-	URL_SERVICIOS_CONTRATADOS("http://localhost:9094" + "/persona/consultaServiciosContratados"),
+	URL_PERFIL(System.getenv(Constantes.PROTOCOLO) + "://"
+	          + System.getenv(Constantes.HOSTNAME_BEO) + ":" 
+			  + System.getenv(Constantes.PUERTO)
+			  + System.getenv(Constantes.BASEPATH_FACULTAMIENTO)
+			  + "/consultaPerfiles"),
 	
-	URL_PERFIL("http://localhost:9094" + "/facultamiento/consultaPerfiles"),
+	URL_MODIFICA_CONTRATO(System.getenv(Constantes.PROTOCOLO) + "://"
+	          + System.getenv(Constantes.HOSTNAME_BEO) + ":" 
+			  + System.getenv(Constantes.PUERTO) 
+			  + "/modificaContrato"),
 	
-	URL_MODIFICA_CONTRATO(System.getenv(Constantes.URL_MODIFICA_CONTRATO) != null ? System.getenv(Constantes.URL_MODIFICA_CONTRATO):""),
-	
-	URL_BITACORA("http://localhost:9094" + "/bitacoraOperaciones")
-	;
-
+	URL_BITACORA((System.getenv(Constantes.BITACORA_URL)!=null?System.getenv(Constantes.BITACORA_URL):"")
+	            +"/bitacoraOperaciones");
 	
 	private String path;
 	 

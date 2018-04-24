@@ -29,6 +29,7 @@ import mx.com.beo.util.UtilidadesRest;
  * derechos reservados.
  *
  * @author Reynaldo Ivan Martinez Lopez
+ * @author Betzabe Colin Olvera
  *
  *         ESTE SOFTWARE ES INFORMACIÓN CONFIDENCIAL. PROPIEDAD DE NOVA SOLUTION
  *         SYSTEMS. ESTA INFORMACIÓN NO DEBE SER DIVULGADA Y PUEDE SOLAMENTE SER
@@ -88,8 +89,7 @@ public class AppControlador {
 		mediaTypeValidos.add(MediaType.APPLICATION_JSON_UTF8);
 		LOGGER.debug(Constantes.LOG_OK);
 		sendRequestBody.remove("cliente");
-		LOGGER.info("CambioContraseña---------"+sendRequestBody);
-		
+
 		return utilidadesRest.enviarPeticion(url, HttpMethod.POST, mediaTypeValidos, null, sendRequestBody, Urls.URL_BITACORA.getPath(), request.getHeaders());
 
 	}
@@ -97,7 +97,7 @@ public class AppControlador {
 	@RequestMapping(value = "/accesoCliente", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> accesoCliente(RequestEntity<Object> request) {
 		LOGGER.info(Constantes.LOG_ENDPOINT_ACCESO_CLIENTES);
-		LOGGER.info("Headers autenticacion: "+request.getHeaders());
+		LOGGER.info(Constantes.HEADERS_AUTENTICACION , request.getHeaders());
 		Map<String, Object> mapaHeader = null;
 		Set<Entry<String, Object>> entries = null;
 		HeadersParser headersParser = new HeadersParser();
@@ -145,6 +145,7 @@ public class AppControlador {
 		for (Entry<String, Object> e : entries) {
 			sendRequestBody.put(e.getKey(), e.getValue());
 		}
+		
 
 		Map<String, Object> envioNotificacionBody = new HashMap<>();
 		Map<String, Object> consultaServiciosContratadosBody = new HashMap<>();
@@ -211,10 +212,6 @@ public class AppControlador {
 		perfil.put(Constantes.HEADER, headers);
 		perfil.put(Constantes.BODY, perfilInterno);
 		
-		LOGGER.info("consultaServicioContratado----------------- "+consultaServicioContratado);
-		LOGGER.info("envioNotificacion----------------- "+envioNotificacion);
-		LOGGER.info("consultaDatosBasicos----------------- "+consultaDatosBasicos);
-		LOGGER.info("perfil----------------- "+perfil);
 		
 		mapGeneral.put(Constantes.ENVIO_NOTIFICACION, envioNotificacion);
 		mapGeneral.put(Constantes.DATOS_BASICOS, consultaDatosBasicos);

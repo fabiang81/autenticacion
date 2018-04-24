@@ -57,11 +57,10 @@
 							<!-- Exclude Spring Boot main class from tests -->
 							<excludes>
 								<exclude>mx/com/beo/App.class</exclude>
-
 								<exclude>mx/com/beo/util/Urls.class</exclude>
-
-								<exclude>mx.com.beo.util/Urls.class</exclude>
-								<exclude>mx.com.beo.util/Constantes.class</exclude>
+								<exclude>mx/com/beo/util/Constantes.class</exclude>
+								<exclude>mx/com/beo/util/Utilerias.class</exclude>
+								<exclude>mx/com/beo/util/Operaciones.class</exclude>
 
 							</excludes>
 							<!-- Sets the output directory for the code coverage report. -->
@@ -128,11 +127,10 @@
 							</rules>
 							<excludes>
 								<exclude>mx/com/beo/App.class</exclude>
-
 								<exclude>mx/com/beo/util/Urls.class</exclude>
-
-								<exclude>mx.com.beo.util/Urls.class</exclude>
-								<exclude>mx.com.beo.util/Constantes.class</exclude>
+								<exclude>mx/com/beo/util/Constantes.class</exclude>
+								<exclude>mx/com/beo/util/Utilerias.class</exclude>
+								<exclude>mx/com/beo/util/Operaciones.class</exclude>
 
 							</excludes>
 						</configuration>

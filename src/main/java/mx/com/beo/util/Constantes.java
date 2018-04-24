@@ -12,6 +12,11 @@ public class Constantes {
 	public static final String ERROR_FORMATO_FECHA = "Error en Formato fecha";
 	
     public static final String  EXCEPTION_HEADERS = "Valida Headers exception";
+    
+    public static final String MAP_GENERAL = "mapGeneral";
+    public static final String URLS = "urls";
+    public static final String HTTPHEADERS = "httpHeaders";
+    public static final String HEADERS_AUTENTICACION = "Headers autenticacion:";
 
 	public static final String  PROTOCOLO = "PROTOCOLO";
 	public static final String  HOSTNAME_BEO = "HOSTNAME_BEO";
@@ -20,6 +25,8 @@ public class Constantes {
 	public static final String  BITACORA_URL = "BITACORA_URL";
 	public static final String  URL_MODIFICA_CONTRATO = "URL_MODIFICA_CONTRATO";
 	public static final String BASEPATH_AUTENTICACION = "BASEPATH_AUTENTICACION";
+	public static final String BASEPATH_PERSONA = "BASEPATH_PERSONA";
+	public static final String BASEPATH_FACULTAMIENTO = "BASEPATH_FACULTAMIENTO";
 	
 	public static final String ENDPOINT = "endpoint";
 	public static final String METHOD = "method";
