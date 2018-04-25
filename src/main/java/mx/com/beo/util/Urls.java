@@ -35,7 +35,7 @@ public enum Urls {
 	
 	URL_SERVICIOS_CONTRATADOS(System.getenv(Constantes.PROTOCOLO)      +"://"+System.getenv(Constantes.HOSTNAME_BEO)+((System.getenv(Constantes.PUERTO)!=null && !System.getenv(Constantes.PUERTO).equals(""))?":"+System.getenv(Constantes.PUERTO):"")+(System.getenv(Constantes.BASEPATH_PERSONA)!=null?System.getenv(Constantes.BASEPATH_PERSONA):"")+ "/consultaServiciosContratados"),
 	
-	URL_PERFIL(System.getenv(Constantes.PROTOCOLO)      +"://"+System.getenv(Constantes.HOSTNAME_BEO)+((System.getenv(Constantes.PUERTO)!=null && !System.getenv(Constantes.PUERTO).equals(""))?":"+System.getenv(Constantes.PUERTO):"")+(System.getenv(Constantes.BASEPATH_FACULTAMIENTO)!=null?System.getenv(Constantes.BASEPATH_FACULTAMIENTO):"")+ "/consultaPerfiles"),
+	URL_PERFIL(System.getenv(Constantes.PROTOCOLO)      +"://"+System.getenv(Constantes.HOSTNAME_BEO)+((System.getenv(Constantes.PUERTO)!=null && !System.getenv(Constantes.PUERTO).equals(""))?":"+System.getenv(Constantes.PUERTO):"")+(System.getenv(Constantes.BASEPATH_FACULTAMIENTO)!=null?System.getenv(Constantes.BASEPATH_FACULTAMIENTO):"")+ "/consultaPerfilesPerf"),
 	
 	URL_MODIFICA_CONTRATO(System.getenv(Constantes.PROTOCOLO) + "://"
 	          + System.getenv(Constantes.HOSTNAME_BEO) + ":" 
