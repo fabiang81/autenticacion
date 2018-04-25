@@ -82,7 +82,7 @@ public class AppControlador {
 		}
 		String url = Urls.CONTRASENA.getPath();
 		
-		LOGGER.debug(Constantes.LOG_ENDPOINT_CONTRASENA, url);
+		LOGGER.info(Constantes.LOG_ENDPOINT_CONTRASENA, url);
 		
 		Set<MediaType> mediaTypeValidos = new HashSet<>();
 		mediaTypeValidos.add(MediaType.APPLICATION_JSON);
@@ -97,7 +97,7 @@ public class AppControlador {
 	@RequestMapping(value = "/accesoCliente", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> accesoCliente(RequestEntity<Object> request) {
 		LOGGER.info(Constantes.LOG_ENDPOINT_ACCESO_CLIENTES);
-		LOGGER.info(Constantes.HEADERS_AUTENTICACION , request.getHeaders());
+		LOGGER.debug(Constantes.HEADERS_AUTENTICACION , request.getHeaders());
 		Map<String, Object> mapaHeader = null;
 		Set<Entry<String, Object>> entries = null;
 		HeadersParser headersParser = new HeadersParser();

@@ -39,7 +39,7 @@ public class Operaciones {
 		if (existsAndHasValue(requestBody, Constantes.BANDERA_ACCESO, "1")) {
 			
 			String urlModificaContrato = Urls.URL_MODIFICA_CONTRATO.getPath();
-			LOGGER.info("URL DEL CONTRATO-----------" + urlModificaContrato);
+			LOGGER.info("URL DEL CONTRATO----------- {}" , urlModificaContrato);
 			Set<MediaType> mediaTypeValidos = new HashSet<>();
 			mediaTypeValidos.add(MediaType.APPLICATION_JSON);
 			mediaTypeValidos.add(MediaType.APPLICATION_JSON_UTF8);

@@ -27,33 +27,15 @@ public enum Urls {
 	  * 
 	  */
 
-    CONTRASENA(System.getenv(Constantes.PROTOCOLO) +"://"
-	          + System.getenv(Constantes.HOSTNAME_BEO) + ":" 
-			  + System.getenv(Constantes.PUERTO) + "/" 
-			  + System.getenv(Constantes.BASEPATH_AUTENTICACION)
-			  + "/cambioContrasena"), 
+    CONTRASENA(System.getenv(Constantes.PROTOCOLO)      +"://"+System.getenv(Constantes.HOSTNAME_BEO)+((System.getenv(Constantes.PUERTO)!=null && !System.getenv(Constantes.PUERTO).equals(""))?":"+System.getenv(Constantes.PUERTO):"")+(System.getenv(Constantes.BASEPATH_AUTENTICACION)!=null?System.getenv(Constantes.BASEPATH_AUTENTICACION):"")+ "/cambioContrasena"), 
     
-	URL_ENVIO_NOTIFICACIONES(System.getenv(Constantes.PROTOCOLO) +"://"
-	          + System.getenv(Constantes.HOSTNAME_BEO) + ":" 
-			  + System.getenv(Constantes.PUERTO) + "/" 
-			  + System.getenv(Constantes.BASEPATH_PERSONA)
-			  + "/envioNotificaciones"),
+	URL_ENVIO_NOTIFICACIONES(System.getenv(Constantes.PROTOCOLO)      +"://"+System.getenv(Constantes.HOSTNAME_BEO)+((System.getenv(Constantes.PUERTO)!=null && !System.getenv(Constantes.PUERTO).equals(""))?":"+System.getenv(Constantes.PUERTO):"")+(System.getenv(Constantes.BASEPATH_PERSONA)!=null?System.getenv(Constantes.BASEPATH_PERSONA):"")+ "/envioNotificaciones"),
 
-	SER_CONSULTA_DATOS_BASICOS(System.getenv(Constantes.PROTOCOLO) + "://"
-	          + System.getenv(Constantes.HOSTNAME_BEO) + ":" + System.getenv(Constantes.PUERTO)
-			  + System.getenv(Constantes.BASEPATH_PERSONA)
-	          +"/consultaDatosBasicos"),
+	SER_CONSULTA_DATOS_BASICOS(System.getenv(Constantes.PROTOCOLO)      +"://"+System.getenv(Constantes.HOSTNAME_BEO)+((System.getenv(Constantes.PUERTO)!=null && !System.getenv(Constantes.PUERTO).equals(""))?":"+System.getenv(Constantes.PUERTO):"")+(System.getenv(Constantes.BASEPATH_PERSONA)!=null?System.getenv(Constantes.BASEPATH_PERSONA):"")+"/consultaDatosBasicos"),
 	
-	URL_SERVICIOS_CONTRATADOS(System.getenv(Constantes.PROTOCOLO) +"://"
-	          + System.getenv(Constantes.HOSTNAME_BEO)+""+":"+System.getenv(Constantes.PUERTO)
-			  + System.getenv(Constantes.BASEPATH_PERSONA) 
-	          + "/consultaServiciosContratados"),
+	URL_SERVICIOS_CONTRATADOS(System.getenv(Constantes.PROTOCOLO)      +"://"+System.getenv(Constantes.HOSTNAME_BEO)+((System.getenv(Constantes.PUERTO)!=null && !System.getenv(Constantes.PUERTO).equals(""))?":"+System.getenv(Constantes.PUERTO):"")+(System.getenv(Constantes.BASEPATH_PERSONA)!=null?System.getenv(Constantes.BASEPATH_PERSONA):"")+ "/consultaServiciosContratados"),
 	
-	URL_PERFIL(System.getenv(Constantes.PROTOCOLO) + "://"
-	          + System.getenv(Constantes.HOSTNAME_BEO) + ":" 
-			  + System.getenv(Constantes.PUERTO)
-			  + System.getenv(Constantes.BASEPATH_FACULTAMIENTO)
-			  + "/consultaPerfiles"),
+	URL_PERFIL(System.getenv(Constantes.PROTOCOLO)      +"://"+System.getenv(Constantes.HOSTNAME_BEO)+((System.getenv(Constantes.PUERTO)!=null && !System.getenv(Constantes.PUERTO).equals(""))?":"+System.getenv(Constantes.PUERTO):"")+(System.getenv(Constantes.BASEPATH_FACULTAMIENTO)!=null?System.getenv(Constantes.BASEPATH_FACULTAMIENTO):"")+ "/consultaPerfiles"),
 	
 	URL_MODIFICA_CONTRATO(System.getenv(Constantes.PROTOCOLO) + "://"
 	          + System.getenv(Constantes.HOSTNAME_BEO) + ":" 

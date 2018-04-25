@@ -43,7 +43,7 @@ public class Constantes {
 	public static final String RESPONSE_ERROR = "responseError";
 	
 	public static final String LOG_ENDPOINT_CAMBIO_CONTRASENA = "EndPoint /autenticacion/cambioContrasena";
-	public static final String LOG_ENDPOINT_CONTRASENA = "EndPoint Contrasena"; 
+	public static final String LOG_ENDPOINT_CONTRASENA = "EndPoint Contrasena {}"; 
 	public static final String LOG_CONTRASENAS_MODIFICAR = "Las contraseñas a modificar son diferentes";
 	public static final String LOG_CONTRATO_ACEPTADO = "el contrato ya esta aceptado";
 	public static final String LOG_CONTRATO_NO_ACEPTADO = "el contrato no esta aceptado";
