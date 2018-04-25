@@ -74,14 +74,14 @@ public class AutenticacionTest {
 		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
-		LOGGER.info("Cuerpo que se arma " + entity.getBody()); 
+		LOGGER.info("Cuerpo que se arma {} " , entity.getBody()); 
 		
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/cambioContrasena"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 200);
 		Map<String, Object> mapBody = new HashMap<String, Object>();
-		LOGGER.info("Cabecera del servicio consumido" + response.getHeaders());
-		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
+		LOGGER.info("Cabecera del servicio consumido {}" , response.getHeaders());
+		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		mapBody = (Map<String, Object>) response.getBody();
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
@@ -111,14 +111,14 @@ public class AutenticacionTest {
 		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
-		LOGGER.info("Cuerpo que se arma " + entity.getBody());
+		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
 		 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/cambioContrasena"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 400);
 		Map<String, Object> mapBody = new HashMap<String, Object>();
-		LOGGER.info("Cabecera del servicio consumido" + response.getHeaders());
-		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
+		LOGGER.info("Cabecera del servicio consumido {}" , response.getHeaders());
+		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		mapBody = (Map<String, Object>) response.getBody();
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
@@ -151,14 +151,14 @@ public class AutenticacionTest {
 		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
-		LOGGER.info("Cuerpo que se arma " + entity.getBody());
+		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
 		 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/cambioContrasena"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 404);
 		Map<String, Object> mapBody = new HashMap<String, Object>();
-		LOGGER.info("Cabecera del servicio consumido" + response.getHeaders());
-		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
+		LOGGER.info("Cabecera del servicio consumido {}" , response.getHeaders());
+		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		mapBody = (Map<String, Object>) response.getBody();
 		 assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
@@ -187,14 +187,14 @@ public class AutenticacionTest {
 		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
-		LOGGER.info("Cuerpo que se arma " + entity.getBody());
+		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
 	 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/accesoCliente"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 200);
 		Map<String, Object> mapBody = new HashMap<String, Object>();
-		LOGGER.info("Cabecera del servicio consumido" + response.getHeaders());
-		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
+		LOGGER.info("Cabecera del servicio consumido {}" , response.getHeaders());
+		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
 		 
@@ -225,14 +225,14 @@ public class AutenticacionTest {
 		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
-		LOGGER.info("Cuerpo que se arma " + entity.getBody());
+		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
 	 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/accesoCliente"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 400);
 		Map<String, Object> mapBody = new HashMap<String, Object>();
-		LOGGER.info("Cabecera del servicio consumido" + response.getHeaders());
-		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
+		LOGGER.info("Cabecera del servicio consumido {}" , response.getHeaders());
+		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
 		 
@@ -268,14 +268,14 @@ public class AutenticacionTest {
 		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
-		LOGGER.info("Cuerpo que se arma " + entity.getBody());
+		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
 		 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/accesoCliente"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 400);
 		Map<String, Object> mapBody = new HashMap<String, Object>();
-		LOGGER.info("Cabecera del servicio consumido" + response.getHeaders());
-		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
+		LOGGER.info("Cabecera del servicio consumido {}" , response.getHeaders());
+		LOGGER.info("Cuerpo del servicio consumido{} " , response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
 		  
@@ -309,14 +309,14 @@ public class AutenticacionTest {
 		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
-		LOGGER.info("Cuerpo que se arma " + entity.getBody());
+		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
 		 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/accesoCliente"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 400);
 		Map<String, Object> mapBody = new HashMap<String, Object>();
-		LOGGER.info("Cabecera del servicio consumido" + response.getHeaders());
-		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
+		LOGGER.info("Cabecera del servicio consumido {}" , response.getHeaders());
+		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
 	 
@@ -349,14 +349,14 @@ public class AutenticacionTest {
 		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
-		LOGGER.info("Cuerpo que se arma " + entity.getBody());
+		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
 		 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/accesoCliente"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 400);
 		Map<String, Object> mapBody = new HashMap<String, Object>();
-		LOGGER.info("Cabecera del servicio consumido" + response.getHeaders());
-		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
+		LOGGER.info("Cabecera del servicio consumido {}" , response.getHeaders());
+		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
 		
@@ -391,14 +391,14 @@ public class AutenticacionTest {
 		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
-		LOGGER.info("Cuerpo que se arma " + entity.getBody());
+		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
 		 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/accesoCliente"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 200);
 		Map<String, Object> mapBody = new HashMap<String, Object>();
-		LOGGER.info("Cabecera del servicio consumido" + response.getHeaders());
-		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
+		LOGGER.info("Cabecera del servicio consumido {}" , response.getHeaders());
+		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
 		
@@ -430,14 +430,14 @@ public class AutenticacionTest {
 		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
-		LOGGER.info("Cuerpo que se arma " + entity.getBody());
+		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
 		 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/accesoCliente"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 200);
 		Map<String, Object> mapBody = new HashMap<String, Object>();
-		LOGGER.info("Cabecera del servicio consumido" + response.getHeaders());
-		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
+		LOGGER.info("Cabecera del servicio consumido {}" , response.getHeaders());
+		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
 		
@@ -470,14 +470,14 @@ public class AutenticacionTest {
 		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
-		LOGGER.info("Cuerpo que se arma " + entity.getBody());
+		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
 		 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/accesoCliente"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 200);
 		Map<String, Object> mapBody = new HashMap<String, Object>();
-		LOGGER.info("Cabecera del servicio consumido" + response.getHeaders());
-		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
+		LOGGER.info("Cabecera del servicio consumido {}" , response.getHeaders());
+		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
 		 
@@ -512,14 +512,14 @@ public class AutenticacionTest {
 		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
-		LOGGER.info("Cuerpo que se arma " + entity.getBody());
+		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
 		 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/accesoCliente"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 400);
 		Map<String, Object> mapBody = new HashMap<String, Object>();
-		LOGGER.info("Cabecera del servicio consumido" + response.getHeaders());
-		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
+		LOGGER.info("Cabecera del servicio consumido {}" , response.getHeaders());
+		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
 		 
@@ -548,14 +548,14 @@ public class AutenticacionTest {
 		body.put("banderaAcceso", "1");
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
-		LOGGER.info("Cuerpo que se arma " + entity.getBody());
+		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
 	 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/accesoCliente"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 200);
 		Map<String, Object> mapBody = new HashMap<String, Object>();
-		LOGGER.info("Cabecera del servicio consumido" + response.getHeaders());
-		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
+		LOGGER.info("Cabecera del servicio consumido {}" , response.getHeaders());
+		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
 		 
@@ -584,14 +584,14 @@ public class AutenticacionTest {
 		body.put("banderaAcceso", "1");
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
-		LOGGER.info("Cuerpo que se arma " + entity.getBody());
+		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
 	 
 		ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("/accesoCliente"), HttpMethod.POST, entity, Object.class);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("responseStatus", 200);
 		Map<String, Object> mapBody = new HashMap<String, Object>();
-		LOGGER.info("Cabecera del servicio consumido" + response.getHeaders());
-		LOGGER.info("Cuerpo del servicio consumido" + response.getBody());
+		LOGGER.info("Cabecera del servicio consumido {}" , response.getHeaders());
+		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
 		 

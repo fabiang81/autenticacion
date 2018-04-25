@@ -16,7 +16,7 @@ public class Constantes {
     public static final String MAP_GENERAL = "mapGeneral";
     public static final String URLS = "urls";
     public static final String HTTPHEADERS = "httpHeaders";
-    public static final String HEADERS_AUTENTICACION = "Headers autenticacion:";
+    public static final String HEADERS_AUTENTICACION = "Headers autenticacion: {}";
 
 	public static final String  PROTOCOLO = "PROTOCOLO";
 	public static final String  HOSTNAME_BEO = "HOSTNAME_BEO";

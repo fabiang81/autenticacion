@@ -89,6 +89,7 @@ public class AppControlador {
 		mediaTypeValidos.add(MediaType.APPLICATION_JSON_UTF8);
 		LOGGER.debug(Constantes.LOG_OK);
 		sendRequestBody.remove("cliente");
+		LOGGER.info("CambioContraseña--------- {}" , sendRequestBody);
 
 		return utilidadesRest.enviarPeticion(url, HttpMethod.POST, mediaTypeValidos, null, sendRequestBody, Urls.URL_BITACORA.getPath(), request.getHeaders());
 
@@ -211,6 +212,11 @@ public class AppControlador {
 		perfil.put(Constantes.CONNECT_REQUEST_TIMEOUT, 5000);
 		perfil.put(Constantes.HEADER, headers);
 		perfil.put(Constantes.BODY, perfilInterno);
+		
+		LOGGER.info("consultaServicioContratado----------------- {}" , consultaServicioContratado);
+		LOGGER.info("envioNotificacion----------------- {}", envioNotificacion);
+		LOGGER.info("consultaDatosBasicos----------------- {}" , consultaDatosBasicos);
+		LOGGER.info("perfil----------------- {}", perfil);
 		
 		
 		mapGeneral.put(Constantes.ENVIO_NOTIFICACION, envioNotificacion);
