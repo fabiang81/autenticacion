@@ -29,6 +29,7 @@ import mx.com.beo.util.UtilidadesRest;
  * derechos reservados.
  *
  * @author Reynaldo Ivan Martinez Lopez
+ * @author Betzabe Colin Olvera
  *
  *         ESTE SOFTWARE ES INFORMACIÓN CONFIDENCIAL. PROPIEDAD DE NOVA SOLUTION
  *         SYSTEMS. ESTA INFORMACIÓN NO DEBE SER DIVULGADA Y PUEDE SOLAMENTE SER
@@ -54,7 +55,6 @@ public class AppControlador {
 		HeadersParser headersParser = new HeadersParser();
 		Map<String, Object> mapaHeader = null;
 		Map<String, Object> sendRequestBody = null;
-		Map<String, Object> respuesta = new HashMap<>();
  
 		try {
 			
@@ -80,38 +80,25 @@ public class AppControlador {
 		for (Entry<String, Object> e : entries) {
 			sendRequestBody.put(e.getKey(), e.getValue());
 		}
+		String url = Urls.CONTRASENA.getPath();
+		
+		LOGGER.info(Constantes.LOG_ENDPOINT_CONTRASENA, url);
+		
+		Set<MediaType> mediaTypeValidos = new HashSet<>();
+		mediaTypeValidos.add(MediaType.APPLICATION_JSON);
+		mediaTypeValidos.add(MediaType.APPLICATION_JSON_UTF8);
+		LOGGER.debug(Constantes.LOG_OK);
+		sendRequestBody.remove("cliente");
+		LOGGER.info("CambioContraseña--------- {}" , sendRequestBody);
 
-		if (sendRequestBody.get("newPassword").toString()
-				.equalsIgnoreCase(sendRequestBody.get("confirmNewPassword").toString())) {
-
-			String url = Urls.CONTRASENA.getPath();
-			
-			LOGGER.debug(Constantes.LOG_ENDPOINT_CONTRASENA, url);
-			
-			Set<MediaType> mediaTypeValidos = new HashSet<>();
-			mediaTypeValidos.add(MediaType.APPLICATION_JSON);
-			mediaTypeValidos.add(MediaType.APPLICATION_JSON_UTF8);
-			LOGGER.debug(Constantes.LOG_OK);
-			sendRequestBody.remove("cliente");
-			LOGGER.info("CambioContraseña---------"+sendRequestBody);
-			
-			return utilidadesRest.enviarPeticion(url, HttpMethod.POST, mediaTypeValidos, null, sendRequestBody, Urls.URL_BITACORA.getPath(), request.getHeaders());
-
-		} else {
-			LOGGER.debug(Constantes.LOG_CONTRASENAS_MODIFICAR);
-			long resStatus = 403;
-			respuesta.put(Constantes.RESPONSE_STATUS, resStatus);
-			respuesta.put(Constantes.RESPONSE_ERROR, "Contraseñas diferentes");
-			return new ResponseEntity<>(respuesta, HttpStatus.OK);
-
-		}
+		return utilidadesRest.enviarPeticion(url, HttpMethod.POST, mediaTypeValidos, null, sendRequestBody, Urls.URL_BITACORA.getPath(), request.getHeaders());
 
 	}
  
 	@RequestMapping(value = "/accesoCliente", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> accesoCliente(RequestEntity<Object> request) {
 		LOGGER.info(Constantes.LOG_ENDPOINT_ACCESO_CLIENTES);
-		LOGGER.info("Headers autenticacion: "+request.getHeaders());
+		LOGGER.debug(Constantes.HEADERS_AUTENTICACION , request.getHeaders());
 		Map<String, Object> mapaHeader = null;
 		Set<Entry<String, Object>> entries = null;
 		HeadersParser headersParser = new HeadersParser();
@@ -129,7 +116,7 @@ public class AppControlador {
 		ticket.put("iv-user", "id_user");
 		ticket.put("cookie", "id_creds");
 		mapaHeadersAValidar.put("ticket", ticket);
-		mapaHeadersAValidar.put("tipocanal", "canal");
+		mapaHeadersAValidar.put("tipocanal", Constantes.CANAL);
 		mapaHeadersAValidar.put("iv-user", "idPersona");
 		mapaHeadersAValidar.put("numero-cliente", "cliente");
 		mapaHeadersAValidar.put("contrato-aceptado", "contrato");
@@ -159,6 +146,7 @@ public class AppControlador {
 		for (Entry<String, Object> e : entries) {
 			sendRequestBody.put(e.getKey(), e.getValue());
 		}
+		
 
 		Map<String, Object> envioNotificacionBody = new HashMap<>();
 		Map<String, Object> consultaServiciosContratadosBody = new HashMap<>();
@@ -225,10 +213,11 @@ public class AppControlador {
 		perfil.put(Constantes.HEADER, headers);
 		perfil.put(Constantes.BODY, perfilInterno);
 		
-		LOGGER.info("consultaServicioContratado----------------- "+consultaServicioContratado);
-		LOGGER.info("envioNotificacion----------------- "+envioNotificacion);
-		LOGGER.info("consultaDatosBasicos----------------- "+consultaDatosBasicos);
-		LOGGER.info("perfil----------------- "+perfil);
+		LOGGER.info("consultaServicioContratado----------------- {}" , consultaServicioContratado);
+		LOGGER.info("envioNotificacion----------------- {}", envioNotificacion);
+		LOGGER.info("consultaDatosBasicos----------------- {}" , consultaDatosBasicos);
+		LOGGER.info("perfil----------------- {}", perfil);
+		
 		
 		mapGeneral.put(Constantes.ENVIO_NOTIFICACION, envioNotificacion);
 		mapGeneral.put(Constantes.DATOS_BASICOS, consultaDatosBasicos);

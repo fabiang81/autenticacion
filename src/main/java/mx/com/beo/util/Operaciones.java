@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
  * derechos reservados.
  *
  * @author Reynaldo Ivan Martinez Lopez
+ * @author Betzabe Colin Olvera
  *
  *         ESTE SOFTWARE ES INFORMACIÓN CONFIDENCIAL. PROPIEDAD DE NOVA SOLUTION
  *         SYSTEMS. ESTA INFORMACIÓN NO DEBE SER DIVULGADA Y PUEDE SOLAMENTE SER
@@ -33,12 +34,12 @@ public class Operaciones {
 	public ResponseEntity<Object> banderaAcceso(Map<String, Object> envioNotificacion, Map<String, Object> mapGeneral,
 			Map<String, Object> requestBody, Map<String, Object> mapHeaders, HttpHeaders httpHeaders) {
 		
+		
+		
 		if (existsAndHasValue(requestBody, Constantes.BANDERA_ACCESO, "1")) {
 			
-			LOGGER.info(Constantes.LOG_OK_BANDERA_ACCESO);
-			
 			String urlModificaContrato = Urls.URL_MODIFICA_CONTRATO.getPath();
-			
+			LOGGER.info("URL DEL CONTRATO----------- {}" , urlModificaContrato);
 			Set<MediaType> mediaTypeValidos = new HashSet<>();
 			mediaTypeValidos.add(MediaType.APPLICATION_JSON);
 			mediaTypeValidos.add(MediaType.APPLICATION_JSON_UTF8);
@@ -53,9 +54,9 @@ public class Operaciones {
 			@SuppressWarnings("unchecked")
 			Map<String, Object> mapaRespuesta = (Map<String, Object>) entity.getBody();
 			mapGeneral.put(Constantes.ENVIO_NOTIFICACION, envioNotificacion);
-			System.out.println("mapGeneral:" +  mapGeneral);
-			System.out.println("urls:" +  Urls.URL_BITACORA.getPath());
-			System.out.println("httpHeaders:" +  httpHeaders);
+			LOGGER.info(Constantes.MAP_GENERAL ,  mapGeneral);
+			LOGGER.info(Constantes.URLS ,  Urls.URL_BITACORA.getPath());
+			LOGGER.info(Constantes.HTTPHEADERS ,  httpHeaders);
 			if (existsAndHasValue(mapaRespuesta, "codigo", "0")) {
 				LOGGER.debug(Constantes.LOG_OK_CONTRATO_MODIFICADO);
 				// Se lanza peticiones para realizar login
@@ -91,28 +92,32 @@ public class Operaciones {
 
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> obtieneBody(Map<String, Object> respuesta, Map<String, Object> headers) {
-        LOGGER.info("Mapa de servicio respuestaMultiple : ----------------- "+ respuesta);
+		Map<String, Object>  mapaRespuesta;
+		Map<String, Object>  mapaRespuesta2;
+		Map<String, Object>  mapaRespuesta3;
+		Map<String, Object>  mapaRespuesta4;
+
 		Map<String, Object> respuestaGeneral = new HashMap<>();
 
 		respuestaGeneral.put("responseStatus", 200);
 		respuestaGeneral.put("responseError", "");
 		
-		Map<String, Object>  mapaRespuesta = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.DATOS_BASICOS);
+		mapaRespuesta = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.DATOS_BASICOS);
 		if (mapaRespuesta != null) {
 			respuestaGeneral.put("nombreRazonSocial", mapaRespuesta.get("nombre"));
 			respuestaGeneral.put("listaTelefonos", mapaRespuesta.get("listaTelefonos"));
 		}
-		Map<String, Object>  mapaRespuesta_2 = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.SERVICIOS_CONTRATADOS);
-		if (mapaRespuesta_2 != null) {
-			respuestaGeneral.put(Constantes.SERVICIOS_CONTRATADOS, mapaRespuesta_2);
+		mapaRespuesta2 = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.SERVICIOS_CONTRATADOS);
+		if (mapaRespuesta2 != null) {
+			respuestaGeneral.put(Constantes.SERVICIOS_CONTRATADOS, mapaRespuesta2);
 		}
-		Map<String, Object>  mapaRespuesta_3 = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.ENVIO_NOTIFICACION);
-		if (mapaRespuesta_3 != null) {
-			respuestaGeneral.putAll(mapaRespuesta_3); //falta
+		mapaRespuesta3 = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.ENVIO_NOTIFICACION);
+		if (mapaRespuesta3 != null) {
+			respuestaGeneral.putAll(mapaRespuesta3); 
 		}
-		Map<String, Object>  mapaRespuesta_4 = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.PERFIL_GENERAL);
-		if (mapaRespuesta_4 != null) {
-			respuestaGeneral.put("facultadesSimples", mapaRespuesta_4.get("facultadesSimples"));
+		mapaRespuesta4 = obtenerBodyRespuesta(respuesta,respuestaGeneral,Constantes.PERFIL_GENERAL);
+		if (mapaRespuesta4 != null) {
+			respuestaGeneral.put("facultadesSimples", mapaRespuesta4.get("facultadesSimples"));
 		}
 		
 		respuestaGeneral.put("fechaUltimoAcceso",Utilerias.fechaFormatoServicio((String) headers.get("fechaUltimoAcceso"), Constantes.FORMATO_FECHA));
@@ -121,7 +126,6 @@ public class Operaciones {
 		respuestaGeneral.put("mail", headers.get("mailCliente"));
 		respuestaGeneral.put("cliente", headers.get("cliente"));
 
-		LOGGER.info("Mapa respuesta accesoCliente : ----------------- "+ respuestaGeneral);
 		return respuestaGeneral;
 	}
 	
