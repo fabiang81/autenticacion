@@ -581,7 +581,7 @@ public class AutenticacionTest {
 		headers.set("mail", "123456");
 		
 		Map<String, Object> body = new HashMap<String, Object>();
-		body.put("banderaAcceso", "1");
+		body.put("banderaAcceso", "0");
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());

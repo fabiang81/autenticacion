@@ -35,9 +35,10 @@ public enum Urls {
 	
 	URL_SERVICIOS_CONTRATADOS(System.getenv(Constantes.PROTOCOLO)      +"://"+System.getenv(Constantes.HOSTNAME_BEO)+((System.getenv(Constantes.PUERTO)!=null && !System.getenv(Constantes.PUERTO).equals(""))?":"+System.getenv(Constantes.PUERTO):"")+(System.getenv(Constantes.BASEPATH_PERSONA)!=null?System.getenv(Constantes.BASEPATH_PERSONA):"")+ "/consultaServiciosContratados"),
 	
-	URL_PERFIL(System.getenv(Constantes.PROTOCOLO)      +"://"+System.getenv(Constantes.HOSTNAME_BEO)+((System.getenv(Constantes.PUERTO)!=null && !System.getenv(Constantes.PUERTO).equals(""))?":"+System.getenv(Constantes.PUERTO):"")+(System.getenv(Constantes.BASEPATH_FACULTAMIENTO)!=null?System.getenv(Constantes.BASEPATH_FACULTAMIENTO):"")+ "/consultaPerfilesPerf"),
+	URL_PERFIL(System.getenv(Constantes.PROTOCOLO)      +"://"+System.getenv(Constantes.HOSTNAME_BEO)+((System.getenv(Constantes.PUERTO)!=null && !System.getenv(Constantes.PUERTO).equals(""))?":"+System.getenv(Constantes.PUERTO):"")+(System.getenv(Constantes.BASEPATH_FACULTAMIENTO)!=null?System.getenv(Constantes.BASEPATH_FACULTAMIENTO):"")+ "/consultaPerfiles"),
 	
 	URL_MODIFICA_CONTRATO(System.getenv(Constantes.URL_MODIFICA_CONTRATO)),
+
 	
 	URL_BITACORA((System.getenv(Constantes.BITACORA_URL)!=null?System.getenv(Constantes.BITACORA_URL):"")
 	            +"/bitacoraOperaciones");
