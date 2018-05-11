@@ -159,8 +159,6 @@ public class AppControlador {
 		
 		envioNotificacionBody.put("tipoMensaje", "texto");
 		envioNotificacionBody.put("tipoNotificacion", "notificacion");
-		envioNotificacionBody.put("from", "nova@nova.com");
-		envioNotificacionBody.put("subject", "texto");
 		envioNotificacionBody.put("to", "nova1@nova.com");
 		mapParameters.put("key", "1234");
 		envioNotificacionBody.put("mapParameters", mapParameters);
