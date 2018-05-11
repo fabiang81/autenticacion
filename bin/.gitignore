@@ -1,8 +1,0 @@
-/target/
-.classpath
-.project
-.settings/
-.DS_Store
-
-${env:DIR_LOG}/
-logs/
