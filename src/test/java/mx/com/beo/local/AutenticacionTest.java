@@ -47,7 +47,6 @@ public class AutenticacionTest {
 	@LocalServerPort
 	private int port;
 
-	
 	@SuppressWarnings("unchecked")
 	@Test
 	public void cambioContrasena() throws Exception {
@@ -63,16 +62,13 @@ public class AutenticacionTest {
 		headers.set("fechaUltimoAcceso", "20170226111322.0Z");
 		headers.set("tipocanal", "123456");
 		headers.set("mail", "123456");
-		
 
-		Map<String, Object> body = new HashMap<String, Object>();
-  
+		Map<String, Object> body = new HashMap<String, Object>();  
 		body.put("otp", "1");
 		body.put("oldPassword", "999"); 
 		body.put("newPassword","123");
 		body.put("confirmNewPassword","123");
-		
-		
+
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma {} " , entity.getBody()); 
 		
@@ -99,16 +95,13 @@ public class AutenticacionTest {
 		headers.set("tipo-authenticacion", "123456");
 		headers.set("contrato-aceptado", "123456");
 		headers.set("fechaUltimoAcceso", "20170226111322.0Z"); 
-		headers.set("mail", "123456");
-		
+		headers.set("mail", "123456");		
 
 		Map<String, Object> body = new HashMap<String, Object>();
-  
 		body.put("otp", "1");
 		body.put("oldPassword", "999"); 
 		body.put("newPassword","123");
 		body.put("confirmNewPassword","123");
-		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
@@ -122,7 +115,6 @@ public class AutenticacionTest {
 		mapBody = (Map<String, Object>) response.getBody();
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
-	
 	
 	@SuppressWarnings("unchecked")
 	@Test
@@ -141,14 +133,11 @@ public class AutenticacionTest {
 		headers.set("tipocanal", "123456");
 		headers.set("mail", "123456");
 		
-
 		Map<String, Object> body = new HashMap<String, Object>();
-  
 		body.put("otp", "1");
 		body.put("oldPassword", "9222"); 
 		body.put("newPassword","123");
 		body.put("confirmNewPassword","123");
-		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
@@ -163,7 +152,6 @@ public class AutenticacionTest {
 		 assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
 	
-	   
 	@SuppressWarnings("unchecked")
 	@Test
 	public void accesoClienteCodigo0() throws Exception {
@@ -182,9 +170,7 @@ public class AutenticacionTest {
 		headers.set("mail", "66666");
 		 
 		Map<String, Object> body = new HashMap<String, Object>();
-  
 		body.put("banderaAcceso", "");
-		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
@@ -196,11 +182,9 @@ public class AutenticacionTest {
 		LOGGER.info("Cabecera del servicio consumido {}" , response.getHeaders());
 		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		
-		mapBody = (Map<String, Object>) response.getBody();
-		 
+		mapBody = (Map<String, Object>) response.getBody();	 
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
-	
 	
 	@SuppressWarnings("unchecked")
 	@Test
@@ -220,9 +204,7 @@ public class AutenticacionTest {
 		headers.set("mail", "66666");
 		 
 		Map<String, Object> body = new HashMap<String, Object>();
-  
 		body.put("banderaAcceso", "0");
-		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
@@ -234,22 +216,14 @@ public class AutenticacionTest {
 		LOGGER.info("Cabecera del servicio consumido {}" , response.getHeaders());
 		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		
-		mapBody = (Map<String, Object>) response.getBody();
-		 
+		mapBody = (Map<String, Object>) response.getBody(); 
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
 
-	
-	
-	
-	
 	@SuppressWarnings("unchecked")
 	@Test
 	public void accesoClienteSinHeaders() throws Exception {
-		HttpHeaders headers = new HttpHeaders();
-	
-		
-		
+		HttpHeaders headers = new HttpHeaders();		
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 		headers.set("iv-user", "1");
 		headers.set("cookie", "JSESSIONID=1yO8dxBx6mq6aiboiFwcvBlc_W59rvlcrHGUKyvE.mmxmtzbelectronica; PD-S-SESSION-ID=1_Nh7mjwEuiVa8VtpIkM650frHGbzu3mWIQRreACSikfZFqpYoG44=_AAAAAAA=_ckMIbwznVUzytnBfaF96sprhEcQ=; LFR_SESSION_STATE_20120=1506553957696");
@@ -260,12 +234,9 @@ public class AutenticacionTest {
 		headers.set("contrato-aceptado", "1");
 		headers.set("fechaUltimoAcceso", "20170226111322.0Z");
 		headers.set("mail", "111");
-		
 
-		Map<String, Object> body = new HashMap<String, Object>();
-  
+		Map<String, Object> body = new HashMap<String, Object>();  
 		body.put("banderaAcceso", "");
-		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
@@ -277,19 +248,14 @@ public class AutenticacionTest {
 		LOGGER.info("Cabecera del servicio consumido {}" , response.getHeaders());
 		LOGGER.info("Cuerpo del servicio consumido{} " , response.getBody());
 		
-		mapBody = (Map<String, Object>) response.getBody();
-		  
+		mapBody = (Map<String, Object>) response.getBody();  
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
-	
 	
 	@SuppressWarnings("unchecked")
 	@Test
 	public void accesoClienteContratoNoAceptado() throws Exception {
-		HttpHeaders headers = new HttpHeaders();
-	
-		
-		
+		HttpHeaders headers = new HttpHeaders();	
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 		headers.set("iv-user", "1");
 		headers.set("cookie", "JSESSIONID=1yO8dxBx6mq6aiboiFwcvBlc_W59rvlcrHGUKyvE.mmxmtzbelectronica; PD-S-SESSION-ID=1_Nh7mjwEuiVa8VtpIkM650frHGbzu3mWIQRreACSikfZFqpYoG44=_AAAAAAA=_ckMIbwznVUzytnBfaF96sprhEcQ=; LFR_SESSION_STATE_20120=1506553957696");
@@ -301,12 +267,9 @@ public class AutenticacionTest {
 		headers.set("fechaUltimoAcceso", "20170226111322.0Z");
 		headers.set("tipocanal", "123456");
 		headers.set("mail", "123456");
-		
 
-		Map<String, Object> body = new HashMap<String, Object>();
-  
+		Map<String, Object> body = new HashMap<String, Object>();  
 		body.put("banderaAcceso", "0");
-		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
@@ -319,7 +282,6 @@ public class AutenticacionTest {
 		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
-	 
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
 	
@@ -327,9 +289,6 @@ public class AutenticacionTest {
 	@Test
 	public void accesoClienteContratobanderaAcceso0() throws Exception {
 		HttpHeaders headers = new HttpHeaders();
-	
-		
-		
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 		headers.set("iv-user", "1");
 		headers.set("cookie", "JSESSIONID=1yO8dxBx6mq6aiboiFwcvBlc_W59rvlcrHGUKyvE.mmxmtzbelectronica; PD-S-SESSION-ID=1_Nh7mjwEuiVa8VtpIkM650frHGbzu3mWIQRreACSikfZFqpYoG44=_AAAAAAA=_ckMIbwznVUzytnBfaF96sprhEcQ=; LFR_SESSION_STATE_20120=1506553957696");
@@ -341,12 +300,9 @@ public class AutenticacionTest {
 		headers.set("fechaUltimoAcceso", "20170226111322.0Z");
 		headers.set("tipocapackagenal", "123456");
 		headers.set("mail", "123456");
-		
 
-		Map<String, Object> body = new HashMap<String, Object>();
-  
+		Map<String, Object> body = new HashMap<String, Object>();  
 		body.put("banderaAcceso", "0");
-		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
@@ -359,20 +315,13 @@ public class AutenticacionTest {
 		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
-		
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
-	
-	
-	
 	
 	@SuppressWarnings("unchecked")
 	@Test
 	public void accesoClienteContratobanderaAcceso1() throws Exception {
-		HttpHeaders headers = new HttpHeaders();
-	
-		
-		
+		HttpHeaders headers = new HttpHeaders();	
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 		headers.set("iv-user", "1");
 		headers.set("cookie", "JSESSIONID=1yO8dxBx6mq6aiboiFwcvBlc_W59rvlcrHGUKyvE.mmxmtzbelectronica; PD-S-SESSION-ID=1_Nh7mjwEuiVa8VtpIkM650frHGbzu3mWIQRreACSikfZFqpYoG44=_AAAAAAA=_ckMIbwznVUzytnBfaF96sprhEcQ=; LFR_SESSION_STATE_20120=1506553957696");
@@ -386,9 +335,7 @@ public class AutenticacionTest {
 		headers.set("mail", "123456"); 
 
 		Map<String, Object> body = new HashMap<String, Object>();
-  
 		body.put("banderaAcceso", "1");
-		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
@@ -401,7 +348,6 @@ public class AutenticacionTest {
 		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
-		
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
 	
@@ -409,9 +355,6 @@ public class AutenticacionTest {
 	@Test
 	public void accesoClienteContratobanderaAcce1() throws Exception {
 		HttpHeaders headers = new HttpHeaders();
-	
-		
-		
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 		headers.set("iv-user", "1");
 		headers.set("cookie", "JSESSIONID=1yO8dxBx6mq6aiboiFwcvBlc_W59rvlcrHGUKyvE.mmxmtzbelectronica; PD-S-SESSION-ID=1_Nh7mjwEuiVa8VtpIkM650frHGbzu3mWIQRreACSikfZFqpYoG44=_AAAAAAA=_ckMIbwznVUzytnBfaF96sprhEcQ=; LFR_SESSION_STATE_20120=1506553957696");
@@ -419,15 +362,13 @@ public class AutenticacionTest {
 		headers.set("numero-cliente", "123456");
 		headers.set("nombre-completo", "123456");
 		headers.set("tipo-authenticacion", "123456");
-		headers.set("contrato-aceptado", "0");
+		headers.set("contrato-aceptado", "1");
 		headers.set("fechaUltimoAcceso", "20170226111322.0Z");
 		headers.set("tipocanal", "123456");
 		headers.set("mail", "123456"); 
 
 		Map<String, Object> body = new HashMap<String, Object>();
-  
 		body.put("banderaAcceso", "1");
-		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
@@ -440,18 +381,13 @@ public class AutenticacionTest {
 		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
-		
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
-	
 	
 	@SuppressWarnings("unchecked")
 	@Test
 	public void accesoClienteContratobanderaAcceso1SinCodigo() throws Exception {
-		HttpHeaders headers = new HttpHeaders();
-	
-		
-		
+		HttpHeaders headers = new HttpHeaders();	
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 		headers.set("iv-user", "1");
 		headers.set("cookie", "JSESSIONID=1yO8dxBx6mq6aiboiFwcvBlc_W59rvlcrHGUKyvE.mmxmtzbelectronica; PD-S-SESSION-ID=1_Nh7mjwEuiVa8VtpIkM650frHGbzu3mWIQRreACSikfZFqpYoG44=_AAAAAAA=_ckMIbwznVUzytnBfaF96sprhEcQ=; LFR_SESSION_STATE_20120=1506553957696");
@@ -465,9 +401,7 @@ public class AutenticacionTest {
 		headers.set("mail", "123456");
 
 		Map<String, Object> body = new HashMap<String, Object>();
-  
 		body.put("banderaAcceso", "");
-		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
@@ -480,18 +414,13 @@ public class AutenticacionTest {
 		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
-		 
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
-	
 	
 	@SuppressWarnings("unchecked")
 	@Test
 	public void accesoClienteNull() throws Exception {
-		HttpHeaders headers = new HttpHeaders();
-	
-		
-		
+		HttpHeaders headers = new HttpHeaders();	
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 		headers.set("iv-user", "1");
 		headers.set("cookie", "JSESSIONID=1yO8dxBx6mq6aiboiFwcvBlc_W59rvlcrHGUKyvE.mmxmtzbelectronica; PD-S-SESSION-ID=1_Nh7mjwEuiVa8VtpIkM650frHGbzu3mWIQRreACSikfZFqpYoG44=_AAAAAAA=_ckMIbwznVUzytnBfaF96sprhEcQ=; LFR_SESSION_STATE_20120=1506553957696");
@@ -503,13 +432,9 @@ public class AutenticacionTest {
 		headers.set("fechaUltimoAcceso", "20170226111322.0Z");
 		headers.set("tipocanal", "123456");
 		headers.set("mail", "123456");
-		
-		
 
-		Map<String, Object> body = new HashMap<String, Object>();
-  
+		Map<String, Object> body = new HashMap<String, Object>();  
 		body.put("banderaAcceso", "");
-		
 		
 		HttpEntity<Object> entity = new HttpEntity<Object>(body, headers);
 		LOGGER.info("Cuerpo que se arma {}" , entity.getBody());
@@ -521,16 +446,13 @@ public class AutenticacionTest {
 		LOGGER.info("Cabecera del servicio consumido {}" , response.getHeaders());
 		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		
-		mapBody = (Map<String, Object>) response.getBody();
-		 
+		mapBody = (Map<String, Object>) response.getBody(); 
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
 	
-	
 	@SuppressWarnings("unchecked")
 	@Test
-	public void accesoClienteFechaExitosa() throws Exception {
-		
+	public void accesoClienteFechaExitosa() throws Exception {	
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 		headers.set("iv-user", "1");
@@ -558,7 +480,6 @@ public class AutenticacionTest {
 		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
-		 
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
 	
@@ -566,7 +487,6 @@ public class AutenticacionTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void accesoClienteFechaError() throws Exception {
-		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 		headers.set("iv-user", "1");
@@ -594,14 +514,10 @@ public class AutenticacionTest {
 		LOGGER.info("Cuerpo del servicio consumido {}" , response.getBody());
 		
 		mapBody = (Map<String, Object>) response.getBody();
-		 
 		assertEquals(respuesta.get("responseStatus"), mapBody.get("responseStatus"));
 	}
-	
-	
 	
 	private String createURLWithPort(String uri) {
 		return "http://localhost:" + port + uri;
 	}
-
 }
