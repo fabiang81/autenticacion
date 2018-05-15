@@ -24,18 +24,7 @@ import mx.com.beo.util.Operaciones;
 import mx.com.beo.util.Urls;
 import mx.com.beo.util.UtilidadesRest;
 
-/**
- * Copyright (c) 2017 Nova Solution Systems S.A. de C.V. Mexico D.F. Todos los
- * derechos reservados.
- *
- * @author Reynaldo Ivan Martinez Lopez
- * @author Betzabe Colin Olvera
- *
- *         ESTE SOFTWARE ES INFORMACIÓN CONFIDENCIAL. PROPIEDAD DE NOVA SOLUTION
- *         SYSTEMS. ESTA INFORMACIÓN NO DEBE SER DIVULGADA Y PUEDE SOLAMENTE SER
- *         UTILIZADA DE ACUERDO CON LOS TÉRMINOS DETERMINADOS POR LA EMPRESA SÍ
- *         MISMA.
- */
+ 
 
 @RestController
 @RequestMapping(value = "/")
