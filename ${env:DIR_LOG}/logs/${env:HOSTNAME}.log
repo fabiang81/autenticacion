@@ -1,0 +1,16 @@
+2018-05-24 13:09:38.708 [INFO ] [main] [mx.com.beo.App:48] - Starting App on Air-de-Fabian with PID 22069 (/Users/fabiang81/Documents/bo-multiva-workspaceV2/autenticacion/target/classes started by fabiang81 in /Users/fabiang81/Documents/bo-multiva-workspaceV2/autenticacion)
+2018-05-24 13:09:38.710 [INFO ] [main] [mx.com.beo.App:659] - No active profile set, falling back to default profiles: default
+2018-05-24 13:09:38.796 [INFO ] [main] [org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext:581] - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@49e5f737: startup date [Thu May 24 13:09:38 CDT 2018]; root of context hierarchy
+2018-05-24 13:09:38.940 [INFO ] [background-preinit] [org.hibernate.validator.internal.util.Version:30] - HV000001: Hibernate Validator 5.2.4.Final
+2018-05-24 13:09:40.178 [INFO ] [main] [org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer:88] - Tomcat initialized with port(s): 8082 (http)
+2018-05-24 13:09:40.471 [INFO ] [localhost-startStop-1] [org.springframework.boot.web.servlet.ServletRegistrationBean:190] - Mapping servlet: 'dispatcherServlet' to [/]
+2018-05-24 13:09:40.475 [INFO ] [localhost-startStop-1] [org.springframework.boot.web.servlet.FilterRegistrationBean:258] - Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-05-24 13:09:40.476 [INFO ] [localhost-startStop-1] [org.springframework.boot.web.servlet.FilterRegistrationBean:258] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-05-24 13:09:40.476 [INFO ] [localhost-startStop-1] [org.springframework.boot.web.servlet.FilterRegistrationBean:258] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-05-24 13:09:40.477 [INFO ] [localhost-startStop-1] [org.springframework.boot.web.servlet.FilterRegistrationBean:258] - Mapping filter: 'requestContextFilter' to: [/*]
+2018-05-24 13:09:41.534 [INFO ] [main] [org.springframework.jmx.export.annotation.AnnotationMBeanExporter:431] - Registering beans for JMX exposure on startup
+2018-05-24 13:09:41.666 [INFO ] [main] [org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer:186] - Tomcat started on port(s): 8082 (http)
+2018-05-24 13:09:41.677 [INFO ] [main] [mx.com.beo.App:57] - Started App in 3.368 seconds (JVM running for 4.629)
+2018-05-24 13:19:34.660 [INFO ] [RMI TCP Connection(19)-127.0.0.1] [org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin:125] - Application shutdown requested.
+2018-05-24 13:19:34.663 [INFO ] [RMI TCP Connection(19)-127.0.0.1] [org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext:982] - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@49e5f737: startup date [Thu May 24 13:09:38 CDT 2018]; root of context hierarchy
+2018-05-24 13:19:34.667 [INFO ] [RMI TCP Connection(19)-127.0.0.1] [org.springframework.jmx.export.annotation.AnnotationMBeanExporter:449] - Unregistering JMX-exposed beans on shutdown
